@@ -4,10 +4,10 @@
 
 using namespace sf;
 
-class GridItem
+class Switch
 {
     public:
-        GridItem(Vector2i coords);
+        Switch(Vector2i coords);
     protected:
         Vector2i coords;
     private:

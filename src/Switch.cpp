@@ -1,9 +1,9 @@
 #include <SFML/Graphics.hpp>
-#include "GridItem.h"
+#include "Switch.h"
 
 using namespace sf;
 
-GridItem::GridItem(Vector2i coords)
+Switch::Switch(Vector2i coords)
 {
     this->coords = coords;
 }
