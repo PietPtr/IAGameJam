@@ -13,3 +13,6 @@ ll : $(OBJ) $(HEADERS)
 .PHONY : clean
 clean :
 	rm $(EXEC) $(OBJ)
+
+run : ll
+	./game
