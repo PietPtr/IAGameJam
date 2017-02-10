@@ -19,6 +19,7 @@ class Switch
         Switch(Vector2i coords);
         void draw(RenderWindow* window);
         void update();
+        
         float getPowerForLine(Line* line);
         void setPort(int id, PortState newState);
         PortState getPortState(int id);
