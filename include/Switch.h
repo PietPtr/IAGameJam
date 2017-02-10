@@ -1,7 +1,11 @@
+#ifndef SWITCH_H
+#define SWITCH_H
+#include "Audio.h"
+#include "Line.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Audio.h"
 #include <map>
+#include <array>
 
 using namespace sf;
 
@@ -20,5 +24,5 @@ class Switch
         float power;
         const float MAX_POWER = 40;
         std::array<Line*, 4> lines;
-        std::map<int, PortState> ports;
 };
+#endif
