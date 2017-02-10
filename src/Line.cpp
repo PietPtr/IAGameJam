@@ -1,5 +1,6 @@
 #include "Line.h"
 #include <SFML/Graphics.hpp>
+#include "Switch.h"
 
 using namespace sf;
 
@@ -8,23 +9,23 @@ Line::Line(Vector2i coords, std::array<Switch*, 2> switches)
     this->switches = switches;
     this->coords = coords;
 
-    if (switch[0].x != coords.x && switch[0].y == coords.y) {
+    if (switches[0]->getCoords().x != coords.x && switches[0]->getCoords().y == coords.y) {
         orientation = HORIZONTAL;
     }
-    if (switch[0].y != coords.y && switch[0].x == coords.x) {
+    if (switches[0]->getCoords().y != coords.y && switches[0]->getCoords().x == coords.x) {
         orientation = VERTICAL;
     }
 }
 
 void Line::update() {
-    if (switch[0].getPowerForLine(this) > 0 &&
-        switch[1].getPowerForLine(this) > 0) {
+    if (switches[0]->getPowerForLine(this) > 0 &&
+        switches[1]->getPowerForLine(this) > 0) {
         // explode
     }
     else
     {
-        power = switch[0].getPowerForLine(this) +
-                switch[1].getPowerForLine(this);
+        power = switches[0]->getPowerForLine(this) +
+            switches[1]->getPowerForLine(this);
     }
 
 

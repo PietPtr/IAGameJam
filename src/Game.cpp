@@ -94,7 +94,7 @@ void Game::fillRoutingPanel() {
     //First 4.
     for (int x = 0; x < 4; x++)
     {
-        lines[i] = new Line(Vector2i(x * 2, 2));
+        lines[i] = new Line(Vector2i(x * 2, 2), {});
         i++;
     }
 
@@ -102,7 +102,7 @@ void Game::fillRoutingPanel() {
     for (int y = 0; y < 6; y++) {
         for (int x = 0; x < 4; x++)
         {
-            lines[i] = new Line(Vector2i(x * 2 + 1, 4 + y * 2));
+            lines[i] = new Line(Vector2i(x * 2 + 1, 4 + y * 2), {});
             i++;
         }
     }
@@ -111,7 +111,7 @@ void Game::fillRoutingPanel() {
     for (int y = 0; y < 6; y++) {
         for (int x = 0; x < 5; x++)
         {
-            lines[i] = new Line(Vector2i(x * 2, 5 + y * 2));
+            lines[i] = new Line(Vector2i(x * 2, 5 + y * 2), {});
             i++;
         }
     }

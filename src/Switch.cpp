@@ -19,7 +19,7 @@ void Switch::update()
 
 float Switch::getPowerForLine(Line * line)
 {
-    if (portStates[line] == output) {
+    if (portStates[line] == OUTPUT) {
         return powerPerLine;
     }
     else
@@ -61,6 +61,12 @@ Line * Switch::getLine(int id)
 SwitchState Switch::getState()
 {
     return currentState;
+}
+
+Vector2i Switch::
+getCoords()
+{
+    return coords;
 }
 
 float Switch::calculatePowerPerLine()
