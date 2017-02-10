@@ -1,5 +1,6 @@
-#include <SFML/Graphics.hpp>
+#pragma once
 #include "Line.h"
+#include <SFML/Graphics.hpp>
 
 using namespace sf;
 
