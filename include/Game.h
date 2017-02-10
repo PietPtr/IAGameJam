@@ -20,6 +20,8 @@ class Game
         void loadAudio(std::vector<std::string> fileNames);
         void loadTextures(std::vector<std::string> fileNames);
 
+        void fillRoutingPanel();
+
         int randint(int low, int high, int seed);
         int randint(int low, int high);
     protected:
@@ -40,5 +42,8 @@ class Game
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
+
+        std::array<Line*, 64> lines;
+        std::array<Switch*, 24> switches;
 };
 #endif

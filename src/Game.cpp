@@ -12,6 +12,7 @@ void Game::initialize()
 {
     loadAudio(audioFileNames);
     loadTextures(textureFileNames);
+    fillRoutingPanel();
 }
 
 void Game::update()
@@ -51,6 +52,8 @@ void Game::draw()
 {
     window->clear();
 
+    lines[0]->draw(window);
+
     window->display();
 }
 
@@ -78,6 +81,12 @@ void Game::loadTextures(std::vector<std::string> textureFileNames)
             window->close();
         textures.push_back(texture);
         std::cout << "Loaded " << path << "\n";
+    }
+}
+
+void Game::fillRoutingPanel() {
+    for (int i = 0; i < 64; i++) {
+        lines[i] = new Line(Vector2i(0, 0));
     }
 }
 

@@ -5,8 +5,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-
 using namespace sf;
+
+enum Orientation { HORIZONTAL, VERTICAL };
 
 class Line
 {
@@ -18,9 +19,14 @@ public:
 protected:
 private:
 	Vector2i coords;
-	float power;
+
+	float power = 0;
 	const float MAX_POWER = 40;
+
+    Orientation orientation = VERTICAL;
+
 	std::array<Switch*, 2> switches;
+
 
 };
 
