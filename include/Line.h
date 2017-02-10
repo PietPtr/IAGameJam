@@ -7,7 +7,14 @@ class Line
 {
     public:
         Line(Vector2i coords);
+        void draw(RenderWindow* window);
+        void update();
+        float getPower() { return power; }
     protected:
-        Vector2i coords;
     private:
+        Vector2i coords;
+        float power;
+        const float MAX_POWER = 40;
+        std::array<Switch*, 2> switches;
+
 };
