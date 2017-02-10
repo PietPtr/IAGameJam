@@ -14,20 +14,20 @@ class Switch;
 class Line
 {
 public:
-	Line(Vector2i coords);
-	void draw(RenderWindow* window);
-	void update();
-	float getPower() { return power; }
+    Line(Vector2i coords);
+    void draw(RenderWindow* window);
+    void update();
+    float getPower() { return power; }
 protected:
 private:
-	Vector2i coords;
+    Vector2i coords;
 
-	float power = 0;
-	const float MAX_POWER = 40;
+    float power = 0;
+    const float MAX_POWER = 40;
 
     Orientation orientation = VERTICAL;
 
-	std::array<Switch*, 2> switches;
+    std::array<Switch*, 2> switches;
 
 
 };

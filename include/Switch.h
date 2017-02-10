@@ -27,13 +27,13 @@ class Switch
         SwitchState getState();
     protected:
     private:
-        float calculatePowerParLine();
+        float calculatePowerPerLine();
         float calculatePower();
         Vector2i coords;
         /*The amount of power it gets from input.*/
         float power;
         /*The amount of power par output line.*/
-        float powerParLine;
+        float powerPerLine;
         const float MAX_POWER = 40;
         std::map<Line*, PortState> portStates;
         /*The state this switch is currently in.*/

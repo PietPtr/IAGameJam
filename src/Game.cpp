@@ -52,7 +52,10 @@ void Game::draw()
 {
     window->clear();
 
-    lines[0]->draw(window);
+    for (int i = 0; i < lines.size(); i++)
+    {
+        lines[i]->draw(window);
+    }
 
     window->display();
 }
@@ -86,8 +89,31 @@ void Game::loadTextures(std::vector<std::string> textureFileNames)
 }
 
 void Game::fillRoutingPanel() {
-    for (int i = 0; i < 64; i++) {
-        lines[i] = new Line(Vector2i(0, 0));
+    int i = 0;
+
+    //First 4.
+    for (int x = 0; x < 4; x++)
+    {
+        lines[i] = new Line(Vector2i(x * 2, 2));
+        i++;
+    }
+
+    //Create vertical lines.
+    for (int y = 0; y < 6; y++) {
+        for (int x = 0; x < 4; x++)
+        {
+            lines[i] = new Line(Vector2i(x * 2 + 1, 4 + y * 2));
+            i++;
+        }
+    }
+
+    //Create horizontal lines.
+    for (int y = 0; y < 6; y++) {
+        for (int x = 0; x < 5; x++)
+        {
+            lines[i] = new Line(Vector2i(x * 2, 5 + y * 2));
+            i++;
+        }
     }
 }
 

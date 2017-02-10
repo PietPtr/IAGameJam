@@ -20,13 +20,13 @@ void Switch::update()
 float Switch::getPowerForLine(Line * line)
 {
     //Can be changed later to be affected by the type of line.
-    return powerParLine;
+    return powerPerLine;
 }
 
 void Switch::setPort(int id, PortState newState)
 {
     portStates[getLine(id)] = newState;
-    powerParLine = calculatePowerParLine();
+    powerPerLine = calculatePowerPerLine();
     power = calculatePower();
 
     if (power > MAX_POWER)
@@ -58,7 +58,7 @@ SwitchState Switch::getState()
     return currentState;
 }
 
-float Switch::calculatePowerParLine()
+float Switch::calculatePowerPerLine()
 {
     int outputs = 0;
     for (std::map<Line*, PortState>::iterator portState = portStates.begin(); portState != portStates.end(); ++portState)
