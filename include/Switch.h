@@ -5,6 +5,8 @@
 
 using namespace sf;
 
+enum PortState { INPUT, OUTPUT, CLOSED };
+
 class Switch
 {
     public:
@@ -18,5 +20,5 @@ class Switch
         float power;
         const float MAX_POWER = 40;
         std::array<Line*, 4> lines;
-        std::map<int, Port> ports;
+        std::map<int, PortState> ports;
 };
