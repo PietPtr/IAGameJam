@@ -1,7 +1,7 @@
 #ifndef SWITCH_H
 #define SWITCH_H
+#pragma once
 #include "Audio.h"
-#include "Line.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <map>
@@ -10,6 +10,8 @@
 using namespace sf;
 
 enum PortState { INPUT, OUTPUT, CLOSED };
+
+class Line;
 
 class Switch
 {
