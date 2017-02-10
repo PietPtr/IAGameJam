@@ -1,13 +1,15 @@
 #ifndef LINE_H
 #define LINE_H
 #pragma once
-#include "Switch.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <array>
 
 using namespace sf;
 
 enum Orientation { HORIZONTAL, VERTICAL };
+
+class Switch;
 
 class Line
 {

@@ -77,8 +77,9 @@ void Game::loadTextures(std::vector<std::string> textureFileNames)
     {
         Texture texture;
         std::string path = "textures/" + textureFileNames.at(i);
-        if (!texture.loadFromFile(path))
+        if (!texture.loadFromFile(path)) {
             window->close();
+        }
         textures.push_back(texture);
         std::cout << "Loaded " << path << "\n";
     }
