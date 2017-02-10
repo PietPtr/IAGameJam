@@ -10,6 +10,7 @@
 *.opendb
 *.vcxproj
 *.sln
+*.TMP
 game
 bin
 obj

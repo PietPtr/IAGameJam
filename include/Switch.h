@@ -2,6 +2,7 @@
 #define SWITCH_H
 #pragma once
 #include "Audio.h"
+#include "Line.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <map>
@@ -9,9 +10,8 @@
 
 using namespace sf;
 
+enum SwitchState { ACTIVE, BROKEN };
 enum PortState { INPUT, OUTPUT, CLOSED };
-
-class Line;
 
 class Switch
 {
@@ -19,12 +19,24 @@ class Switch
         Switch(Vector2i coords);
         void draw(RenderWindow* window);
         void update();
-        float getPowerForLine(Line* line); // loop through lines, compare pointers, return power for that line.
+        float getPowerForLine(Line* line);
+        void setPort(int id, PortState newState);
+        PortState getPortState(int id);
+        Line* getLine(int id);
+        /*Returns the state of this switch.*/
+        SwitchState getState();
     protected:
     private:
+        float calculatePowerParLine();
+        float calculatePower();
         Vector2i coords;
+        /*The amount of power it gets from input.*/
         float power;
+        /*The amount of power par output line.*/
+        float powerParLine;
         const float MAX_POWER = 40;
-        std::array<Line*, 4> lines;
+        std::map<Line*, PortState> portStates;
+        /*The state this switch is currently in.*/
+        SwitchState currentState;
 };
 #endif
