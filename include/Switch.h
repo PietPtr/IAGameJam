@@ -9,6 +9,8 @@
 
 using namespace sf;
 
+enum PortState { INPUT, OUTPUT, CLOSED };
+
 class Switch
 {
     public:

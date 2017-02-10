@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Audio.h"
+#include "Switch.h"
+#include "Line.h"
 
 using namespace sf;
 
