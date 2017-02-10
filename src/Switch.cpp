@@ -8,14 +8,20 @@ Switch::Switch(Vector2i coords)
     this->coords = coords;
 }
 
-void Switch::draw(RenderWindow * window)
-{
-
-}
-
 void Switch::update()
 {
+
 }
+
+void Switch::draw(RenderWindow * window)
+{
+    RectangleShape switchShape;
+    switchShape.setSize(Vector2f(40, 40));
+    switchShape.setPosition(coords.x * 40, coords.y * 40);
+    switchShape.setFillColor(Color(255, 20, 20));
+    window->draw(switchShape);
+}
+
 
 float Switch::getPowerForLine(Line * line)
 {
