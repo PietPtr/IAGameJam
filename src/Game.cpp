@@ -90,8 +90,16 @@ void Game::loadTextures(std::vector<std::string> textureFileNames)
 
 void Game::fillRoutingPanel() {
     int i = 0;
+    int j = 0;
 
-    //First 4.
+    //First 4 switches
+    for (int x = 0; x < 4; x++)
+    {
+        switches[j] = new Switch(Vector2i(x*2, 1));
+        j++;
+    }
+
+    //First 4 lines.
     for (int x = 0; x < 4; x++)
     {
         lines[i] = new Line(Vector2i(x * 2, 2), {});
@@ -99,7 +107,8 @@ void Game::fillRoutingPanel() {
     }
 
     //Create vertical lines.
-    for (int y = 0; y < 6; y++) {
+    for (int y = 0; y < 6; y++) 
+    {
         for (int x = 0; x < 4; x++)
         {
             lines[i] = new Line(Vector2i(x * 2 + 1, 4 + y * 2), {});
@@ -108,11 +117,22 @@ void Game::fillRoutingPanel() {
     }
 
     //Create horizontal lines.
-    for (int y = 0; y < 6; y++) {
+    for (int y = 0; y < 6; y++) 
+    {
         for (int x = 0; x < 5; x++)
         {
             lines[i] = new Line(Vector2i(x * 2, 5 + y * 2), {});
             i++;
+        }
+    }
+
+    //Create all other switches
+    for (int y = 0; y < 5; y++)
+    {
+        for (int x = 0; x < 4; x++)
+        {
+            switches[j] = new Switch(Vector2i(x * 2, y * 2 + 5));
+            j++;
         }
     }
 }
