@@ -4,7 +4,6 @@
 #include "Switch.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Switch.h
 
 
 using namespace sf;
