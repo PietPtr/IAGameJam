@@ -3,6 +3,7 @@
 #pragma once
 #include "Audio.h"
 #include "Line.h"
+#include "Connection.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <map>
@@ -13,13 +14,13 @@ using namespace sf;
 enum SwitchState { ACTIVE, BROKEN };
 enum PortState { INPUT, OUTPUT, CLOSED };
 
-class Switch
+class Switch : public Connection
 {
     public:
         Switch(Vector2i coords);
         void draw(RenderWindow* window);
         void update();
-        
+
         float getPowerForLine(Line* line);
         void setPort(int id, PortState newState);
         PortState getPortState(int id);
@@ -27,9 +28,9 @@ class Switch
         /*Returns the state of this switch.*/
         SwitchState getState();
     protected:
-    private:
         float calculatePowerParLine();
         float calculatePower();
+    private:
         Vector2i coords;
         /*The amount of power it gets from input.*/
         float power;
