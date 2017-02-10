@@ -19,8 +19,13 @@ void Switch::update()
 
 float Switch::getPowerForLine(Line * line)
 {
-    //Can be changed later to be affected by the type of line.
-    return powerPerLine;
+    if (portStates[line] == output) {
+        return powerPerLine;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 void Switch::setPort(int id, PortState newState)

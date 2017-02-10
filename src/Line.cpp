@@ -3,9 +3,31 @@
 
 using namespace sf;
 
-Line::Line(Vector2i coords)
+Line::Line(Vector2i coords, std::array<Switch*, 2> switches)
 {
+    this->switches = switches;
     this->coords = coords;
+
+    if (switch[0].x != coords.x && switch[0].y == coords.y) {
+        orientation = HORIZONTAL;
+    }
+    if (switch[0].y != coords.y && switch[0].x == coords.x) {
+        orientation = VERTICAL;
+    }
+}
+
+void Line::update() {
+    if (switch[0].getPowerForLine(this) > 0 &&
+        switch[1].getPowerForLine(this) > 0) {
+        // explode
+    }
+    else
+    {
+        power = switch[0].getPowerForLine(this) +
+                switch[1].getPowerForLine(this);
+    }
+
+
 }
 
 void Line::draw(RenderWindow* window)

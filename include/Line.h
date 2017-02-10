@@ -14,10 +14,10 @@ class Switch;
 class Line
 {
 public:
-    Line(Vector2i coords);
-    void draw(RenderWindow* window);
-    void update();
-    float getPower() { return power; }
+	Line(Vector2i coords, std::array<Switch*, 2> switches);
+	void draw(RenderWindow* window);
+	void update();
+	float getPower() { return power; }
 protected:
 private:
     Vector2i coords;
