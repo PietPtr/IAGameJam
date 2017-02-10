@@ -9,6 +9,7 @@
 *.vs
 *.opendb
 *.vcxproj
+*.sln
 game
 bin
 obj
