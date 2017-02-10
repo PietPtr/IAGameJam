@@ -7,6 +7,13 @@ Line::Line(Vector2i coords, std::array<Switch*, 2> switches)
 {
     this->switches = switches;
     this->coords = coords;
+
+    if (switch[0].x != coords.x && switch[0].y == coords.y) {
+        orientation = HORIZONTAL;
+    }
+    if (switch[0].y != coords.y && switch[0].x == coords.x) {
+        orientation = VERTICAL;
+    }
 }
 
 void Line::update() {
