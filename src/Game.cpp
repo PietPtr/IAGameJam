@@ -93,11 +93,33 @@ void Game::update()
     {
         lines[i]->update(dt);
     }
+
+    float newTemperature = 0;
+
     //Update machines
     for (int i = 0; i < machines.size(); i++)
     {
         machines[i]->update(dt);
+
+
+        switch (machines[i]->getMachineType())
+        {
+        case SOLARPANEL:
+            break;
+        case BATTERY:
+            break;
+        case HEATER:
+        {
+            Heater* heater = ((Heater*)machines[i]);
+            newTemperature += heater->getPower();
+            break;
+        }
+        default:
+            break;
+        }
     }
+    //Go to the new temperature.
+    temperature += (newTemperature - temperature)*dt.asSeconds();
 
     frame++;
 }
@@ -121,12 +143,14 @@ void Game::draw()
     bgSprite.setTexture(textures.at(1));
     window->draw(bgSprite);
 
+    //Draw all lines
     for (int i = 0; i < lines.size(); i++)
     {
         // coords where undefined and giving segfaults, uncomment when needed again
         lines[i]->draw(window);
     }
 
+    //Draw all switches.
     for (int i = 0; i < switches.size(); i++)
     {
         if (switches[i] != NULL)
@@ -135,6 +159,7 @@ void Game::draw()
         }
     }
 
+    //Draw all machines.
     for (int i = 0; i < machines.size(); i++)
     {
         if (machines[i] != NULL)
@@ -143,7 +168,7 @@ void Game::draw()
         }
     }
 
-    drawString(window, "CLOSED INPUT OUTPUT", Vector2f(1000,344), &textures.at(0), Color(0, 0, 0), 47);
+    //Draw temperature
 
     window->display();
 }
@@ -310,6 +335,7 @@ void Game::fillRoutingPanel() {
         lineNumber++;
     }
 
+    //Set lines of all switches
     for (int i = 0; i < switches.size(); i++)
     {
         switches[i]->addLine(getLine(switches[i]->getCoords().x - 1, switches[i]->getCoords().y));
@@ -324,6 +350,31 @@ void Game::fillRoutingPanel() {
         machines[x + 4]->setLine(lines[4 + x]);
         ((Battery*)machines[x + 4])->setOutputLine(lines[11 + x]);
     }
+
+    //Set lines for all solarpanels
+    for (int x = 0; x < 4; x++)
+    {
+        machines[x]->setLine(lines[x]);
+    }
+
+    //Set lines for left machines
+    for (int y = 0; y < 5; y++)
+    {
+        machines[8 + y]->setLine(getLine(machines[8 + y]->getCoords().x + 1, machines[8 + y]->getCoords().y));
+    }
+
+    //Set lines for bottom machines
+    for (int x = 0; x < 4; x++)
+    {
+        machines[18 + x]->setLine(getLine(machines[18 + x]->getCoords().x, machines[18 + x]->getCoords().y + 1));
+    }
+
+    //Set lines for right machines
+    for (int y = 0; y < 5; y++)
+    {
+        machines[13 + y]->setLine(getLine(machines[12 + y]->getCoords().x - 1, machines[12 + y]->getCoords().y));
+    }
+
     std::cout << "Created world";
 }
 

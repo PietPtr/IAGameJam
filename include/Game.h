@@ -60,5 +60,10 @@ class Game
 
         Line* getLine(int x, int y);
         Line* getLine(Vector2i coords);
+
+        /*ppm*/
+        int co2 = 402;
+        /*Celcius*/
+        float temperature = 18;
 };
 #endif
