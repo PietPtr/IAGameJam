@@ -50,7 +50,7 @@ class Game
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
 
-        std::array<Line*, 61> lines;
+        std::array<Line*, 64> lines;
         std::array<Switch*, 24> switches;
         std::array<Machine*, 22> machines;
 

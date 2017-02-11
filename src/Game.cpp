@@ -175,6 +175,13 @@ void Game::fillRoutingPanel() {
         lineNumber++;
     }
 
+    //3 lines, between the first 4 switches.
+    for (int x = 0; x < 3; x++)
+    {
+        lines[lineNumber] = new Line(Vector2i(3 + x * 2, 2), { switches[x], switches[x+1] });
+        lineNumber++;
+    }
+
     //Create 4 batteries
     for (int x = 0; x < 4; x++)
     {
