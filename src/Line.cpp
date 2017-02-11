@@ -40,7 +40,6 @@ void Line::draw(RenderWindow* window)
     RectangleShape powerShape;
     if (orientation == HORIZONTAL)
     {
-        std::cout << coords.x << "\n";
         wire.setPosition(20 + coords.x * 40, 20 + coords.y * 40 + offset);
         wire.setSize(Vector2f(40, thickness * 2));
 

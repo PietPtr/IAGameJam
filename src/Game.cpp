@@ -256,7 +256,7 @@ void Game::fillRoutingPanel() {
             lineNumber++;
         }
     }
-    std::cout << "Created world"; //5,3
+    std::cout << "Created world";
 }
 
 void Game::consoleLog(std::string text)
