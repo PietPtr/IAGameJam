@@ -38,3 +38,8 @@ float Heater::getPowerForLine(Line* line)
     // this method always returns 0.
     return 0;
 }
+
+MachineType Heater::getMachineType()
+{
+    return HEATER;
+}

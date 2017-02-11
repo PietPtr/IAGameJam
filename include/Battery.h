@@ -18,6 +18,7 @@ class Battery : public Machine
         void drawSelected(RenderWindow* window, std::vector<Texture>* textures);
         float getPowerForLine(Line* line);
         void setOutputLine(Line* line) { outputLine = line; };
+        MachineType getMachineType();
     protected:
     private:
         Line* outputLine;

@@ -33,7 +33,7 @@ void Battery::draw(RenderWindow* window, std::vector<Texture>* textures)
 	switchShape.setScale(Vector2f(1, -1));
 	switchShape.setPosition(20 + coords.x * 40, 60 + coords.y * 40);
 	unsigned int blue = charge / maxPower * 255;
-	switchShape.setFillColor(Color(255- blue, blue, 0));
+	switchShape.setFillColor(Color(255 - blue, blue, 0));
 	window->draw(switchShape);
 }
 
@@ -58,4 +58,9 @@ float Battery::getPowerForLine(Line* line)
 	{
 		return 0;
 	}
+}
+
+MachineType Battery::getMachineType()
+{
+	return BATTERY;
 }

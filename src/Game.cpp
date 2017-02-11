@@ -93,11 +93,33 @@ void Game::update()
     {
         lines[i]->update(dt);
     }
+
+    float newTemperature = 0;
+
     //Update machines
     for (int i = 0; i < machines.size(); i++)
     {
         machines[i]->update(dt);
+
+
+        switch (machines[i]->getMachineType())
+        {
+        case SOLARPANEL:
+            break;
+        case BATTERY:
+            break;
+        case HEATER:
+        {
+            Heater* heater = ((Heater*)machines[i]);
+            newTemperature += heater->getPower();
+            break;
+        }
+        default:
+            break;
+        }
     }
+    //Go to the new temperature.
+    temperature += (newTemperature - temperature)*dt.asSeconds();
 
     frame++;
 }

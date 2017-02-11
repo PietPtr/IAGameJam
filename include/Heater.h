@@ -17,6 +17,7 @@ class Heater : public Machine
         void draw(RenderWindow* window, std::vector<Texture>* textures);
         void drawSelected(RenderWindow* window, std::vector<Texture>* textures);
         float getPowerForLine(Line* line);
+        MachineType getMachineType();
     protected:
 };
 

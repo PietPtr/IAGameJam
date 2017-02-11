@@ -8,6 +8,8 @@
 
 class Line;
 
+enum MachineType { HEATER, SOLARPANEL, BATTERY };
+
 class Machine : public Connection
 {
     public:
@@ -15,6 +17,7 @@ class Machine : public Connection
         virtual void update(Time dt) = 0;
         virtual void draw(RenderWindow* window, std::vector<Texture>* textures) = 0;
         virtual void drawSelected(RenderWindow* window, std::vector<Texture>* textures) = 0;
+        virtual MachineType getMachineType() = 0;
         void setLine(Line* line) { this->line = line; }
     protected:
         Line* line;

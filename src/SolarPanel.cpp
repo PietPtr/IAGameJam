@@ -36,3 +36,8 @@ float SolarPanel::getPowerForLine(Line* line)
 {
     return 10;
 }
+
+MachineType SolarPanel::getMachineType()
+{
+    return SOLARPANEL;
+}
