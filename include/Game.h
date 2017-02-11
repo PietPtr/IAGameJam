@@ -21,15 +21,21 @@ class Game
         void loadTextures(std::vector<std::string> fileNames);
 
         void fillRoutingPanel();
+        void consoleLog(std::string text);
 
         int randint(int low, int high, int seed);
         int randint(int low, int high);
+
+        std::string getPrettyMissionTime();
     protected:
     private:
         RenderWindow* window;
 
         Time dt;
         Time totalTime;
+        Time missionTime = seconds(65536);
+        const float TIME_MULTIPLIER = 10.0;
+
         Clock clock;
         int frame = 0;
         bool focus = false;
@@ -38,12 +44,14 @@ class Game
         int windowHeight = 720;
 
         std::vector<std::string> audioFileNames { };
-        std::vector<std::string> textureFileNames { "test.png" };
+        std::vector<std::string> textureFileNames { "font.png", "bg.png" };
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
 
         std::array<Line*, 58> lines;
         std::array<Switch*, 24> switches;
+
+        std::string log = "";
 };
 #endif

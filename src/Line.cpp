@@ -43,18 +43,19 @@ void Line::draw(RenderWindow* window)
 
     if (orientation == HORIZONTAL)
     {
-        wire.setPosition(coords.x * 40, coords.y * 40 + offset);
+        std::cout << coords.x << "\n";
+        wire.setPosition(20 + coords.x * 40, 20 + coords.y * 40 + offset);
         wire.setSize(Vector2f(40, thickness * 2));
 
-        powerShape.setPosition(coords.x * 40, coords.y * 40 + powerOffset);
+        powerShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40 + powerOffset);
         powerShape.setSize(Vector2f(40, powerThickness * 2));
     }
     else if (orientation == VERTICAL)
     {
-        wire.setPosition(coords.x * 40 + offset, coords.y * 40);
+        wire.setPosition(20 + coords.x * 40 + offset, coords.y * 40);
         wire.setSize(Vector2f(thickness * 2, 40));
 
-        powerShape.setPosition(coords.x * 40 + powerOffset, coords.y * 40);
+        powerShape.setPosition(20 + coords.x * 40 + powerOffset, 20 + coords.y * 40);
         powerShape.setSize(Vector2f(powerThickness * 2, 40));
     }
 

@@ -1,7 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
+#include <iomanip>
+#include <iostream>
+#include <sstream>
 
 using namespace sf;
+
+void drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine);
+
 
 Game::Game(RenderWindow* _window)
 {
@@ -12,7 +18,10 @@ void Game::initialize()
 {
     loadAudio(audioFileNames);
     loadTextures(textureFileNames);
-    fillRoutingPanel();
+    // code throws errors, can't test with it
+    //fillRoutingPanel();
+    consoleLog("TEST");
+    consoleLog("ANOTHER TEST");
 }
 
 void Game::update()
@@ -44,6 +53,13 @@ void Game::update()
 
     dt = clock.restart();
     totalTime += dt;
+    missionTime += dt * TIME_MULTIPLIER;
+
+    if (frame % 120 == 0)
+    {
+        consoleLog("PING");
+    }
+
 
     frame++;
 }
@@ -52,10 +68,17 @@ void Game::draw()
 {
     window->clear();
 
+    Sprite bgSprite;
+    bgSprite.setTexture(textures.at(1));
+    window->draw(bgSprite);
+
     for (int i = 0; i < lines.size(); i++)
     {
-        lines[i]->draw(window);
+        // coords where undefined and giving segfaults, uncomment when needed again
+        //lines[i]->draw(window);
     }
+
+    drawString(window, log, Vector2f(498,341), &textures.at(0), Color(0, 200, 0), 47);
 
     window->display();
 }
@@ -107,7 +130,7 @@ void Game::fillRoutingPanel() {
     }
 
     //Create vertical lines.
-    for (int y = 0; y < 6; y++) 
+    for (int y = 0; y < 6; y++)
     {
         for (int x = 0; x < 4; x++)
         {
@@ -117,7 +140,7 @@ void Game::fillRoutingPanel() {
     }
 
     //Create horizontal lines.
-    for (int y = 0; y < 6; y++) 
+    for (int y = 0; y < 6; y++)
     {
         for (int x = 0; x < 5; x++)
         {
@@ -135,6 +158,28 @@ void Game::fillRoutingPanel() {
             j++;
         }
     }
+}
+
+void Game::consoleLog(std::string text)
+{
+    log += getPrettyMissionTime() + " " + text + "& ";
+}
+
+std::string Game::getPrettyMissionTime()
+{
+
+    std::string result = "";
+    int missionSeconds = missionTime.asSeconds();
+
+    std::stringstream ss;
+    ss << std::setw(2) << std::setfill('0')
+       << (int)(missionTime.asSeconds() / 60 / 60) << ":"
+       << std::setw(2) << std::setfill('0')
+       << (int)(missionTime.asSeconds() / 60) % 60 << ":"
+       << std::setw(2) << std::setfill('0')
+       << ((int)(missionTime.asSeconds()) % 60);
+
+    return ss.str();
 }
 
 int Game::randint(int low, int high)

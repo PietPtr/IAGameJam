@@ -33,7 +33,6 @@ class Switch : public Connection
     private:
         float calculatePowerPerLine();
         float calculatePower();
-    private:
         Vector2i coords;
         /*The amount of power it gets from input.*/
         float power;

@@ -9,8 +9,8 @@
 class Connection
 {
     public:
-        virtual float calculatePowerParLine() = 0;
     protected:
+        virtual float calculatePowerPerLine() = 0;
         float power;
 };
 
