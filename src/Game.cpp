@@ -184,7 +184,7 @@ void Game::draw()
     //Draw status
     drawStatus();
 
-    Sprite scanLines(textures[7]);
+    Sprite scanLines(textures[6]);
     window->draw(scanLines);
 
     window->display();
@@ -276,8 +276,6 @@ void Game::fillRoutingPanel() {
         lines[lineNumber] = new Line(Vector2i(2 + x * 2, 3), { switches[x], machines[x + 4] });
         lineNumber++;
     }
-
-
 
     //3 lines, between the first 4 switches.
     for (int x = 0; x < 3; x++)

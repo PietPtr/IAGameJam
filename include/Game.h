@@ -49,7 +49,7 @@ class Game
 
         std::vector<std::string> audioFileNames { };
         std::vector<std::string> textureFileNames { "font.png", "bg.png", "switch.png", "buttonInput.png",
-            "buttonOutput.png", "buttonClose.png", "temperature.png", "scanlines.png"};
+            "buttonOutput.png", "buttonClose.png","scanlines.png"};
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
