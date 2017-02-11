@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
+#include "Battery.h"
+#include "Heater.h"
 #include "SolarPanel.h"
 #include <iomanip>
 #include <iostream>
@@ -8,7 +10,6 @@
 using namespace sf;
 
 int drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine);
-
 
 Game::Game(RenderWindow* _window)
 {
@@ -177,28 +178,29 @@ void Game::fillRoutingPanel() {
     //Create 4 batteries
     for (int x = 0; x < 4; x++)
     {
-        machines[machineNumber] = new SolarPanel(Vector2i(2 + x * 2, 4));
+        Battery* test = new Battery(Vector2i(0, 0));
+        machines[machineNumber] = new Battery(Vector2i(2 + x * 2, 4));
         machineNumber++;
     }
 
     //Create the left machines.
     for (int y = 0; y < 5; y++)
     {
-        machines[machineNumber] = new SolarPanel(Vector2i(0, 6 + y * 2));
+        machines[machineNumber] = new Heater(Vector2i(0, 6 + y * 2));
         machineNumber++;
     }
 
     //Create the right machines.
     for (int y = 0; y < 5; y++)
     {
-        machines[machineNumber] = new SolarPanel(Vector2i(10, 6 + y * 2));
+        machines[machineNumber] = new Heater(Vector2i(10, 6 + y * 2));
         machineNumber++;
     }
 
     //Create the bottom machines.
     for (int x = 0; x < 4; x++)
     {
-        machines[machineNumber] = new SolarPanel(Vector2i(x * 2 + 2, 16));
+        machines[machineNumber] = new Heater(Vector2i(x * 2 + 2, 16));
         machineNumber++;
     }
 

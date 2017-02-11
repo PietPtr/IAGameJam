@@ -9,11 +9,6 @@ SolarPanel::SolarPanel(Vector2i coords)
     this->coords = coords;
 }
 
-void SolarPanel::setLine(Line * line)
-{
-    this->line = line;
-}
-
 void SolarPanel::update(Time dt)
 {
 

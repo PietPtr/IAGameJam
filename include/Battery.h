@@ -12,7 +12,7 @@ class Line;
 class Battery : public Machine
 {
     public:
-        Battery(Vector2i coords, Line* line);
+        Battery(Vector2i coords);
         void update(Time dt);
         void draw(RenderWindow* window);
         float getPowerForLine(Line* line);
