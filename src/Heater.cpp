@@ -16,6 +16,10 @@ void Heater::update(Time dt)
 
 void Heater::draw(RenderWindow* window)
 {
+    if (selected) {
+        drawSelected(window);
+    }
+    
     RectangleShape switchShape;
     switchShape.setSize(Vector2f(40, 40));
     switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
@@ -25,7 +29,7 @@ void Heater::draw(RenderWindow* window)
 
 void Heater::drawSelected(RenderWindow* window)
 {
-    
+
 }
 
 float Heater::getPowerForLine(Line* line)

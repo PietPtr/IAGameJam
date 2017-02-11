@@ -19,6 +19,10 @@ void Battery::update(Time dt)
 
 void Battery::draw(RenderWindow* window)
 {
+    if (selected) {
+        drawSelected(window);
+    }
+    
     RectangleShape switchShape;
     switchShape.setSize(Vector2f(40, 40));
     switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);

@@ -40,16 +40,35 @@ void Game::update()
                 window->close();
             }
         }
-        if (event.type == Event::LostFocus) {
+        if (event.type == Event::LostFocus)
+        {
             focus = false;
         }
-        if (event.type == Event::GainedFocus) {
+        if (event.type == Event::GainedFocus)
+        {
             focus = true;
         }
 
-        if (event.type == Event::Resized) {
+        if (event.type == Event::Resized)
+        {
             windowWidth = event.size.width;
             windowHeight = event.size.height;
+        }
+
+        if (event.type == Event::MouseButtonPressed)
+        {
+            if (event.mouseButton.button == Mouse::Left)
+            {
+                Vector2f mousePos = Vector2f(event.mouseButton.x,
+                                             event.mouseButton.y);
+
+                Vector2i selectedCoord = Vector2i((int)(mousePos.x - 20) / 40,
+                                                  (int)(mousePos.y - 20) / 40);
+
+                std::cout << selectedCoord.x << " " << selectedCoord.y << " \n";
+
+                determineSelectedConnection(selectedCoord);
+            }
         }
     }
 
@@ -300,6 +319,38 @@ void Game::fillRoutingPanel() {
 void Game::consoleLog(std::string text)
 {
     log += getPrettyMissionTime() + " " + text + "& ";
+}
+
+void Game::determineSelectedConnection(Vector2i selectedCoords)
+{
+    bool found = false;
+    for (int i = 0; i < switches.size(); i++)
+    {
+        if (switches[i]->getCoords() == selectedCoords)
+        {
+            switches[i]->setSelected(true);
+            found = true;
+        }
+        else
+        {
+            switches[i]->setSelected(false);
+        }
+    }
+
+    if (found)
+        return;
+
+    for (int i = 0; i < machines.size(); i++)
+    {
+        if (machines[i]->getCoords() == selectedCoords)
+        {
+            machines[i]->setSelected(true);
+        }
+        else
+        {
+            machines[i]->setSelected(false);
+        }
+    }
 }
 
 std::string Game::getPrettyMissionTime()

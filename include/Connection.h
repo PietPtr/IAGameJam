@@ -14,9 +14,11 @@ class Connection
         virtual float getPowerForLine(Line* line) = 0;
         Vector2i getCoords() { return coords; }
         float getPower() { return power; }
+        void setSelected(bool selected) { this->selected = selected; }
     protected:
         float power;
         Vector2i coords;
+        bool selected = false;
 };
 
 #endif
