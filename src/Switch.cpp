@@ -69,6 +69,14 @@ SwitchState Switch::getState()
     return currentState;
 }
 
+void Switch::addLine(Line * line)
+{
+    if (line != NULL)
+    {
+        portStates[line] = CLOSED;
+    }
+}
+
 
 float Switch::calculatePowerPerLine()
 {

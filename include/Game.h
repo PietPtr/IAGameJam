@@ -50,12 +50,13 @@ class Game
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
 
-        std::array<Line*, 57> lines;
+        std::array<Line*, 61> lines;
         std::array<Switch*, 24> switches;
         std::array<Machine*, 22> machines;
 
         std::string log = "";
 
         Line* getLine(int x, int y);
+        Line* getLine(Vector2i coords);
 };
 #endif
