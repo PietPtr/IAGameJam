@@ -143,6 +143,8 @@ void Game::draw()
         }
     }
 
+    drawString(window, "CLOSED INPUT OUTPUT", Vector2f(1000,344), &textures.at(0), Color(0, 0, 0), 47);
+
     window->display();
 }
 
