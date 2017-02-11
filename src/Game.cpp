@@ -65,7 +65,6 @@ void Game::update()
         consoleLog("PING");
     }
 
-
     frame++;
 }
 

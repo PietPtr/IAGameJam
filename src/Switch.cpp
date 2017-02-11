@@ -69,11 +69,6 @@ SwitchState Switch::getState()
     return currentState;
 }
 
-Vector2i Switch::
-getCoords()
-{
-    return coords;
-}
 
 float Switch::calculatePowerPerLine()
 {

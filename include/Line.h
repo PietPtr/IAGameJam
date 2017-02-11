@@ -4,17 +4,16 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <array>
+#include "Connection.h"
 
 using namespace sf;
 
 enum Orientation { HORIZONTAL, VERTICAL };
 
-class Switch;
-
 class Line
 {
 public:
-    Line(Vector2i coords, std::array<Switch*, 2> switches);
+    Line(Vector2i coords, std::array<Connection*, 2> switches);
     void draw(RenderWindow* window);
     void update();
     float getPower() { return power; }
@@ -27,7 +26,7 @@ private:
 
     Orientation orientation = VERTICAL;
 
-    std::array<Switch*, 2> switches;
+    std::array<Connection*, 2> connections;
 
 
 };

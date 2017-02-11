@@ -27,8 +27,6 @@ class Switch : public Connection
         Line* getLine(int id);
         /*Returns the state of this switch.*/
         SwitchState getState();
-
-        Vector2i getCoords();
     protected:
     private:
         float calculatePowerPerLine();

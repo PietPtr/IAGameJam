@@ -6,12 +6,16 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+class Line;
+
 class Connection
 {
     public:
+        virtual float getPowerForLine(Line* line) = 0;
+        Vector2i getCoords() { return coords; }
     protected:
-        virtual float calculatePowerPerLine() = 0;
         float power;
+        Vector2i coords;
 };
 
 #endif

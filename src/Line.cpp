@@ -4,28 +4,28 @@
 
 using namespace sf;
 
-Line::Line(Vector2i coords, std::array<Switch*, 2> switches)
+Line::Line(Vector2i coords, std::array<Connection*, 2> connections)
 {
-    this->switches = switches;
+    this->connections = connections;
     this->coords = coords;
 
-    if (switches[0]->getCoords().x != coords.x && switches[0]->getCoords().y == coords.y) {
+    if (connections[0]->getCoords().x != coords.x && connections[0]->getCoords().y == coords.y) {
         orientation = HORIZONTAL;
     }
-    if (switches[0]->getCoords().y != coords.y && switches[0]->getCoords().x == coords.x) {
+    if (connections[0]->getCoords().y != coords.y && connections[0]->getCoords().x == coords.x) {
         orientation = VERTICAL;
     }
 }
 
 void Line::update() {
-    if (switches[0]->getPowerForLine(this) > 0 &&
-        switches[1]->getPowerForLine(this) > 0) {
+    if (connections[0]->getPowerForLine(this) > 0 &&
+        connections[1]->getPowerForLine(this) > 0) {
         // explode
     }
     else
     {
-        power = switches[0]->getPowerForLine(this) +
-            switches[1]->getPowerForLine(this);
+        power = connections[0]->getPowerForLine(this) +
+                connections[1]->getPowerForLine(this);
     }
 
 
