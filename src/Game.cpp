@@ -78,7 +78,7 @@ void Game::draw()
 
     window->clear(Color(35, 35, 35));
 
-    if (drawString(window, log, Vector2f(497,342), &textures.at(0), Color(0, 200, 0), 47) > 33)
+    if (drawString(window, log, Vector2f(497,344), &textures.at(0), Color(0, 200, 0), 47) > 33)
     {
         unsigned end = log.find('&');
         log.erase(log.begin(), log.end() - (log.length() - end - 2));
@@ -109,7 +109,7 @@ void Game::draw()
             //machines[i]->draw(window);
         }
     }
-    
+
     window->display();
 }
 
