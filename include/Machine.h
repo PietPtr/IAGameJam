@@ -8,7 +8,7 @@
 
 class Line;
 
-enum MachineType { HEATER, SOLARPANEL, BATTERY };
+enum MachineType { HEATER, SOLARPANEL, BATTERY, WATERPURIFIER, CO2REMOVER, CPU, DISH, LIGHT};
 
 class Machine : public Connection
 {

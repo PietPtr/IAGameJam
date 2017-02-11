@@ -47,7 +47,7 @@ class Game
 
         std::vector<std::string> audioFileNames { };
         std::vector<std::string> textureFileNames { "font.png", "bg.png", "switch.png", "buttonInput.png",
-            "buttonOutput.png", "buttonClose.png"};
+            "buttonOutput.png", "buttonClose.png", "temperature.png"};
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
@@ -67,5 +67,11 @@ class Game
         int co2 = 402;
         /*Celcius*/
         float temperature = 18;
+
+        float lights;
+        /*If true we show the information panel*/
+        bool showInfo;
+
+        float waterPurifier;
 };
 #endif

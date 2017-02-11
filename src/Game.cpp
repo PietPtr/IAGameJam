@@ -175,6 +175,10 @@ void Game::draw()
     }
 
     //Draw temperature
+    Sprite temperatureSprite;
+    temperatureSprite.setTexture(textures.at(6));
+    temperatureSprite.setPosition(Vector2f(700, 23));
+    window->draw(temperatureSprite);
 
     window->display();
 }
