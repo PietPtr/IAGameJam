@@ -23,7 +23,7 @@ void SolarPanel::draw(RenderWindow* window)
 {
     RectangleShape switchShape;
     switchShape.setSize(Vector2f(40, 40));
-    switchShape.setPosition(coords.x * 40, coords.y * 40);
+    switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
     switchShape.setFillColor(Color(20, 20, 150));
     window->draw(switchShape);
 }
