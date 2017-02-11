@@ -11,7 +11,9 @@ Heater::Heater(Vector2i coords)
 
 void Heater::update(Time dt)
 {
-
+    if (line != 0) {
+        this->power = line->getPower();
+    }
 }
 
 void Heater::draw(RenderWindow* window, std::vector<Texture>* textures)

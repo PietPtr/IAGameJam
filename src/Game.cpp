@@ -76,7 +76,7 @@ void Game::update()
 
                 // std::cout << selectedCoord.x << " " << selectedCoord.y << " \n";
 
-                if (selectedCoord.x < 10 && selectedCoord.y < 16)
+                if (selectedCoord.x < 10 && selectedCoord.y < 17)
                     determineSelectedConnection(selectedCoord);
             }
         }
@@ -114,7 +114,6 @@ void Game::update()
     {
         machines[i]->update(dt);
 
-
         switch (machines[i]->getMachineType())
         {
         case SOLARPANEL:
@@ -123,8 +122,6 @@ void Game::update()
             break;
         case HEATER:
         {
-            Heater* heater = ((Heater*)machines[i]);
-            newTemperature += heater->getPower();
             break;
         }
         default:
@@ -427,7 +424,7 @@ void Game::fillRoutingPanel() {
         machines[13 + y]->setLine(getLine(machines[12 + y]->getCoords().x - 1, machines[12 + y]->getCoords().y));
     }
 
-    std::cout << "Created world";
+    std::cout << "Created world\n";
 }
 
 void Game::consoleLog(std::string text)
@@ -437,23 +434,18 @@ void Game::consoleLog(std::string text)
 
 void Game::determineSelectedConnection(Vector2i selectedCoords)
 {
-    bool found = false;
     for (int i = 0; i < switches.size(); i++)
     {
         if (switches[i]->getCoords() == selectedCoords)
         {
             switches[i]->setSelected(true);
             selectedSwitch = switches[i];
-            found = true;
         }
         else
         {
             switches[i]->setSelected(false);
         }
     }
-
-    if (found)
-        return;
 
     for (int i = 0; i < machines.size(); i++)
     {

@@ -11,7 +11,9 @@ Dish::Dish(Vector2i coords)
 
 void Dish::update(Time dt)
 {
-
+    if (line != 0) {
+        this->power = line->getPower();
+    }
 }
 
 void Dish::draw(RenderWindow* window, std::vector<Texture>* textures)

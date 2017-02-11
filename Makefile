@@ -1,4 +1,4 @@
-CC = g++
+CC = g++ -g
 VPATH = src
 CXXFLAG = --std=c++11 -I include -Ofast
 HEADERS = $(wildcard include/*.h)

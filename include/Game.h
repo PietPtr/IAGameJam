@@ -66,7 +66,7 @@ class Game
         Switch* selectedSwitch;
 
         // Status variables
-        //    used by the status screen
+        // used by the status screen
         int co2 = 402; // ppm
         float temperature = 18; // C
         float lights;

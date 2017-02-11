@@ -11,7 +11,9 @@ Computer::Computer(Vector2i coords)
 
 void Computer::update(Time dt)
 {
-
+    if (line != 0) {
+        this->power = line->getPower();
+    }
 }
 
 void Computer::draw(RenderWindow* window, std::vector<Texture>* textures)

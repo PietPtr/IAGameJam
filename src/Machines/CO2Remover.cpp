@@ -4,6 +4,8 @@
 
 using namespace sf;
 
+int drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine);
+
 CO2Remover::CO2Remover(Vector2i coords)
 {
     this->coords = coords;
@@ -11,7 +13,10 @@ CO2Remover::CO2Remover(Vector2i coords)
 
 void CO2Remover::update(Time dt)
 {
-
+    //this->power = line->getPower();
+    if (line != 0) {
+        this->power = line->getPower();
+    }
 }
 
 void CO2Remover::draw(RenderWindow* window, std::vector<Texture>* textures)
@@ -29,7 +34,15 @@ void CO2Remover::draw(RenderWindow* window, std::vector<Texture>* textures)
 
 void CO2Remover::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
+    Sprite co2Sprite;
+    co2Sprite.setTexture(textures->at(2));
+    co2Sprite.setPosition(Vector2f(500, 20));
+    co2Sprite.setColor(Color(0, 0, 0));
+    window->draw(co2Sprite);
 
+    // Draw thestatus text under the enlargment of the component
+    std::string powerStr = "POWER: " + std::to_string(power);
+    drawString(window, powerStr, Vector2f(502, 222), &textures->at(0), Color(0, 200, 0), 100);
 }
 
 float CO2Remover::getPowerForLine(Line* line)
