@@ -148,14 +148,6 @@ void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
     switchSprite.setPosition(Vector2f(500, 20));
     window->draw(switchSprite);
 
-    for (int i = 0; i < 12; i++)
-    {
-        RectangleShape test(Vector2f(buttonRectangles[i].width,
-                                     buttonRectangles[i].height));
-        test.setFillColor(Color(255, 255, 0, 100));
-        test.setPosition(Vector2f(buttonRectangles[i].left, buttonRectangles[i].top));
-        window->draw(test);
-    }
 }
 
 float Switch::getPowerForLine(Line * line)
