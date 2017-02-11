@@ -39,8 +39,7 @@ void Battery::draw(RenderWindow* window, std::vector<Texture>* textures)
 
 void Battery::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
-
-	drawPowerStatus(window, textures);
+	drawType(window, textures, getMachineType());
 }
 
 float Battery::getPowerForLine(Line* line)

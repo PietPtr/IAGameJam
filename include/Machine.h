@@ -8,7 +8,7 @@
 
 class Line;
 
-enum MachineType { HEATER, SOLARPANEL, BATTERY, WATERPURIFIER, CO2REMOVER, COMPUTER, DISH, LIGHT};
+enum MachineType { HEATER, SOLARPANEL, BATTERY, WATERPURIFIER, CO2REMOVER, COMPUTER, DISH, LIGHT };
 
 class Machine : public Connection
 {
@@ -19,6 +19,7 @@ class Machine : public Connection
         virtual void drawSelected(RenderWindow* window, std::vector<Texture>* textures) = 0;
         virtual MachineType getMachineType() = 0;
         void setLine(Line* line) { this->line = line; }
+        void drawType(RenderWindow* window, std::vector<Texture>* textures, MachineType type);
     protected:
         Line* line;
 };

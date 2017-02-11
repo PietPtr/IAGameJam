@@ -14,5 +14,5 @@ void Connection::drawPowerStatus(RenderWindow* window, std::vector<Texture>* tex
     std::string valueStr = stream.str();
 
     std::string powerStr = "POWER: " + valueStr + " W";
-    drawString(window, powerStr, Vector2f(502, 222), &textures->at(0), Color(0, 200, 0), 100);
+    drawString(window, powerStr, Vector2f(502, 233), &textures->at(0), Color(0, 200, 0), 100);
 }

@@ -30,6 +30,7 @@ void SolarPanel::draw(RenderWindow* window, std::vector<Texture>* textures)
 void SolarPanel::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
 
+    drawType(window, textures, getMachineType());
 }
 
 float SolarPanel::getPowerForLine(Line* line)

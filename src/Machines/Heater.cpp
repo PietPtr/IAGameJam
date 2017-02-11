@@ -31,6 +31,7 @@ void Heater::draw(RenderWindow* window, std::vector<Texture>* textures)
 
 void Heater::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
+    drawType(window, textures, getMachineType());
     drawPowerStatus(window, textures);
 }
 

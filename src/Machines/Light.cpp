@@ -31,6 +31,7 @@ void Light::draw(RenderWindow* window, std::vector<Texture>* textures)
 
 void Light::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
+    drawType(window, textures, getMachineType());
     drawPowerStatus(window, textures);
 }
 

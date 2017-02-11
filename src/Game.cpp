@@ -76,7 +76,7 @@ void Game::update()
 
                 // std::cout << selectedCoord.x << " " << selectedCoord.y << " \n";
 
-                if (selectedCoord.x < 10 && selectedCoord.y < 17)
+                if (selectedCoord.x < 11 && selectedCoord.y < 17)
                     determineSelectedConnection(selectedCoord);
             }
         }

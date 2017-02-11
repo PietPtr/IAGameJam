@@ -31,7 +31,7 @@ void Dish::draw(RenderWindow* window, std::vector<Texture>* textures)
 
 void Dish::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
-
+    drawType(window, textures, getMachineType());
     drawPowerStatus(window, textures);
 }
 

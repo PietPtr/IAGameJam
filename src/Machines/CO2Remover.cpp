@@ -40,6 +40,8 @@ void CO2Remover::drawSelected(RenderWindow* window, std::vector<Texture>* textur
     co2Sprite.setColor(Color(0, 0, 0));
     window->draw(co2Sprite);
 
+    drawType(window, textures, getMachineType());
+
     drawPowerStatus(window, textures);
 }
 
