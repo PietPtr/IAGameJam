@@ -7,7 +7,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <map>
+#include <vector>
 #include <array>
+#include <list>
 
 using namespace sf;
 
@@ -39,6 +41,7 @@ class Switch : public Connection
         float powerPerLine;
         const float MAX_POWER = 40;
         std::map<Line*, PortState> portStates;
+        std::list<Line*> ports;
         /*The state this switch is currently in.*/
         SwitchState currentState;
 

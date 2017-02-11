@@ -348,10 +348,14 @@ void Game::fillRoutingPanel() {
     //Set lines of all switches
     for (int i = 0; i < switches.size(); i++)
     {
-        switches[i]->addLine(getLine(switches[i]->getCoords().x - 1, switches[i]->getCoords().y));
-        switches[i]->addLine(getLine(switches[i]->getCoords().x + 1, switches[i]->getCoords().y));
+        //Top
         switches[i]->addLine(getLine(switches[i]->getCoords().x, switches[i]->getCoords().y - 1));
+        //Right
+        switches[i]->addLine(getLine(switches[i]->getCoords().x + 1, switches[i]->getCoords().y));
+        //Bottom
         switches[i]->addLine(getLine(switches[i]->getCoords().x, switches[i]->getCoords().y + 1));
+        //Left
+        switches[i]->addLine(getLine(switches[i]->getCoords().x - 1, switches[i]->getCoords().y));
     }
 
     //Set lines of the batteries

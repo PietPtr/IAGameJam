@@ -192,13 +192,13 @@ PortState Switch::getPortState(int id)
 Line * Switch::getLine(int id)
 {
     int counter = 0;
-    for (std::map<Line*, PortState>::iterator portState = portStates.begin(); portState != portStates.end(); ++portState)
+    for (Line* l : ports)
     {
         if (id == counter)
         {
-            return portState->first;
+            return l;
         }
-        counter += 1;
+        counter++;
     }
 }
 
@@ -212,6 +212,7 @@ void Switch::addLine(Line * line)
     if (line != NULL)
     {
         portStates[line] = CLOSED;
+        ports.push_back(line);
     }
 }
 
