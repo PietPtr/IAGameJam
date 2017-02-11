@@ -237,7 +237,7 @@ void Game::fillRoutingPanel() {
     }
 
     //Create horizontal lines.
-    for (int y = 0; y < 6; y++)
+    for (int y = 0; y < 5; y++)
     {
         for (int x = 0; x < 5; x++)
         {
@@ -247,11 +247,11 @@ void Game::fillRoutingPanel() {
             }
             if (x == 4)
             {
-                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 6 + y * 2), { switches[4 * y + x - 1], machines[13 + y] });
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 6 + y * 2), { switches[4 * (y + 1) + x - 1], machines[13 + y] });
             }
             if (x > 0 && x < 4)
             {
-                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 6 + y * 2), { switches[4 * y + x - 1], switches[4 * y + x]});
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 6 + y * 2), { switches[4 * (y+1) + x - 1], switches[4 * (y + 1) + x]});
             }
             lineNumber++;
         }
