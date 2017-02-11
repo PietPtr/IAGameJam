@@ -22,12 +22,12 @@ void Battery::update(Time dt)
 	}
 }
 
-void Battery::draw(RenderWindow* window)
+void Battery::draw(RenderWindow* window, std::vector<Texture>* textures)
 {
 	if (selected) {
-		drawSelected(window);
+		drawSelected(window, textures);
 	}
-	
+
 	RectangleShape switchShape;
 	switchShape.setSize(Vector2f(40, charge / maxPower * 40));
 	switchShape.setScale(Vector2f(1, -1));
@@ -37,7 +37,7 @@ void Battery::draw(RenderWindow* window)
 	window->draw(switchShape);
 }
 
-void Battery::drawSelected(RenderWindow* window)
+void Battery::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
 
 }

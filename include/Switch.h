@@ -18,9 +18,9 @@ class Switch : public Connection
 {
     public:
         Switch(Vector2i coords);
-        void draw(RenderWindow* window);
+        void draw(RenderWindow* window, std::vector<Texture>* textures);
         void update(Time dt);
-        void drawSelected(RenderWindow* window);
+        void drawSelected(RenderWindow* window, std::vector<Texture>* textures);
 
         float getPowerForLine(Line* line);
         void setPort(int id, PortState newState);
