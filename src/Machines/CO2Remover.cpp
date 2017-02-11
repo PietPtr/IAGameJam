@@ -5,6 +5,7 @@
 
 using namespace sf;
 
+int drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine);
 
 CO2Remover::CO2Remover(Vector2i coords)
 {
@@ -43,6 +44,9 @@ void CO2Remover::drawSelected(RenderWindow* window, std::vector<Texture>* textur
     drawType(window, textures, getMachineType());
 
     drawPowerStatus(window, textures);
+
+    std::string removeInfo = "CO2 REMOVAL: " + std::to_string((int)(power * CO2REMOVER_SPEED)) + " PPM PER S";
+    drawString(window, removeInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
 }
 
 float CO2Remover::getPowerForLine(Line* line)

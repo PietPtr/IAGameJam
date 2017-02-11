@@ -38,7 +38,8 @@ class Game
         Time dt;
         Time totalTime;
         Time missionTime = seconds(65536);
-        const float TIME_MULTIPLIER = 10.0;
+        Time missiondt;
+        const float TIME_MULTIPLIER = 1.0;
 
         Clock clock;
         int frame = 0;
@@ -67,11 +68,15 @@ class Game
 
         // Status variables
         // used by the status screen
-        int co2 = 402; // ppm
+        float co2 = 402; // ppm
         float temperature = 18; // C
         float lights;
         bool showInfo = true;
         bool hasLink = true;
         float waterPurifier;
+
+        // production variables
+        float co2PerSecond = 4; // ppm per second
+
 };
 #endif

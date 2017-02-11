@@ -18,7 +18,11 @@ class CO2Remover : public Machine
         void drawSelected(RenderWindow* window, std::vector<Texture>* textures);
         float getPowerForLine(Line* line);
         MachineType getMachineType() { return CO2REMOVER; }
+        float getRemovedCO2(Time dt) { return CO2REMOVER_SPEED * power * dt.asSeconds(); }
     protected:
+    private:
+        // multiplied with power supplied.
+        const float CO2REMOVER_SPEED = 3.5; // ppm CO2 per second
 };
 
 #endif

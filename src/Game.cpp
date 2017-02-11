@@ -90,6 +90,7 @@ void Game::update()
     dt = clock.restart();
     totalTime += dt;
     missionTime += dt * TIME_MULTIPLIER;
+    missiondt = dt * TIME_MULTIPLIER;
 
     if (frame % 120 == 0)
     {
@@ -121,15 +122,19 @@ void Game::update()
         case BATTERY:
             break;
         case HEATER:
-        {
             break;
-        }
+        case CO2REMOVER:
+            co2 -= ((CO2Remover*)(machines[i]))->getRemovedCO2(missiondt);
+            co2 = co2 < 0 ? 0 : co2;
+            break;
         default:
             break;
         }
     }
     //Go to the new temperature.
     //temperature += (newTemperature - temperature)*dt.asSeconds();
+
+    co2 += co2PerSecond * missiondt.asSeconds();
 
     frame++;
 }
