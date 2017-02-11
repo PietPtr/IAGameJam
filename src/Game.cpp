@@ -149,7 +149,7 @@ void Game::fillRoutingPanel() {
     //Create 4 solar panels
     for (int x = 0; x < 4; x++)
     {
-        machines[machineNumber] = new SolarPanel(Vector2i(2 + x, 0));
+        machines[machineNumber] = new SolarPanel(Vector2i(2 + x * 2, 0));
         machineNumber++;
     }
 
@@ -163,14 +163,14 @@ void Game::fillRoutingPanel() {
     //First 4 lines, from solar to switch.
     for (int x = 0; x < 4; x++)
     {
-        lines[lineNumber] = new Line(Vector2i(2 * x * 2, 1), { machines[x], switches[x]});
+        lines[lineNumber] = new Line(Vector2i(2 + x * 2, 1), { machines[x], switches[x]});
         lineNumber++;
     }
 
     //Second 4 lines, from switch to battery.
     for (int x = 0; x < 4; x++)
     {
-        lines[lineNumber] = new Line(Vector2i(2 + x * 2, 3), { switches[x], switches[x] });
+        lines[lineNumber] = new Line(Vector2i(2 + x * 2, 3), { switches[x], machines[x + 4] });
         lineNumber++;
     }
 
@@ -196,7 +196,7 @@ void Game::fillRoutingPanel() {
     }
 
     //Create the bottom machines.
-    for (int x = 0; x < 5; x++)
+    for (int x = 0; x < 4; x++)
     {
         machines[machineNumber] = new SolarPanel(Vector2i(x * 2 + 2, 16));
         machineNumber++;
