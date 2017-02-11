@@ -21,8 +21,11 @@ class Battery : public Machine
     protected:
     private:
         Line* outputLine;
+        /*Current charge of this battery.*/
         float charge;
+        /*Loses 5 power per second.*/
         float outPower = 5;
+        float maxPower = 750;
 };
 
 #endif
