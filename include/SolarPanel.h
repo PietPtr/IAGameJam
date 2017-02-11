@@ -11,13 +11,13 @@ class Line;
 
 class SolarPanel : public Machine
 {
-    public:
-        SolarPanel(Vector2i coords);
-        void setLine(Line* line);
-        void update(Time dt);
-        void draw(RenderWindow* window);
-        float getPowerForLine(Line* line);
-    protected:
+public:
+	SolarPanel(Vector2i coords);
+	void setLine(Line* line);
+	void update(Time dt);
+	void draw(RenderWindow* window);
+	float getPowerForLine(Line* line);
+protected:
 };
 
 #endif
