@@ -65,17 +65,13 @@ class Game
 
         Switch* selectedSwitch;
 
-        /*ppm*/
-        int co2 = 402;
-        /*Celcius*/
-        float temperature = 18;
-
+        // Status variables
+        //    used by the status screen
+        int co2 = 402; // ppm
+        float temperature = 18; // C
         float lights;
-        /*If true we show the information panel*/
-        bool showInfo;
-
+        bool showInfo = true;
         bool hasLink = true;
-
         float waterPurifier;
 };
 #endif

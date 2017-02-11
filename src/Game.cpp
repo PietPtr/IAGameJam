@@ -132,7 +132,7 @@ void Game::update()
         }
     }
     //Go to the new temperature.
-    temperature += (newTemperature - temperature)*dt.asSeconds();
+    //temperature += (newTemperature - temperature)*dt.asSeconds();
 
     frame++;
 }
