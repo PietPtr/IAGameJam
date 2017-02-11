@@ -61,6 +61,8 @@ class Game
         Line* getLine(int x, int y);
         Line* getLine(Vector2i coords);
 
+        Switch* selectedSwitch;
+
         /*ppm*/
         int co2 = 402;
         /*Celcius*/

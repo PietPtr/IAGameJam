@@ -41,5 +41,7 @@ class Switch : public Connection
         std::map<Line*, PortState> portStates;
         /*The state this switch is currently in.*/
         SwitchState currentState;
+
+        std::array<IntRect, 12> buttonRectangles;
 };
 #endif

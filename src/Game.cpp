@@ -69,7 +69,8 @@ void Game::update()
 
                 std::cout << selectedCoord.x << " " << selectedCoord.y << " \n";
 
-                determineSelectedConnection(selectedCoord);
+                if (selectedCoord.x < 10 && selectedCoord.y < 16)
+                    determineSelectedConnection(selectedCoord);
             }
         }
     }
@@ -92,6 +93,11 @@ void Game::update()
     for (int i = 0; i < lines.size(); i++)
     {
         lines[i]->update(dt);
+    }
+
+    for (int i = 0; i < switches.size(); i++)
+    {
+        switches[i]->update(dt);
     }
 
     float newTemperature = 0;
@@ -391,6 +397,7 @@ void Game::determineSelectedConnection(Vector2i selectedCoords)
         if (switches[i]->getCoords() == selectedCoords)
         {
             switches[i]->setSelected(true);
+            selectedSwitch = switches[i];
             found = true;
         }
         else

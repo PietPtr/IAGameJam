@@ -6,6 +6,30 @@ using namespace sf;
 Switch::Switch(Vector2i coords)
 {
     this->coords = coords;
+
+    for (int i = 0; i < 3; i++)
+    {
+        IntRect rect(531 + 34 * i, 30, 30, 20);
+        buttonRectangles[i] = rect;
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        IntRect rect(630, 51 + i * 34, 20, 30);
+        buttonRectangles[3 + i] = rect;
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        IntRect rect(599 - 34 * i, 150, 30, 20);
+        buttonRectangles[6 + i] = rect;
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        IntRect rect(510, 119 - i * 34, 20, 30);
+        buttonRectangles[9 + i] = rect;
+    }
 }
 
 void Switch::update(Time dt)
@@ -15,7 +39,20 @@ void Switch::update(Time dt)
 
 void Switch::draw(RenderWindow * window, std::vector<Texture>* textures)
 {
-    if (selected) {
+    // click detection in draw should be in update. I need window though.
+    if (selected && Mouse::isButtonPressed(Mouse::Left))
+    {
+        for (int i = 0; i < buttonRectangles.size(); i++)
+        {
+            if (buttonRectangles[i].contains(Mouse::getPosition(*window)))
+            {
+                setPort((int)(i / 3), (PortState)(i % 3));
+            }
+        }
+    }
+
+    if (selected)
+    {
         drawSelected(window, textures);
     }
 
@@ -29,6 +66,8 @@ void Switch::draw(RenderWindow * window, std::vector<Texture>* textures)
 
 void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
+
+
     // port 0 top
     for (int i = 0; i < 3; i++)
     {
@@ -36,11 +75,13 @@ void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
         buttonSprite.setTexture(textures->at(3 + i));
         if (getPortState(0) == i)
         {
-            buttonSprite.setPosition(Vector2f(531 + 34 * i, 45));
+            buttonSprite.setPosition(Vector2f(buttonRectangles[i].left,
+                                              buttonRectangles[i].top + 15));
         }
         else
         {
-            buttonSprite.setPosition(Vector2f(531 + 34 * i, 30));
+            buttonSprite.setPosition(Vector2f(buttonRectangles[i].left,
+                                              buttonRectangles[i].top));
         }
         window->draw(buttonSprite);
     }
@@ -53,11 +94,13 @@ void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
         buttonSprite.setRotation(90);
         if (getPortState(1) == i)
         {
-            buttonSprite.setPosition(Vector2f(635, 51 + i * 34));
+            buttonSprite.setPosition(Vector2f(buttonRectangles[3+i].left + 5,
+                                              buttonRectangles[3+i].top));
         }
         else
         {
-            buttonSprite.setPosition(Vector2f(650, 51 + i * 34));
+            buttonSprite.setPosition(Vector2f(buttonRectangles[3+i].left + 20,
+                                              buttonRectangles[3+i].top));
         }
         window->draw(buttonSprite);
     }
@@ -69,11 +112,13 @@ void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
         buttonSprite.setTexture(textures->at(3 + i));
         if (getPortState(2) == i)
         {
-            buttonSprite.setPosition(Vector2f(599 - 34 * i, 135));
+            buttonSprite.setPosition(Vector2f(buttonRectangles[6+i].left,
+                                              buttonRectangles[6+i].top - 15));
         }
         else
         {
-            buttonSprite.setPosition(Vector2f(599 - 34 * i, 150));
+            buttonSprite.setPosition(Vector2f(buttonRectangles[6+i].left,
+                                              buttonRectangles[6+i].top));
         }
         window->draw(buttonSprite);
     }
@@ -86,11 +131,13 @@ void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
         buttonSprite.setRotation(90);
         if (getPortState(3) == i)
         {
-            buttonSprite.setPosition(Vector2f(545, 119 - i * 34));
+            buttonSprite.setPosition(Vector2f(buttonRectangles[9+i].left + 35,
+                                              buttonRectangles[9+i].top));
         }
         else
         {
-            buttonSprite.setPosition(Vector2f(530, 119 - i * 34));
+            buttonSprite.setPosition(Vector2f(buttonRectangles[9+i].left + 20,
+                                              buttonRectangles[9+i].top));
         }
         window->draw(buttonSprite);
     }
@@ -100,6 +147,15 @@ void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
     switchSprite.setTexture(textures->at(2));
     switchSprite.setPosition(Vector2f(500, 20));
     window->draw(switchSprite);
+
+    for (int i = 0; i < 12; i++)
+    {
+        RectangleShape test(Vector2f(buttonRectangles[i].width,
+                                     buttonRectangles[i].height));
+        test.setFillColor(Color(255, 255, 0, 100));
+        test.setPosition(Vector2f(buttonRectangles[i].left, buttonRectangles[i].top));
+        window->draw(test);
+    }
 }
 
 float Switch::getPowerForLine(Line * line)
@@ -115,6 +171,8 @@ float Switch::getPowerForLine(Line * line)
 
 void Switch::setPort(int id, PortState newState)
 {
+    std::cout << "setting port id=" << id << " to state " << newState << "\n";
+
     portStates[getLine(id)] = newState;
     powerPerLine = calculatePowerPerLine();
     power = calculatePower();
@@ -123,6 +181,7 @@ void Switch::setPort(int id, PortState newState)
     {
         currentState = BROKEN;
     }
+
 }
 
 PortState Switch::getPortState(int id)

@@ -47,7 +47,7 @@ float Battery::getPowerForLine(Line* line)
 	if (line == outputLine && charge > 0) {
 		if (charge - outPower <= 0)
 		{
-			return charge;
+			return 0;
 		}
 		else
 		{
