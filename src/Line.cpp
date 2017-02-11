@@ -17,7 +17,7 @@ Line::Line(Vector2i coords, std::array<Connection*, 2> connections)
     }
 }
 
-void Line::update() {
+void Line::update(Time dt) {
     if (connections[0]->getPowerForLine(this) > 0 &&
         connections[1]->getPowerForLine(this) > 0) {
         // explode

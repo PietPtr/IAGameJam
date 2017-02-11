@@ -1,5 +1,5 @@
-#ifndef SOLARPANEL_H
-#define SOLARPANEL_H
+#ifndef BATTERY_H
+#define BATTERY_H
 #pragma once
 #include "Audio.h"
 #include "Line.h"
@@ -9,15 +9,18 @@
 
 class Line;
 
-class SolarPanel : public Machine
+class Battery : public Machine
 {
     public:
-        SolarPanel(Vector2i coords);
-        void setLine(Line* line);
+        Battery(Vector2i coords, Line* line);
         void update(Time dt);
         void draw(RenderWindow* window);
         float getPowerForLine(Line* line);
+        void setOutputLine(Line* line) { outputLine = line; };
     protected:
+    private:
+        Line* outputLine;
+        float charge;
 };
 
 #endif

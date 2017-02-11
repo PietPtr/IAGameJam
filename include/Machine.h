@@ -12,8 +12,9 @@ class Machine : public Connection
 {
     public:
         virtual float getPowerForLine(Line* line) = 0;
-        virtual void update() = 0;
+        virtual void update(Time dt) = 0;
         virtual void draw(RenderWindow* window) = 0;
+        virtual void setLine(Line* line) = 0;
     protected:
         Line* line;
 };
