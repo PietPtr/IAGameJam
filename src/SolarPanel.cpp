@@ -23,7 +23,7 @@ void SolarPanel::draw(RenderWindow* window)
     window->draw(switchShape);
 }
 
-void Heater::drawSelected(RenderWindow* window)
+void SolarPanel::drawSelected(RenderWindow* window)
 {
 
 }

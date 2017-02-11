@@ -26,9 +26,9 @@ void Battery::draw(RenderWindow* window)
     window->draw(switchShape);
 }
 
-void Heater::drawSelected(RenderWindow* window)
+void Battery::drawSelected(RenderWindow* window)
 {
-    
+
 }
 
 float Battery::getPowerForLine(Line* line)
