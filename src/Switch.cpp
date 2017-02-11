@@ -171,7 +171,7 @@ float Switch::getPowerForLine(Line * line)
 
 void Switch::setPort(int id, PortState newState)
 {
-    std::cout << "setting port id=" << id << " to state " << newState << "\n";
+    //std::cout << "setting port id=" << id << " to state " << newState << "\n";
 
     portStates[getLine(id)] = newState;
     powerPerLine = calculatePowerPerLine();

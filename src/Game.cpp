@@ -2,8 +2,15 @@
 
 #include "Game.h"
 #include "Machines/Battery.h"
-#include "Machines/Heater.h"
 #include "Machines/SolarPanel.h"
+
+#include "Machines/Heater.h"
+#include "Machines/CO2Remover.h"
+#include "Machines/Computer.h"
+#include "Machines/Dish.h"
+#include "Machines/Light.h"
+#include "Machines/WaterPurifier.h"
+
 #include "Connection.h"
 #include <iomanip>
 #include <iostream>
@@ -263,21 +270,35 @@ void Game::fillRoutingPanel() {
     //Create the left machines.
     for (int y = 0; y < 5; y++)
     {
-        machines[machineNumber] = new Heater(Vector2i(0, 6 + y * 2));
+        if (y == 0)
+            machines[machineNumber] = new CO2Remover(Vector2i(0, 6 + y * 2));
+        else if (y == 1)
+            machines[machineNumber] = new Light(Vector2i(0, 6 + y * 2));
+        else
+            machines[machineNumber] = new Heater(Vector2i(0, 6 + y * 2));
+
         machineNumber++;
     }
 
     //Create the right machines.
     for (int y = 0; y < 5; y++)
     {
-        machines[machineNumber] = new Heater(Vector2i(10, 6 + y * 2));
+        if (y < 4)
+            machines[machineNumber] = new Computer(Vector2i(10, 6 + y * 2));
+        else
+            machines[machineNumber] = new WaterPurifier(Vector2i(10, 6 + y * 2));
+
         machineNumber++;
     }
 
     //Create the bottom machines.
     for (int x = 0; x < 4; x++)
     {
-        machines[machineNumber] = new Heater(Vector2i(x * 2 + 2, 16));
+        if (x == 0 || x == 3)
+            machines[machineNumber] = new Dish(Vector2i(x * 2 + 2, 16));
+        else
+            machines[machineNumber] = new CO2Remover(Vector2i(x * 2 + 2, 16));
+
         machineNumber++;
     }
 
