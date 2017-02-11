@@ -329,6 +329,25 @@ void Game::fillRoutingPanel() {
     {
         machines[x]->setLine(lines[x]);
     }
+
+    //Set lines for left machines
+    for (int y = 0; y < 5; y++)
+    {
+        machines[8 + y]->setLine(getLine(machines[8 + y]->getCoords().x + 1, machines[8 + y]->getCoords().y));
+    }
+
+    //Set lines for bottom machines
+    for (int x = 0; x < 4; x++)
+    {
+        machines[18 + x]->setLine(getLine(machines[18 + x]->getCoords().x, machines[18 + x]->getCoords().y + 1));
+    }
+
+    //Set lines for right machines
+    for (int y = 0; y < 5; y++)
+    {
+        machines[13 + y]->setLine(getLine(machines[12 + y]->getCoords().x - 1, machines[12 + y]->getCoords().y));
+    }
+
     std::cout << "Created world";
 }
 
