@@ -14,8 +14,8 @@ class Battery : public Machine
     public:
         Battery(Vector2i coords);
         void update(Time dt);
-        void draw(RenderWindow* window);
-        void drawSelected(RenderWindow* window);
+        void draw(RenderWindow* window, std::vector<Texture>* textures);
+        void drawSelected(RenderWindow* window, std::vector<Texture>* textures);
         float getPowerForLine(Line* line);
         void setOutputLine(Line* line) { outputLine = line; };
     protected:

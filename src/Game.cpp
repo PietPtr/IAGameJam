@@ -123,7 +123,7 @@ void Game::draw()
     {
         if (switches[i] != NULL)
         {
-            switches[i]->draw(window);
+            switches[i]->draw(window, &textures);
         }
     }
 
@@ -131,7 +131,7 @@ void Game::draw()
     {
         if (machines[i] != NULL)
         {
-            machines[i]->draw(window);
+            machines[i]->draw(window, &textures);
         }
     }
 

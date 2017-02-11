@@ -13,8 +13,8 @@ class Machine : public Connection
     public:
         virtual float getPowerForLine(Line* line) = 0;
         virtual void update(Time dt) = 0;
-        virtual void draw(RenderWindow* window) = 0;
-        virtual void drawSelected(RenderWindow* window) = 0;
+        virtual void draw(RenderWindow* window, std::vector<Texture>* textures) = 0;
+        virtual void drawSelected(RenderWindow* window, std::vector<Texture>* textures) = 0;
         void setLine(Line* line) { this->line = line; }
     protected:
         Line* line;

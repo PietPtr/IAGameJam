@@ -14,12 +14,12 @@ void Heater::update(Time dt)
 
 }
 
-void Heater::draw(RenderWindow* window)
+void Heater::draw(RenderWindow* window, std::vector<Texture>* textures)
 {
     if (selected) {
-        drawSelected(window);
+        drawSelected(window, textures);
     }
-    
+
     RectangleShape switchShape;
     switchShape.setSize(Vector2f(40, 40));
     switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
@@ -27,7 +27,7 @@ void Heater::draw(RenderWindow* window)
     window->draw(switchShape);
 }
 
-void Heater::drawSelected(RenderWindow* window)
+void Heater::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
 
 }

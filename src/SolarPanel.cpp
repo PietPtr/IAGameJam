@@ -14,10 +14,10 @@ void SolarPanel::update(Time dt)
 
 }
 
-void SolarPanel::draw(RenderWindow* window)
+void SolarPanel::draw(RenderWindow* window, std::vector<Texture>* textures)
 {
     if (selected) {
-        drawSelected(window);
+        drawSelected(window, textures);
     }
 
     RectangleShape switchShape;
@@ -27,7 +27,7 @@ void SolarPanel::draw(RenderWindow* window)
     window->draw(switchShape);
 }
 
-void SolarPanel::drawSelected(RenderWindow* window)
+void SolarPanel::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
 
 }

@@ -13,10 +13,10 @@ void Switch::update(Time dt)
 
 }
 
-void Switch::draw(RenderWindow * window)
+void Switch::draw(RenderWindow * window, std::vector<Texture>* textures)
 {
     if (selected) {
-        drawSelected(window);
+        drawSelected(window, textures);
     }
 
     RectangleShape switchShape;
@@ -27,7 +27,7 @@ void Switch::draw(RenderWindow * window)
 }
 
 
-void Switch::drawSelected(RenderWindow* window)
+void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
 
 }
