@@ -23,6 +23,11 @@ void SolarPanel::draw(RenderWindow* window)
     window->draw(switchShape);
 }
 
+void Heater::drawSelected(RenderWindow* window)
+{
+
+}
+
 float SolarPanel::getPowerForLine(Line* line)
 {
     return 10;

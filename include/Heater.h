@@ -15,6 +15,7 @@ class Heater : public Machine
         Heater(Vector2i coords);
         void update(Time dt);
         void draw(RenderWindow* window);
+        void drawSelected(RenderWindow* window);
         float getPowerForLine(Line* line);
     protected:
 };
