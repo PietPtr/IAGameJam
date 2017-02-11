@@ -23,6 +23,7 @@ class Game
 
         void fillRoutingPanel();
         void consoleLog(std::string text);
+        void determineSelectedConnection(Vector2i coords);
 
         int randint(int low, int high, int seed);
         int randint(int low, int high);

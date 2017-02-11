@@ -15,6 +15,10 @@ void Switch::update(Time dt)
 
 void Switch::draw(RenderWindow * window)
 {
+    if (selected) {
+        drawSelected(window);
+    }
+
     RectangleShape switchShape;
     switchShape.setSize(Vector2f(40, 40));
     switchShape.setPosition(coords.x * 40 + 20, coords.y * 40 + 20);
@@ -22,6 +26,11 @@ void Switch::draw(RenderWindow * window)
     window->draw(switchShape);
 }
 
+
+void Switch::drawSelected(RenderWindow* window)
+{
+
+}
 
 float Switch::getPowerForLine(Line * line)
 {
