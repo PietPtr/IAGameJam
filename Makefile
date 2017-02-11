@@ -3,7 +3,7 @@ VPATH = src
 CXXFLAG = --std=c++11 -I include -Ofast
 HEADERS = $(wildcard include/*.h)
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-OBJ = main.o Game.o Switch.o Line.o SolarPanel.o Battery.o Heater.o
+OBJ = main.o Game.o Switch.o Line.o SolarPanel.o Battery.o Heater.o CO2Remover.o Computer.o Dish.o Light.o WaterPurifier.o
 EXEC = game
 all : ll
 %.o : %.cpp
