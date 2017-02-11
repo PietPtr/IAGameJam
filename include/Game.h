@@ -52,7 +52,7 @@ class Game
 
         std::array<Line*, 57> lines;
         std::array<Switch*, 24> switches;
-        std::array<Machine*, 23> machines;
+        std::array<Machine*, 22> machines;
 
         std::string log = "";
 
