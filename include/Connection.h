@@ -13,6 +13,7 @@ class Connection
     public:
         virtual float getPowerForLine(Line* line) = 0;
         Vector2i getCoords() { return coords; }
+        float getPower() { return power; }
     protected:
         float power;
         Vector2i coords;

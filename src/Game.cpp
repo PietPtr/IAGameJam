@@ -76,7 +76,13 @@ void Game::draw()
         return;
     }
 
-    window->clear();
+    window->clear(Color(35, 35, 35));
+
+    if (drawString(window, log, Vector2f(497,342), &textures.at(0), Color(0, 200, 0), 47) > 33)
+    {
+        unsigned end = log.find('&');
+        log.erase(log.begin(), log.end() - (log.length() - end - 2));
+    }
 
     Sprite bgSprite;
     bgSprite.setTexture(textures.at(1));
@@ -96,12 +102,14 @@ void Game::draw()
         }
     }
 
-    if (drawString(window, log, Vector2f(497,342), &textures.at(0), Color(0, 200, 0), 47) > 33)
+    for (int i = 0; i < machines.size(); i++)
     {
-        unsigned end = log.find('&');
-        log.erase(log.begin(), log.end() - (log.length() - end - 2));
+        if (machines[i] != NULL)
+        {
+            //machines[i]->draw(window);
+        }
     }
-
+    
     window->display();
 }
 
@@ -196,7 +204,7 @@ void Game::fillRoutingPanel() {
             switchNumber++;
         }
     }
-    
+
     //Create vertical lines.
     for (int y = 0; y < 5; y++)
     {
@@ -220,7 +228,7 @@ void Game::fillRoutingPanel() {
             lineNumber++;
         }
     }
-    
+
     //Create last vertical lines connected with machines
     for (int x = 0; x < 4; x++)
     {
