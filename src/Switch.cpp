@@ -154,7 +154,7 @@ void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 
 }
 
-float Switch::getPowerForLine(Line * line)
+float Switch::getPowerForLine(Line* line)
 {
     if (portStates[line] == OUTPUT) {
         return powerPerLine;
@@ -175,7 +175,6 @@ void Switch::setPort(int id, PortState newState)
     {
         currentState = BROKEN;
     }
-    //if(newState == )
 }
 
 PortState Switch::getPortState(int id)
@@ -183,7 +182,7 @@ PortState Switch::getPortState(int id)
     return portStates[getLine(id)];
 }
 
-Line * Switch::getLine(int id)
+Line* Switch::getLine(int id)
 {
     int counter = 0;
     for (Line* l : ports)
@@ -205,8 +204,8 @@ void Switch::addLine(Line * line)
 {
     if (line != NULL)
     {
-        portStates[line] = CLOSED;
         ports.push_back(line);
+        portStates[line] = CLOSED;
     }
 }
 

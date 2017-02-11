@@ -348,13 +348,6 @@ void Game::fillRoutingPanel() {
         }
     }
 
-    //Create last vertical lines connected with machines
-    for (int x = 0; x < 4; x++)
-    {
-        lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 4 + 5 * 2), { switches[20 + x], machines[14 + x] });
-        lineNumber++;
-    }
-
     //Create horizontal lines.
     for (int y = 0; y < 5; y++)
     {
@@ -362,7 +355,7 @@ void Game::fillRoutingPanel() {
         {
             if (x == 0)
             {
-                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 6 + y * 2), { machines[8 + y], switches[4 + x] });
+                lines[lineNumber] = new Line(Vector2i(1, 6 + y * 2), { machines[8 + y], switches[4 * (y + 1)] });
             }
             if (x == 4)
             {
@@ -379,7 +372,7 @@ void Game::fillRoutingPanel() {
     //Create the 4 last lines from switch to bottom machines
     for (int x = 0; x < 4; x++)
     {
-        lines[lineNumber] = new Line(Vector2i(x * 2 + 2, 15), { switches[4 * 5 + x - 1], machines[17 + x] });
+        lines[lineNumber] = new Line(Vector2i(x * 2 + 2, 15), { switches[4 * 5 + x], machines[18 + x] });
         lineNumber++;
     }
 
@@ -418,7 +411,7 @@ void Game::fillRoutingPanel() {
     //Set lines for bottom machines
     for (int x = 0; x < 4; x++)
     {
-        machines[18 + x]->setLine(getLine(machines[18 + x]->getCoords().x, machines[18 + x]->getCoords().y + 1));
+        machines[18 + x]->setLine(getLine(machines[18 + x]->getCoords().x, machines[18 + x]->getCoords().y - 1));
     }
 
     //Set lines for right machines
