@@ -1,8 +1,10 @@
 #include <SFML/Graphics.hpp>
+
 #include "Game.h"
 #include "Battery.h"
 #include "Heater.h"
 #include "SolarPanel.h"
+#include "Connection.h"
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -86,9 +88,15 @@ void Game::update()
         consoleLog("PING");
     }
 
+    //Update lines
     for (int i = 0; i < lines.size(); i++)
     {
         lines[i]->update(dt);
+    }
+    //Update machines
+    for (int i = 0; i < machines.size(); i++)
+    {
+        machines[i]->update(dt);
     }
 
     frame++;
@@ -195,7 +203,6 @@ void Game::fillRoutingPanel() {
     //Create 4 batteries
     for (int x = 0; x < 4; x++)
     {
-        Battery* test = new Battery(Vector2i(0, 0));
         machines[machineNumber] = new Battery(Vector2i(2 + x * 2, 4));
         machineNumber++;
     }
@@ -207,14 +214,14 @@ void Game::fillRoutingPanel() {
         lineNumber++;
     }
 
+
+
     //3 lines, between the first 4 switches.
     for (int x = 0; x < 3; x++)
     {
         lines[lineNumber] = new Line(Vector2i(3 + x * 2, 2), { switches[x], switches[x+1] });
         lineNumber++;
     }
-
-
 
     //Create the left machines.
     for (int y = 0; y < 5; y++)
@@ -254,15 +261,10 @@ void Game::fillRoutingPanel() {
         {
             if (y == 0)
             {
-                //Switches to batteries
+                //Battery to switch
                 lines[lineNumber] = new Line(Vector2i(x * 2 + 2, 5 + y * 2), { switches[x], machines[x + 4] });
             }
-            if(y == 1)
-            {
-                //Batteries to switches
-                lines[lineNumber] = new Line(Vector2i(x * 2 + 2, 5 + y * 2), { machines[x + 4], switches[x+4]});
-            }
-            if (y > 1)
+            if (y > 0)
             {
                 //Switches to switches
                 lines[lineNumber] = new Line(Vector2i(x * 2 + 2, 5 + y * 2), { switches[x+y*4], switches[x + (y+1)*4] });
@@ -312,6 +314,13 @@ void Game::fillRoutingPanel() {
         switches[i]->addLine(getLine(switches[i]->getCoords().x + 1, switches[i]->getCoords().y));
         switches[i]->addLine(getLine(switches[i]->getCoords().x, switches[i]->getCoords().y - 1));
         switches[i]->addLine(getLine(switches[i]->getCoords().x, switches[i]->getCoords().y + 1));
+    }
+
+    //Set lines of the batteries
+    for (int x = 0; x < 4; x++)
+    {
+        machines[x + 4]->setLine(lines[4 + x]);
+        ((Battery*)machines[x + 4])->setOutputLine(lines[11 + x]);
     }
     std::cout << "Created world";
 }
