@@ -143,12 +143,14 @@ void Game::draw()
     bgSprite.setTexture(textures.at(1));
     window->draw(bgSprite);
 
+    //Draw all lines
     for (int i = 0; i < lines.size(); i++)
     {
         // coords where undefined and giving segfaults, uncomment when needed again
         lines[i]->draw(window);
     }
 
+    //Draw all switches.
     for (int i = 0; i < switches.size(); i++)
     {
         if (switches[i] != NULL)
@@ -157,6 +159,7 @@ void Game::draw()
         }
     }
 
+    //Draw all machines.
     for (int i = 0; i < machines.size(); i++)
     {
         if (machines[i] != NULL)
@@ -164,6 +167,9 @@ void Game::draw()
             machines[i]->draw(window, &textures);
         }
     }
+
+    //Draw temperature
+
 
     window->display();
 }
