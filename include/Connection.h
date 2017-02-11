@@ -19,7 +19,7 @@ class Connection
         float getPower() { return power; }
         void setSelected(bool selected) { this->selected = selected; }
     protected:
-        float power;
+        float power = 0;
         Vector2i coords;
         bool selected = false;
 };

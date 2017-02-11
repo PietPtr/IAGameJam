@@ -2,8 +2,15 @@
 
 #include "Game.h"
 #include "Machines/Battery.h"
-#include "Machines/Heater.h"
 #include "Machines/SolarPanel.h"
+
+#include "Machines/Heater.h"
+#include "Machines/CO2Remover.h"
+#include "Machines/Computer.h"
+#include "Machines/Dish.h"
+#include "Machines/Light.h"
+#include "Machines/WaterPurifier.h"
+
 #include "Connection.h"
 #include <iomanip>
 #include <iostream>
@@ -67,7 +74,7 @@ void Game::update()
                 Vector2i selectedCoord = Vector2i((int)(mousePos.x - 20) / 40,
                                                   (int)(mousePos.y - 20) / 40);
 
-                std::cout << selectedCoord.x << " " << selectedCoord.y << " \n";
+                // std::cout << selectedCoord.x << " " << selectedCoord.y << " \n";
 
                 if (selectedCoord.x < 10 && selectedCoord.y < 16)
                     determineSelectedConnection(selectedCoord);
@@ -174,13 +181,32 @@ void Game::draw()
         }
     }
 
-    //Draw temperature
-    Sprite temperatureSprite;
-    temperatureSprite.setTexture(textures.at(6));
-    temperatureSprite.setPosition(Vector2f(700, 23));
-    window->draw(temperatureSprite);
+    //Draw status
+    drawStatus();
+
+    Sprite scanLines(textures[7]);
+    window->draw(scanLines);
 
     window->display();
+}
+
+void Game::drawStatus()
+{
+    std::string tempStr = "TEMP:&   " + std::to_string((int)temperature) + " C";
+    drawString(window, tempStr, Vector2f(702, 24), &textures.at(0), Color(0, 200, 0), 100);
+
+    std::string co2Str = "CO2 LEVEL:&   " + std::to_string((int)co2) + " PPM";
+    drawString(window, co2Str, Vector2f(702, 48), &textures.at(0), Color(0, 200, 0), 100);
+
+    std::string timeStr = "MISSION TIME: &   " + getPrettyMissionTime();
+    drawString(window, timeStr, Vector2f(702, 72), &textures.at(0), Color(0, 200, 0), 100);
+
+    std::string linkStatus = "DOWN";
+    if (hasLink)
+        linkStatus = "UP";
+
+    std::string commStr = "COMM LINK: &   " + linkStatus;
+    drawString(window, commStr, Vector2f(702, 96), &textures.at(0), Color(0, 200, 0), 100);
 }
 
 bool Game::isWindowOpen()
@@ -263,21 +289,35 @@ void Game::fillRoutingPanel() {
     //Create the left machines.
     for (int y = 0; y < 5; y++)
     {
-        machines[machineNumber] = new Heater(Vector2i(0, 6 + y * 2));
+        if (y == 0)
+            machines[machineNumber] = new CO2Remover(Vector2i(0, 6 + y * 2));
+        else if (y == 1)
+            machines[machineNumber] = new Light(Vector2i(0, 6 + y * 2));
+        else
+            machines[machineNumber] = new Heater(Vector2i(0, 6 + y * 2));
+
         machineNumber++;
     }
 
     //Create the right machines.
     for (int y = 0; y < 5; y++)
     {
-        machines[machineNumber] = new Heater(Vector2i(10, 6 + y * 2));
+        if (y < 4)
+            machines[machineNumber] = new Computer(Vector2i(10, 6 + y * 2));
+        else
+            machines[machineNumber] = new WaterPurifier(Vector2i(10, 6 + y * 2));
+
         machineNumber++;
     }
 
     //Create the bottom machines.
     for (int x = 0; x < 4; x++)
     {
-        machines[machineNumber] = new Heater(Vector2i(x * 2 + 2, 16));
+        if (x == 0 || x == 3)
+            machines[machineNumber] = new Dish(Vector2i(x * 2 + 2, 16));
+        else
+            machines[machineNumber] = new CO2Remover(Vector2i(x * 2 + 2, 16));
+
         machineNumber++;
     }
 
