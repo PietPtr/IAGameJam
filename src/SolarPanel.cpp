@@ -4,10 +4,14 @@
 
 using namespace sf;
 
-SolarPanel::SolarPanel(Vector2i coords, Line* _line)
+SolarPanel::SolarPanel(Vector2i coords)
 {
     this->coords = coords;
-    line = _line;
+}
+
+void SolarPanel::setLine(Line * line)
+{
+    this->line = line;
 }
 
 void SolarPanel::update()

@@ -12,7 +12,8 @@ class Line;
 class SolarPanel : public Machine
 {
     public:
-        SolarPanel(Vector2i coords, Line* line);
+        SolarPanel(Vector2i coords);
+        void setLine(Line* line);
         void update();
         void draw(RenderWindow* window);
         float getPowerForLine(Line* line);

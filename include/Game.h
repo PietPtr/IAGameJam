@@ -39,7 +39,7 @@ class Game
 
         Clock clock;
         int frame = 0;
-        bool focus = false;
+        bool focus = true;
 
         int windowWidth = 1280;
         int windowHeight = 720;
@@ -52,7 +52,7 @@ class Game
 
         std::array<Line*, 58> lines;
         std::array<Switch*, 24> switches;
-        std::array<Machine*, 21> machines;
+        std::array<Machine*, 30> machines;
 
         std::string log = "";
 

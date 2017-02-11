@@ -6,8 +6,8 @@ using namespace sf;
 
 Line::Line(Vector2i coords, std::array<Connection*, 2> connections)
 {
-    this->connections = connections;
     this->coords = coords;
+    this->connections = connections;
 
     if (connections[0]->getCoords().x != coords.x && connections[0]->getCoords().y == coords.y) {
         orientation = HORIZONTAL;
@@ -38,7 +38,6 @@ void Line::draw(RenderWindow* window)
 
     RectangleShape wire;
     RectangleShape powerShape;
-
     if (orientation == HORIZONTAL)
     {
         std::cout << coords.x << "\n";
