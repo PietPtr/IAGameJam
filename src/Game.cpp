@@ -6,7 +6,7 @@
 
 using namespace sf;
 
-void drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine);
+int drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine);
 
 
 Game::Game(RenderWindow* _window)
@@ -51,6 +51,11 @@ void Game::update()
         }
     }
 
+    if (!focus)
+    {
+        return;
+    }
+
     dt = clock.restart();
     totalTime += dt;
     missionTime += dt * TIME_MULTIPLIER;
@@ -66,6 +71,11 @@ void Game::update()
 
 void Game::draw()
 {
+    if (!focus)
+    {
+        return;
+    }
+
     window->clear();
 
     Sprite bgSprite;
@@ -78,7 +88,11 @@ void Game::draw()
         //lines[i]->draw(window);
     }
 
-    drawString(window, log, Vector2f(498,341), &textures.at(0), Color(0, 200, 0), 47);
+    if (drawString(window, log, Vector2f(497,342), &textures.at(0), Color(0, 200, 0), 47) > 33)
+    {
+        unsigned end = log.find('&');
+        log.erase(log.begin(), log.end() - (log.length() - end - 2));
+    }
 
     window->display();
 }

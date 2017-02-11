@@ -24,9 +24,11 @@ int main()
 }
 
 // From: https://github.com/PietPtr/MiniLD59/blob/e3a48ab02b22124b886a0d8442a6ea8e8fe0d839/src/main.cpp
-void drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine)
+int drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine)
 {
     bool shouldStartNewLine = false;
+
+    int lines = 1;
 
     int drawY = position.y;
     int drawX = position.x;
@@ -65,6 +67,7 @@ void drawString(RenderWindow* window, std::string text, Vector2f position, Textu
         else if (num == 38)
         {
             shouldStartNewLine = true;
+            lines++;
             charSprite.setTextureRect(IntRect(66 * letterWidth, 0, letterWidth, letterHeight));
         }
         else
@@ -79,6 +82,7 @@ void drawString(RenderWindow* window, std::string text, Vector2f position, Textu
         if (newLine != -1 && charactersSinceNewline % newLine == 0 && i != 0)
         {
             shouldStartNewLine = true;
+            lines++;
         }
         if (shouldStartNewLine && num == 32)
         {
@@ -88,4 +92,5 @@ void drawString(RenderWindow* window, std::string text, Vector2f position, Textu
             charactersSinceNewline = 0;
         }
     }
+    return lines;
 }
