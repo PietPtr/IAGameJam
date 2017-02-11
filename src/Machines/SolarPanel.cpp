@@ -1,6 +1,6 @@
 #include "Line.h"
 #include <SFML/Graphics.hpp>
-#include "SolarPanel.h"
+#include "Machines/SolarPanel.h"
 
 using namespace sf;
 

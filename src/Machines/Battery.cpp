@@ -1,6 +1,6 @@
 #include "Line.h"
 #include <SFML/Graphics.hpp>
-#include "Battery.h"
+#include "Machines/Battery.h"
 
 using namespace sf;
 

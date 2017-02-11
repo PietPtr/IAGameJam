@@ -1,9 +1,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "Game.h"
-#include "Battery.h"
-#include "Heater.h"
-#include "SolarPanel.h"
+#include "Machines/Battery.h"
+#include "Machines/Heater.h"
+#include "Machines/SolarPanel.h"
 #include "Connection.h"
 #include <iomanip>
 #include <iostream>
