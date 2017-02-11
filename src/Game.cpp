@@ -88,6 +88,14 @@ void Game::draw()
         lines[i]->draw(window);
     }
 
+    for (int i = 0; i < switches.size(); i++)
+    {
+        if (switches[i] != NULL)
+        {
+            switches[i]->draw(window);
+        }
+    }
+
     if (drawString(window, log, Vector2f(497,342), &textures.at(0), Color(0, 200, 0), 47) > 33)
     {
         unsigned end = log.find('&');
@@ -133,49 +141,49 @@ void Game::fillRoutingPanel() {
     //Create 4 solar panels
     for (int x = 0; x < 4; x++)
     {
-        machines[machineNumber] = new SolarPanel(Vector2i(x, 0));
+        machines[machineNumber] = new SolarPanel(Vector2i(2 + x, 0));
         machineNumber++;
     }
 
     //First 4 switches
     for (int x = 0; x < 4; x++)
     {
-        switches[switchNumber] = new Switch(Vector2i(x*2, 2));
+        switches[switchNumber] = new Switch(Vector2i(2 + x * 2, 2));
         switchNumber++;
     }
 
     //First 4 lines.
     for (int x = 0; x < 4; x++)
     {
-        lines[lineNumber] = new Line(Vector2i(x * 2, 3), { machines[machineNumber - 1], switches[lineNumber]});
+        lines[lineNumber] = new Line(Vector2i(2 + x * 2, 3), { machines[x], switches[x]});
         lineNumber++;
     }
 
     //Create 4 batteries
     for (int x = 0; x < 4; x++)
     {
-        machines[machineNumber] = new SolarPanel(Vector2i(x, 4));
+        machines[machineNumber] = new SolarPanel(Vector2i(2 + x * 2, 4));
         machineNumber++;
     }
 
     //Create the left machines.
     for (int y = 0; y < 5; y++)
     {
-        machines[machineNumber] = new SolarPanel(Vector2i(2, 6 + y));
+        machines[machineNumber] = new SolarPanel(Vector2i(0, 6 + y * 2));
         machineNumber++;
     }
 
     //Create the right machines.
     for (int y = 0; y < 5; y++)
     {
-        machines[machineNumber] = new SolarPanel(Vector2i(10, 6 + y));
+        machines[machineNumber] = new SolarPanel(Vector2i(10, 6 + y * 2));
         machineNumber++;
     }
 
     //Create the bottom machines.
     for (int x = 0; x < 5; x++)
     {
-        machines[machineNumber] = new SolarPanel(Vector2i(16, x + 2));
+        machines[machineNumber] = new SolarPanel(Vector2i(16, x * 2 + 2));
         machineNumber++;
     }
 
@@ -184,7 +192,7 @@ void Game::fillRoutingPanel() {
     {
         for (int x = 0; x < 4; x++)
         {
-            switches[switchNumber] = new Switch(Vector2i(x * 2, y * 2 + 6));
+            switches[switchNumber] = new Switch(Vector2i(2 + x * 2, y * 2 + 6));
             switchNumber++;
         }
     }
@@ -197,17 +205,17 @@ void Game::fillRoutingPanel() {
             if (y == 0)
             {
                 //Switches to batteries
-                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 4 + y * 2), { switches[x], machines[x + 4] });
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 2, 5 + y * 2), { switches[x], machines[x + 4] });
             }
             if(y == 1)
             {
                 //Batteries to switches
-                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 4 + y * 2), { machines[x + 4], switches[x+4]});
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 2, 5 + y * 2), { machines[x + 4], switches[x+4]});
             }
             if (y > 1)
             {
                 //Switches to switches
-                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 4 + y * 2), { switches[x+y*4], switches[x + (y+1)*4] });
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 2, 5 + y * 2), { switches[x+y*4], switches[x + (y+1)*4] });
             }
             lineNumber++;
         }
@@ -227,15 +235,15 @@ void Game::fillRoutingPanel() {
         {
             if (x == 0)
             {
-                lines[lineNumber] = new Line(Vector2i(x * 2, 5 + y * 2), { machines[8 + y], switches[4 + x] });
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 6 + y * 2), { machines[8 + y], switches[4 + x] });
             }
             if (x == 4)
             {
-                lines[lineNumber] = new Line(Vector2i(x * 2, 5 + y * 2), { switches[4 * y + x - 1], machines[13 + y] });
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 6 + y * 2), { switches[4 * y + x - 1], machines[13 + y] });
             }
             if (x > 0 && x < 4)
             {
-                lines[lineNumber] = new Line(Vector2i(x * 2, 5 + y * 2), { switches[4 * y + x - 1], switches[4 * y + x]});
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 6 + y * 2), { switches[4 * y + x - 1], switches[4 * y + x]});
             }
             lineNumber++;
         }

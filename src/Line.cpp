@@ -49,7 +49,7 @@ void Line::draw(RenderWindow* window)
     }
     else if (orientation == VERTICAL)
     {
-        wire.setPosition(20 + coords.x * 40 + offset, coords.y * 40);
+        wire.setPosition(20 + coords.x * 40 + offset, 20 + coords.y * 40);
         wire.setSize(Vector2f(thickness * 2, 40));
 
         powerShape.setPosition(20 + coords.x * 40 + powerOffset, 20 + coords.y * 40);
