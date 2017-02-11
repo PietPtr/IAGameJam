@@ -15,6 +15,7 @@ class Battery : public Machine
         Battery(Vector2i coords);
         void update(Time dt);
         void draw(RenderWindow* window);
+        void drawSelected(RenderWindow* window);
         float getPowerForLine(Line* line);
         void setOutputLine(Line* line) { outputLine = line; };
     protected:

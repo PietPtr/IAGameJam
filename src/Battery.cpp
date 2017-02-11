@@ -26,6 +26,11 @@ void Battery::draw(RenderWindow* window)
     window->draw(switchShape);
 }
 
+void Battery::drawSelected(RenderWindow* window)
+{
+
+}
+
 float Battery::getPowerForLine(Line* line)
 {
     if (line == outputLine) {
