@@ -25,6 +25,8 @@ class Game
         void consoleLog(std::string text);
         void determineSelectedConnection(Vector2i coords);
 
+        void drawStatus();
+
         int randint(int low, int high, int seed);
         int randint(int low, int high);
 
@@ -47,7 +49,7 @@ class Game
 
         std::vector<std::string> audioFileNames { };
         std::vector<std::string> textureFileNames { "font.png", "bg.png", "switch.png", "buttonInput.png",
-            "buttonOutput.png", "buttonClose.png", "temperature.png"};
+            "buttonOutput.png", "buttonClose.png", "temperature.png", "scanlines.png"};
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
@@ -71,6 +73,8 @@ class Game
         float lights;
         /*If true we show the information panel*/
         bool showInfo;
+
+        bool hasLink = true;
 
         float waterPurifier;
 };

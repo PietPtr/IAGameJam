@@ -74,7 +74,7 @@ void Game::update()
                 Vector2i selectedCoord = Vector2i((int)(mousePos.x - 20) / 40,
                                                   (int)(mousePos.y - 20) / 40);
 
-                std::cout << selectedCoord.x << " " << selectedCoord.y << " \n";
+                // std::cout << selectedCoord.x << " " << selectedCoord.y << " \n";
 
                 if (selectedCoord.x < 10 && selectedCoord.y < 16)
                     determineSelectedConnection(selectedCoord);
@@ -181,13 +181,32 @@ void Game::draw()
         }
     }
 
-    //Draw temperature
-    Sprite temperatureSprite;
-    temperatureSprite.setTexture(textures.at(6));
-    temperatureSprite.setPosition(Vector2f(700, 23));
-    window->draw(temperatureSprite);
+    //Draw status
+    drawStatus();
+
+    Sprite scanLines(textures[7]);
+    window->draw(scanLines);
 
     window->display();
+}
+
+void Game::drawStatus()
+{
+    std::string tempStr = "TEMP:&   " + std::to_string((int)temperature) + " C";
+    drawString(window, tempStr, Vector2f(702, 24), &textures.at(0), Color(0, 200, 0), 100);
+
+    std::string co2Str = "CO2 LEVEL:&   " + std::to_string((int)co2) + " PPM";
+    drawString(window, co2Str, Vector2f(702, 48), &textures.at(0), Color(0, 200, 0), 100);
+
+    std::string timeStr = "MISSION TIME: &   " + getPrettyMissionTime();
+    drawString(window, timeStr, Vector2f(702, 72), &textures.at(0), Color(0, 200, 0), 100);
+
+    std::string linkStatus = "DOWN";
+    if (hasLink)
+        linkStatus = "UP";
+
+    std::string commStr = "COMM LINK: &   " + linkStatus;
+    drawString(window, commStr, Vector2f(702, 96), &textures.at(0), Color(0, 200, 0), 100);
 }
 
 bool Game::isWindowOpen()
