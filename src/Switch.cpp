@@ -8,7 +8,7 @@ Switch::Switch(Vector2i coords)
     this->coords = coords;
 }
 
-void Switch::update()
+void Switch::update(Time dt)
 {
 
 }

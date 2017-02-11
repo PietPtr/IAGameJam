@@ -15,7 +15,7 @@ class Line
 public:
     Line(Vector2i coords, std::array<Connection*, 2> switches);
     void draw(RenderWindow* window);
-    void update();
+    void update(Time dt);
     float getPower() { return power; }
 protected:
 private:

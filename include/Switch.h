@@ -19,7 +19,7 @@ class Switch : public Connection
     public:
         Switch(Vector2i coords);
         void draw(RenderWindow* window);
-        void update();
+        void update(Time dt);
 
         float getPowerForLine(Line* line);
         void setPort(int id, PortState newState);

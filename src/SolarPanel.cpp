@@ -14,7 +14,7 @@ void SolarPanel::setLine(Line * line)
     this->line = line;
 }
 
-void SolarPanel::update()
+void SolarPanel::update(Time dt)
 {
 
 }
