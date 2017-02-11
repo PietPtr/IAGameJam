@@ -84,7 +84,7 @@ void Game::draw()
     for (int i = 0; i < lines.size(); i++)
     {
         // coords where undefined and giving segfaults, uncomment when needed again
-        //lines[i]->draw(window);
+        lines[i]->draw(window);
     }
 
     if (drawString(window, log, Vector2f(497,342), &textures.at(0), Color(0, 200, 0), 47) > 33)
@@ -125,21 +125,27 @@ void Game::loadTextures(std::vector<std::string> textureFileNames)
 }
 
 void Game::fillRoutingPanel() {
-    int i = 0;
-    int j = 0;
+    int lineNumber = 0;
+    int switchNumber = 0;
+
+    //Create 4 solar panels
+    for (int x = 0; x < 4; x++)
+    {
+
+    }
 
     //First 4 switches
     for (int x = 0; x < 4; x++)
     {
-        switches[j] = new Switch(Vector2i(x*2, 1));
-        j++;
+        switches[switchNumber] = new Switch(Vector2i(x*2, 2));
+        switchNumber++;
     }
 
     //First 4 lines.
     for (int x = 0; x < 4; x++)
     {
-        lines[i] = new Line(Vector2i(x * 2, 2), {});
-        i++;
+        lines[lineNumber] = new Line(Vector2i(x * 2, 3), { switches[lineNumber], });
+        lineNumber++;
     }
 
     //Create vertical lines.
@@ -147,8 +153,8 @@ void Game::fillRoutingPanel() {
     {
         for (int x = 0; x < 4; x++)
         {
-            lines[i] = new Line(Vector2i(x * 2 + 1, 4 + y * 2), {});
-            i++;
+            lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 4 + y * 2), {});
+            lineNumber++;
         }
     }
 
@@ -157,8 +163,8 @@ void Game::fillRoutingPanel() {
     {
         for (int x = 0; x < 5; x++)
         {
-            lines[i] = new Line(Vector2i(x * 2, 5 + y * 2), {});
-            i++;
+            lines[lineNumber] = new Line(Vector2i(x * 2, 5 + y * 2), {});
+            lineNumber++;
         }
     }
 
@@ -167,8 +173,8 @@ void Game::fillRoutingPanel() {
     {
         for (int x = 0; x < 4; x++)
         {
-            switches[j] = new Switch(Vector2i(x * 2, y * 2 + 5));
-            j++;
+            switches[switchNumber] = new Switch(Vector2i(x * 2, y * 2 + 6));
+            switchNumber++;
         }
     }
 }
@@ -193,6 +199,11 @@ std::string Game::getPrettyMissionTime()
        << ((int)(missionTime.asSeconds()) % 60);
 
     return ss.str();
+}
+
+Line * Game::getLine(int x, int y)
+{
+    return nullptr;
 }
 
 int Game::randint(int low, int high)

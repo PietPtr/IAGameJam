@@ -53,5 +53,7 @@ class Game
         std::array<Switch*, 24> switches;
 
         std::string log = "";
+
+        Line* getLine(int x, int y);
 };
 #endif
