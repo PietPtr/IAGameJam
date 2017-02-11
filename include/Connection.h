@@ -2,7 +2,6 @@
 #define CONNECTION_H
 #pragma once
 #include "Audio.h"
-#include "Line.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -18,7 +17,9 @@ class Connection
         Vector2i getCoords() { return coords; }
         float getPower() { return power; }
         void setSelected(bool selected) { this->selected = selected; }
+        void drawPowerStatus(RenderWindow* window, std::vector<Texture>* textures);
     protected:
+
         float power = 0;
         Vector2i coords;
         bool selected = false;

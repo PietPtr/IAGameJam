@@ -1,10 +1,10 @@
 #include "Line.h"
 #include <SFML/Graphics.hpp>
 #include "Machines/CO2Remover.h"
+#include "Connection.h"
 
 using namespace sf;
 
-int drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine);
 
 CO2Remover::CO2Remover(Vector2i coords)
 {
@@ -40,9 +40,7 @@ void CO2Remover::drawSelected(RenderWindow* window, std::vector<Texture>* textur
     co2Sprite.setColor(Color(0, 0, 0));
     window->draw(co2Sprite);
 
-    // Draw thestatus text under the enlargment of the component
-    std::string powerStr = "POWER: " + std::to_string(power);
-    drawString(window, powerStr, Vector2f(502, 222), &textures->at(0), Color(0, 200, 0), 100);
+    drawPowerStatus(window, textures);
 }
 
 float CO2Remover::getPowerForLine(Line* line)

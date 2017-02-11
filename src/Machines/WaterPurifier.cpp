@@ -11,7 +11,9 @@ WaterPurifier::WaterPurifier(Vector2i coords)
 
 void WaterPurifier::update(Time dt)
 {
-
+    if (line != 0) {
+        this->power = line->getPower();
+    }
 }
 
 void WaterPurifier::draw(RenderWindow* window, std::vector<Texture>* textures)
@@ -29,7 +31,7 @@ void WaterPurifier::draw(RenderWindow* window, std::vector<Texture>* textures)
 
 void WaterPurifier::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
-
+    drawPowerStatus(window, textures);
 }
 
 float WaterPurifier::getPowerForLine(Line* line)

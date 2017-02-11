@@ -11,7 +11,9 @@ Light::Light(Vector2i coords)
 
 void Light::update(Time dt)
 {
-
+    if (line != 0) {
+        this->power = line->getPower();
+    }
 }
 
 void Light::draw(RenderWindow* window, std::vector<Texture>* textures)
@@ -29,7 +31,7 @@ void Light::draw(RenderWindow* window, std::vector<Texture>* textures)
 
 void Light::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
-
+    drawPowerStatus(window, textures);
 }
 
 float Light::getPowerForLine(Line* line)

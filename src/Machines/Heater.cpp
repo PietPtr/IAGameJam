@@ -31,7 +31,7 @@ void Heater::draw(RenderWindow* window, std::vector<Texture>* textures)
 
 void Heater::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
-
+    drawPowerStatus(window, textures);
 }
 
 float Heater::getPowerForLine(Line* line)

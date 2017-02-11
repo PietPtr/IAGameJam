@@ -32,6 +32,7 @@ void Dish::draw(RenderWindow* window, std::vector<Texture>* textures)
 void Dish::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
 
+    drawPowerStatus(window, textures);
 }
 
 float Dish::getPowerForLine(Line* line)
