@@ -36,6 +36,8 @@ void Line::draw(RenderWindow* window)
     float powerOffset = 20 - power / 5;
     float powerThickness = power / 5;
 
+    powerThickness = powerThickness < 1 && powerThickness > 0 ? 1 : powerThickness;
+
     RectangleShape wire;
     RectangleShape powerShape;
     if (orientation == HORIZONTAL)
