@@ -127,11 +127,13 @@ void Game::loadTextures(std::vector<std::string> textureFileNames)
 void Game::fillRoutingPanel() {
     int lineNumber = 0;
     int switchNumber = 0;
+    int machineNumber = 0;
 
     //Create 4 solar panels
     for (int x = 0; x < 4; x++)
     {
-
+        machines[machineNumber] = new Machine(Vector2i(x, 0));
+        machineNumber++;
     }
 
     //First 4 switches
@@ -144,28 +146,36 @@ void Game::fillRoutingPanel() {
     //First 4 lines.
     for (int x = 0; x < 4; x++)
     {
-        lines[lineNumber] = new Line(Vector2i(x * 2, 3), { switches[lineNumber], });
+        lines[lineNumber] = new Line(Vector2i(x * 2, 3), { machines[machineNumber], switches[lineNumber]});
         lineNumber++;
     }
 
-    //Create vertical lines.
-    for (int y = 0; y < 6; y++)
+    //Create 4 batteries
+    for (int x = 0; x < 4; x++)
     {
-        for (int x = 0; x < 4; x++)
-        {
-            lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 4 + y * 2), {});
-            lineNumber++;
-        }
+        machines[machineNumber] = new Machine(Vector2i(x, 4));
+        machineNumber++;
     }
 
-    //Create horizontal lines.
-    for (int y = 0; y < 6; y++)
+    //Create the left machines.
+    for (int y = 0; y < 5; y++)
     {
-        for (int x = 0; x < 5; x++)
-        {
-            lines[lineNumber] = new Line(Vector2i(x * 2, 5 + y * 2), {});
-            lineNumber++;
-        }
+        machines[machineNumber] = new Machine(Vector2i(2, 6 + y));
+        machineNumber++;
+    }
+
+    //Create the right machines.
+    for (int y = 0; y < 5; y++)
+    {
+        machines[machineNumber] = new Machine(Vector2i(10, 6 + y));
+        machineNumber++;
+    }
+
+    //Create the bottom machines.
+    for (int x = 0; x < 5; x++)
+    {
+        machines[machineNumber] = new Machine(Vector2i(16, x + 2));
+        machineNumber++;
     }
 
     //Create all other switches
@@ -177,6 +187,59 @@ void Game::fillRoutingPanel() {
             switchNumber++;
         }
     }
+    
+    //Create vertical lines.
+    for (int y = 0; y < 5; y++)
+    {
+        for (int x = 0; x < 4; x++)
+        {
+            if (y == 0)
+            {
+                //Switches to batteries
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 4 + y * 2), { switches[x], machines[x + 4] });
+            }
+            if(y == 1)
+            {
+                //Batteries to switches
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 4 + y * 2), { machines[x + 4], switches[x+4]});
+            }
+            if (y > 1)
+            {
+                //Switches to switches
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 4 + y * 2), { switches[x+y*4], switches[x + (y+1)*4] });
+            }
+            lineNumber++;
+        }
+    }
+    
+    //Create last vertical lines connected with machines
+    for (int x = 0; x < 4; x++)
+    {
+        lines[lineNumber] = new Line(Vector2i(x * 2 + 1, 4 + 5 * 2), { switches[21 + x], machines[14 + x] });
+        lineNumber++;
+    }
+
+    //Create horizontal lines.
+    for (int y = 0; y < 6; y++)
+    {
+        for (int x = 0; x < 5; x++)
+        {
+            if (x == 0)
+            {
+                lines[lineNumber] = new Line(Vector2i(x * 2, 5 + y * 2), { machines[8 + y], switches[4 + x + 1] });
+            }
+            if (x == 4)
+            {
+                lines[lineNumber] = new Line(Vector2i(x * 2, 5 + y * 2), { switches[4 * y + x], machines[13 + y] });
+            }
+            if (x > 0 && x < 4)
+            {
+                lines[lineNumber] = new Line(Vector2i(x * 2, 5 + y * 2), { switches[4 * y + x], switches[4 * y + x + 1]});
+            }
+            lineNumber++;
+        }
+    }
+    std::cout << "Created world";
 }
 
 void Game::consoleLog(std::string text)

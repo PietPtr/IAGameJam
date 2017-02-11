@@ -5,6 +5,7 @@
 #include "Audio.h"
 #include "Switch.h"
 #include "Line.h"
+#include "Machine.h"
 
 using namespace sf;
 
@@ -51,6 +52,7 @@ class Game
 
         std::array<Line*, 58> lines;
         std::array<Switch*, 24> switches;
+        std::array<Machine*, 21> machines;
 
         std::string log = "";
 
