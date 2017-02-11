@@ -67,6 +67,11 @@ void Game::update()
         consoleLog("PING");
     }
 
+    for (int i = 0; i < lines.size(); i++)
+    {
+        lines[i]->update(dt);
+    }
+
     frame++;
 }
 
@@ -168,6 +173,14 @@ void Game::fillRoutingPanel() {
         lineNumber++;
     }
 
+    //Create 4 batteries
+    for (int x = 0; x < 4; x++)
+    {
+        Battery* test = new Battery(Vector2i(0, 0));
+        machines[machineNumber] = new Battery(Vector2i(2 + x * 2, 4));
+        machineNumber++;
+    }
+
     //Second 4 lines, from switch to battery.
     for (int x = 0; x < 4; x++)
     {
@@ -182,13 +195,7 @@ void Game::fillRoutingPanel() {
         lineNumber++;
     }
 
-    //Create 4 batteries
-    for (int x = 0; x < 4; x++)
-    {
-        Battery* test = new Battery(Vector2i(0, 0));
-        machines[machineNumber] = new Battery(Vector2i(2 + x * 2, 4));
-        machineNumber++;
-    }
+
 
     //Create the left machines.
     for (int y = 0; y < 5; y++)
