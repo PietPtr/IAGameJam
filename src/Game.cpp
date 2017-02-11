@@ -263,6 +263,21 @@ void Game::fillRoutingPanel() {
             lineNumber++;
         }
     }
+
+    //Create the 4 last lines from switch to bottom machines
+    for (int x = 0; x < 4; x++)
+    {
+        lines[lineNumber] = new Line(Vector2i(x * 2 + 2, 15), { switches[4 * 5 + x - 1], machines[17 + x] });
+        lineNumber++;
+    }
+
+    for (int i = 0; i < switches.size(); i++)
+    {
+        switches[i]->addLine(getLine(switches[i]->getCoords().x - 1, switches[i]->getCoords().y));
+        switches[i]->addLine(getLine(switches[i]->getCoords().x + 1, switches[i]->getCoords().y));
+        switches[i]->addLine(getLine(switches[i]->getCoords().x, switches[i]->getCoords().y - 1));
+        switches[i]->addLine(getLine(switches[i]->getCoords().x, switches[i]->getCoords().y + 1));
+    }
     std::cout << "Created world";
 }
 
@@ -290,7 +305,19 @@ std::string Game::getPrettyMissionTime()
 
 Line * Game::getLine(int x, int y)
 {
-    return nullptr;
+    for (int i = 0; i < lines.size(); i++)
+    {
+        if (lines[i]->getCoords().x == x && lines[i]->getCoords().y == y)
+        {
+            return lines[i];
+        }
+    }
+    return NULL;
+}
+
+Line * Game::getLine(Vector2i coords)
+{
+    return getLine(coords.x, coords.y);
 }
 
 int Game::randint(int low, int high)

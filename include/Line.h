@@ -17,6 +17,7 @@ public:
     void draw(RenderWindow* window);
     void update(Time dt);
     float getPower() { return power; }
+    Vector2i getCoords() { return coords; };
 protected:
 private:
     Vector2i coords;

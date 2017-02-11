@@ -27,6 +27,7 @@ class Switch : public Connection
         Line* getLine(int id);
         /*Returns the state of this switch.*/
         SwitchState getState();
+        void addLine(Line* line);
     protected:
     private:
         float calculatePowerPerLine();
