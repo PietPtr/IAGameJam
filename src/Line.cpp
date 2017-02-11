@@ -27,8 +27,6 @@ void Line::update() {
         power = connections[0]->getPowerForLine(this) +
                 connections[1]->getPowerForLine(this);
     }
-
-
 }
 
 void Line::draw(RenderWindow* window)
