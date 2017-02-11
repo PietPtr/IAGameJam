@@ -34,7 +34,13 @@ Switch::Switch(Vector2i coords)
 
 void Switch::update(Time dt)
 {
+    powerPerLine = calculatePowerPerLine();
+    power = calculatePower();
 
+    if (power > MAX_POWER)
+    {
+        currentState = BROKEN;
+    }
 }
 
 void Switch::draw(RenderWindow * window, std::vector<Texture>* textures)
@@ -66,8 +72,6 @@ void Switch::draw(RenderWindow * window, std::vector<Texture>* textures)
 
 void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
-
-
     // port 0 top
     for (int i = 0; i < 3; i++)
     {
@@ -163,8 +167,6 @@ float Switch::getPowerForLine(Line * line)
 
 void Switch::setPort(int id, PortState newState)
 {
-    //std::cout << "setting port id=" << id << " to state " << newState << "\n";
-
     portStates[getLine(id)] = newState;
     powerPerLine = calculatePowerPerLine();
     power = calculatePower();
@@ -173,7 +175,7 @@ void Switch::setPort(int id, PortState newState)
     {
         currentState = BROKEN;
     }
-
+    //if(newState == )
 }
 
 PortState Switch::getPortState(int id)
