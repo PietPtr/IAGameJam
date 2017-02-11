@@ -21,6 +21,7 @@ class Battery : public Machine
     private:
         Line* outputLine;
         float charge;
+        float outPower = 5;
 };
 
 #endif

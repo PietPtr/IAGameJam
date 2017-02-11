@@ -12,7 +12,10 @@ Battery::Battery(Vector2i coords, Line* _line)
 
 void Battery::update(Time dt)
 {
+    charge += line->getPower() * dt.asSeconds();
+    charge -= outPower * dt.asSeconds();
 
+    
 }
 
 void Battery::draw(RenderWindow* window)
@@ -27,7 +30,7 @@ void Battery::draw(RenderWindow* window)
 float Battery::getPowerForLine(Line* line)
 {
     if (line == outputLine) {
-        return 5;
+        return outPower;
     }
     else
     {
