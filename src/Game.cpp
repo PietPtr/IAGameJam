@@ -308,6 +308,7 @@ void Game::fillRoutingPanel() {
         lineNumber++;
     }
 
+    //Set lines of all switches
     for (int i = 0; i < switches.size(); i++)
     {
         switches[i]->addLine(getLine(switches[i]->getCoords().x - 1, switches[i]->getCoords().y));
@@ -321,6 +322,12 @@ void Game::fillRoutingPanel() {
     {
         machines[x + 4]->setLine(lines[4 + x]);
         ((Battery*)machines[x + 4])->setOutputLine(lines[11 + x]);
+    }
+
+    //Set lines for all solarpanels
+    for (int x = 0; x < 4; x++)
+    {
+        machines[x]->setLine(lines[x]);
     }
     std::cout << "Created world";
 }
