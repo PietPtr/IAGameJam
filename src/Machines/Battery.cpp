@@ -11,7 +11,15 @@ Battery::Battery(Vector2i coords)
 
 void Battery::update(Time dt)
 {
-	outPower = (-DIFFERENCE/100.0) * (100 - charge / maxCharge * 100) + START_CHARGE;
+	if (broken)
+	{
+		outPower = 0;
+		power = 0;
+	}
+	else
+	{
+		outPower = (-DIFFERENCE/100.0) * (100 - charge / maxCharge * 100) + START_CHARGE;
+	}
 
 	charge += line->getPower() * dt.asSeconds();
 	if (charge > 0)
@@ -39,6 +47,9 @@ void Battery::draw(RenderWindow* window, std::vector<Texture>* textures)
 	unsigned int blue = charge / maxCharge * 255;
 	switchShape.setFillColor(Color(255 - blue, blue, 0));
 	window->draw(switchShape);
+
+    if (broken)
+        drawBroken(window, textures);
 }
 
 void Battery::drawSelected(RenderWindow* window, std::vector<Texture>* textures)

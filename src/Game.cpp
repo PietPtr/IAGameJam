@@ -129,11 +129,22 @@ void Game::update()
 
     if (state == GAME)
     {
+        std::array<String, 8> machineStrings = { "HEATER", "SOLAR PANEL",
+            "BATTERY", "WATER PURIFIER", "CO2REMOVER", "COMPUTER", "DISH", "LIGHT" };
+
         bool isOneDishWithPower = false;
         //Update machines
         for (int i = 0; i < machines.size(); i++)
         {
-            machines[i]->update(dt);
+            if (!machines[i]->isBroken())
+            {
+                if (randint(0, 10000) == 0)
+                {
+                    machines[i]->setBroken(true);
+                    consoleLog("SYSTEM: " + machineStrings[machines[i]->getMachineType()] + " BROKE DOWN");
+                }
+                machines[i]->update(dt);
+            }
 
             switch (machines[i]->getMachineType())
             {

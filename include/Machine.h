@@ -3,6 +3,7 @@
 #pragma once
 #include "Audio.h"
 #include "Line.h"
+#include "Connection.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -20,8 +21,12 @@ class Machine : public Connection
         virtual MachineType getMachineType() = 0;
         void setLine(Line* line) { this->line = line; }
         void drawType(RenderWindow* window, std::vector<Texture>* textures, MachineType type);
+        void drawBroken(RenderWindow* window, std::vector<Texture>* textures);
+        void setBroken(bool broken) { this->broken = broken; }
+        bool isBroken() { return broken; }
     protected:
         Line* line;
+        bool broken = false;
 };
 
 #endif

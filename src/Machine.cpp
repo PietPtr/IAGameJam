@@ -15,3 +15,10 @@ void Machine::drawType(RenderWindow* window, std::vector<Texture>* textures, Mac
     std::string typeStr = "TYPE: " + machineStrings[type];
     drawString(window, typeStr, Vector2f(502, 222), &textures->at(0), Color(0, 200, 0), 100);
 }
+
+void Machine::drawBroken(RenderWindow* window, std::vector<Texture>* textures)
+{
+    Sprite broken(textures->at(9));
+    broken.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
+    window->draw(broken);
+}
