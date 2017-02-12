@@ -18,7 +18,10 @@ class Heater : public Machine
         void drawSelected(RenderWindow* window, std::vector<Texture>* textures);
         float getPowerForLine(Line* line);
         MachineType getMachineType();
+        float getHeatOutput(Time dt) { return HEAT_PRODUCTION_MULTIPLIER * power * dt.asSeconds(); }
     protected:
+    private:
+        const float HEAT_PRODUCTION_MULTIPLIER = 0.01;
 };
 
 #endif

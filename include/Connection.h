@@ -7,6 +7,9 @@
 
 class Line;
 
+int drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine);
+std::string floatToString(float value, int precision);
+
 class Connection
 {
     public:

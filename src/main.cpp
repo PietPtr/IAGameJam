@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
 #include <iostream>
+#include <iomanip> // setprecision
+#include <sstream> // stringstream
 
 using namespace sf;
 int main()
@@ -94,4 +96,12 @@ int drawString(RenderWindow* window, std::string text, Vector2f position, Textur
         }
     }
     return lines;
+}
+
+std::string floatToString(float value, int precision)
+{
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(precision) << value;
+    std::string valueStr = stream.str();
+    return valueStr;
 }

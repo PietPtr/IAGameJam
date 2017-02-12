@@ -122,6 +122,8 @@ void Game::update()
         case BATTERY:
             break;
         case HEATER:
+            //temperature += ((Heater*)(machines[i]))->getHeatOutput(missiondt);
+            std::cout << ((Heater*)(machines[i]))->getHeatOutput(missiondt) << "\n";
             break;
         case CO2REMOVER:
             co2 -= ((CO2Remover*)(machines[i]))->getRemovedCO2(missiondt);
@@ -135,6 +137,7 @@ void Game::update()
     //temperature += (newTemperature - temperature)*dt.asSeconds();
 
     co2 += co2PerSecond * missiondt.asSeconds();
+    temperature -= heatLeakage * missiondt.asSeconds();
 
     frame++;
 }

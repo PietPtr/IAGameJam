@@ -75,8 +75,8 @@ class Game
         bool hasLink = true;
         float waterPurifier;
 
-        // production variables
+        // production/consuming variables
         float co2PerSecond = 4; // ppm per second
-
+        float heatLeakage = 0.01;  // degree per second
 };
 #endif

@@ -154,7 +154,7 @@ void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
     switchSprite.setPosition(Vector2f(500, 20));
     window->draw(switchSprite);
 
-    std::string infoStr = "TYPE: SWITCH& & CONFIGURE THIS SWITCH WITH THE BUTTONS ON ITS FOR SIDES TO BUILD YOUR POWER NETWORK";
+    std::string infoStr = "TYPE: SWITCH& & CONFIGURE THIS SWITCH WITH THE BUTTONS ON ITS FOUR SIDES TO BUILD YOUR POWER NETWORK";
     drawString(window, infoStr, Vector2f(502, 222), &textures->at(0), Color(0, 200, 0), 20);
 
 }

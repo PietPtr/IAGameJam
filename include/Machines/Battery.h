@@ -23,10 +23,12 @@ class Battery : public Machine
     private:
         Line* outputLine;
         /*Current charge of this battery.*/
-        float charge = 50000;
+        float charge = 500;
         /*Loses 5 power per second.*/
         float outPower = 10;
-        float maxPower = 75000;
+        float maxCharge = 750;
+        const float START_CHARGE = 20;
+        const float DIFFERENCE = 5;
 };
 
 #endif
