@@ -23,6 +23,7 @@ void Battery::update(Time dt)
 			(START_CHARGE - powerDampening);
 	}
 	outPower = outPower < 0 ? 0 : outPower;
+    outPower = outPower > 40 ? 40 : outPower;
 
 	charge += line->getPower() * dt.asSeconds();
 	if (charge > 0)
