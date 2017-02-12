@@ -15,6 +15,7 @@ class Game
 {
     public:
         Game(RenderWindow* window);
+        static Game* gameInstance;
         void initialize();
         void update();
         void draw();

@@ -20,8 +20,11 @@ using namespace sf;
 
 int drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine);
 
+Game* Game::gameInstance;
+
 Game::Game(RenderWindow* _window)
 {
+    Game::gameInstance = this;
     window = _window;
 }
 
