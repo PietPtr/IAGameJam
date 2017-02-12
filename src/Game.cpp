@@ -200,11 +200,21 @@ void Game::update()
         temperature -= temperatureDecrease;
     }
 
-    if (temperature > 70 || temperature < -40 || co2 > 50000)
+    if (temperature > 70)
     {
         state = GAMEOVER;
+        gameOverReason = "You burned to death...";
+    } 
+    else if (temperature < -40)
+    {
+        state = GAMEOVER;
+        gameOverReason = "You frooze to death...";
     }
-
+    else if (co2 > 50000)
+    {
+        state = GAMEOVER;
+        gameOverReason = "You suffocate to death...";
+    }
 
     frame++;
 }
@@ -269,11 +279,12 @@ void Game::draw()
         Sprite infoOverlay(textures[7]);
         window->draw(infoOverlay);
     }
-
     if (state == GAMEOVER)
     {
         Sprite gameover(textures[8]);
         window->draw(gameover);
+
+        drawString(window, "Reason: " + gameOverReason, Vector2f(380, 600), &textures.at(0), Color(0,200,0), 100);
     }
 
     window->display();
