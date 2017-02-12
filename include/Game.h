@@ -35,6 +35,8 @@ class Game
 
         std::string getPrettyMissionTime();
         std::string getHoustonStatusMessage();
+
+        bool hasActiveComputer() { return activeComputer; }
     protected:
     private:
         RenderWindow* window;
@@ -77,14 +79,13 @@ class Game
         float co2 = 402; // ppm
         float temperature = 18; // C
         float lights;
-        bool showInfo = true;
-        bool hasLink = true;
+        bool activeComputer = false;
+        bool hasLink = false;
         float waterPurifier;
 
         // production/consuming variables
         float co2PerSecond = 4; // ppm per second
         float heatLeakage = 0.01;  // degree per second
-
 
         bool warnedTempHigh = false;
         bool warnedCO2 = false;
