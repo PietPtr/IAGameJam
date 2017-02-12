@@ -384,7 +384,7 @@ void Game::fillRoutingPanel() {
             if (y == 0)
             {
                 //Battery to switch
-                lines[lineNumber] = new Line(Vector2i(x * 2 + 2, 5 + y * 2), { switches[x], machines[x + 4] });
+                lines[lineNumber] = new Line(Vector2i(x * 2 + 2, 5 + y * 2), { switches[x + 4], machines[x + 4] });
             }
             if (y > 0)
             {
@@ -423,18 +423,6 @@ void Game::fillRoutingPanel() {
         lineNumber++;
     }
 
-    //Set lines of all switches
-    for (int i = 0; i < switches.size(); i++)
-    {
-        //Top
-        switches[i]->addLine(getLine(switches[i]->getCoords().x, switches[i]->getCoords().y - 1));
-        //Right
-        switches[i]->addLine(getLine(switches[i]->getCoords().x + 1, switches[i]->getCoords().y));
-        //Bottom
-        switches[i]->addLine(getLine(switches[i]->getCoords().x, switches[i]->getCoords().y + 1));
-        //Left
-        switches[i]->addLine(getLine(switches[i]->getCoords().x - 1, switches[i]->getCoords().y));
-    }
 
     //Set lines of the batteries
     for (int x = 0; x < 4; x++)
@@ -465,6 +453,31 @@ void Game::fillRoutingPanel() {
     for (int y = 0; y < 5; y++)
     {
         machines[13 + y]->setLine(getLine(machines[12 + y]->getCoords().x - 1, machines[12 + y]->getCoords().y));
+    }
+
+    //Create 2 lines and 2 solarpanels at the third row.
+    machines[machineNumber] = new SolarPanel(Vector2i(0, 2));
+    lines[lineNumber] = new Line(Vector2i(1, 2), { machines[machineNumber], switches[0] });
+    machines[machineNumber]->setLine(lines[lineNumber]);
+    machineNumber++;
+    lineNumber++;
+    machines[machineNumber] = new SolarPanel(Vector2i(10, 2));
+    lines[lineNumber] = new Line(Vector2i(9, 2), { switches[3], machines[machineNumber] });
+    machines[machineNumber]->setLine(lines[lineNumber]);
+    machineNumber++;
+    lineNumber++;
+
+    //Set lines of all switches
+    for (int i = 0; i < switches.size(); i++)
+    {
+        //Top
+        switches[i]->addLine(getLine(switches[i]->getCoords().x, switches[i]->getCoords().y - 1));
+        //Right
+        switches[i]->addLine(getLine(switches[i]->getCoords().x + 1, switches[i]->getCoords().y));
+        //Bottom
+        switches[i]->addLine(getLine(switches[i]->getCoords().x, switches[i]->getCoords().y + 1));
+        //Left
+        switches[i]->addLine(getLine(switches[i]->getCoords().x - 1, switches[i]->getCoords().y));
     }
 
     std::cout << "Created world\n";
@@ -554,7 +567,7 @@ Line * Game::getLine(int x, int y)
 {
     for (int i = 0; i < lines.size(); i++)
     {
-        if (lines[i]->getCoords().x == x && lines[i]->getCoords().y == y)
+        if (lines[i] != NULL && lines[i]->getCoords().x == x && lines[i]->getCoords().y == y)
         {
             return lines[i];
         }

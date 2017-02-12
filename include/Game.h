@@ -60,9 +60,9 @@ class Game
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
 
-        std::array<Line*, 60> lines;
+        std::array<Line*, 62> lines;
         std::array<Switch*, 24> switches;
-        std::array<Machine*, 22> machines;
+        std::array<Machine*, 24> machines;
 
         std::string log = "";
 
