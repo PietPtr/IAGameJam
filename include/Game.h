@@ -62,7 +62,7 @@ class Game
             "buttonOutput.png", "buttonClose.png", "scanlines.png", "info.png", "gameover.png", "broken.png",       //4-9
             "Battery.png", "co2Remover.png", "ComputerOn.png", "ComputerOff.png", "light.png", "Heater.png",        //10-15
             "dish.png", "SolarPanel.png", "SolarPanelOff.png", "WaterPurifier.png", "switchSmall.png",              //16-20
-            "batteryBig.png"};   //21
+            "batteryBig.png", "effectOverlay.png"};   //21 - 22
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;

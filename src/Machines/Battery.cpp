@@ -39,20 +39,20 @@ void Battery::update(Time dt)
 
 void Battery::draw(RenderWindow* window, std::vector<Texture>* textures)
 {
-	if (selected && Mouse::isButtonPressed(Mouse::Left))
-	{
-		if (increaseButton.contains(Mouse::getPosition(*window)))
-		{
-			powerDampening -= 0.1;
+    if (selected && Mouse::isButtonPressed(Mouse::Left))
+    {
+        if (increaseButton.contains(Mouse::getPosition(*window)))
+        {
+            powerDampening -= 0.1;
 
-		}
-		if (decreaseButton.contains(Mouse::getPosition(*window)))
-		{
-			powerDampening += 0.1;
-		}
-	}
+        }
+        if (decreaseButton.contains(Mouse::getPosition(*window)))
+        {
+            powerDampening += 0.1;
+        }
+    }
 
-	powerDampening = powerDampening > START_CHARGE ? START_CHARGE : powerDampening;
+    powerDampening = powerDampening > START_CHARGE ? START_CHARGE : powerDampening;
 
     if (selected) {
         drawSelected(window, textures);
@@ -93,9 +93,9 @@ void Battery::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
     switchShape.setFillColor(Color(255 - blue, blue, 0));
     window->draw(switchShape);
 
-	Sprite sprite(textures->at(21));
-	sprite.setPosition(500, 20);
-	window->draw(sprite);
+    Sprite sprite(textures->at(21));
+    sprite.setPosition(500, 20);
+    window->draw(sprite);
 
 }
 
