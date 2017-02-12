@@ -328,8 +328,19 @@ void Game::draw()
     }
 
     Sprite effectOverlay(textures[22]);
-    effectOverlay.setColor(Color(255, 255, 255, 0));
-    window->draw(effectOverlay);
+    if (temperature < 0)
+    {
+        effectOverlay.setColor(Color(0, 0, 255, 150));
+        window->draw(effectOverlay);
+    }
+    else
+    {
+        if (temperature > 50)
+        {
+            effectOverlay.setColor(Color(255, 0, 0, 150));
+            window->draw(effectOverlay);
+        }
+    }
 
     window->display();
 }
