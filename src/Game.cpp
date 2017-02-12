@@ -67,16 +67,19 @@ void Game::update()
             Vector2f mousePos = Vector2f(event.mouseButton.x,
                                          event.mouseButton.y);
 
-            if (event.mouseButton.button == Mouse::Left)
+            if (state == GAME || state == START)
             {
+                if (event.mouseButton.button == Mouse::Left)
+                {
 
-                Vector2i selectedCoord = Vector2i((int)(mousePos.x - 20) / 40,
-                                                  (int)(mousePos.y - 20) / 40);
+                    Vector2i selectedCoord = Vector2i((int)(mousePos.x - 20) / 40,
+                                                      (int)(mousePos.y - 20) / 40);
 
-                // std::cout << selectedCoord.x << " " << selectedCoord.y << " \n";
+                    // std::cout << selectedCoord.x << " " << selectedCoord.y << " \n";
 
-                if (selectedCoord.x < 11 && selectedCoord.y < 17)
-                    determineSelectedConnection(selectedCoord);
+                    if (selectedCoord.x < 11 && selectedCoord.y < 17)
+                        determineSelectedConnection(selectedCoord);
+                }
             }
 
             if (state == START && mousePos.x > 500 && mousePos.y > 340)
@@ -106,21 +109,25 @@ void Game::update()
     }
 
     //Update lines
-    for (int i = 0; i < lines.size(); i++)
+    if (state == GAME || state == START)
     {
-        lines[i]->update(dt);
-    }
+        for (int i = 0; i < lines.size(); i++)
+        {
+            lines[i]->update(dt);
+        }
 
-    for (int i = 0; i < switches.size(); i++)
-    {
-        switches[i]->update(dt);
+        for (int i = 0; i < switches.size(); i++)
+        {
+            switches[i]->update(dt);
+        }
     }
 
     float newTemperature = 0;
 
-    std::cout << (state == GAME) << "\n";
     if (state == GAME)
     {
+        bool isOneDishWithPower = false;
+
         //Update machines
         for (int i = 0; i < machines.size(); i++)
         {
@@ -139,6 +146,12 @@ void Game::update()
                 co2 -= ((CO2Remover*)(machines[i]))->getRemovedCO2(missiondt);
                 co2 = co2 < 0 ? 0 : co2;
                 break;
+            case DISH:
+                if (((Dish*)(machines[i]))->getPower() > 0)
+                {
+                    isOneDishWithPower = true;
+
+                }
             default:
                 break;
             }
@@ -148,6 +161,11 @@ void Game::update()
 
         co2 += co2PerSecond * missiondt.asSeconds();
         temperature -= heatLeakage * missiondt.asSeconds();
+    }
+
+    if (temperature > 70 || temperature < -40 || co2 > 50000)
+    {
+        state = GAMEOVER;
     }
 
 
@@ -204,9 +222,16 @@ void Game::draw()
     Sprite scanLines(textures[6]);
     window->draw(scanLines);
 
-    if (state == START) {
+    if (state == START)
+    {
         Sprite infoOverlay(textures[7]);
         window->draw(infoOverlay);
+    }
+
+    if (state == GAMEOVER)
+    {
+        Sprite gameover(textures[8]);
+        window->draw(gameover);
     }
 
     window->display();
