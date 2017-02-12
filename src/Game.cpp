@@ -197,7 +197,6 @@ void Game::update()
             {
                 if (!machines[i]->isBroken())
                 {
-                    std::cout << machines[i]->getPower() << std::endl;
                     lights += machines[i]->getPower();
                 }
                 break;
@@ -330,14 +329,16 @@ void Game::draw()
     Sprite effectOverlay(textures[22]);
     if (temperature < 0)
     {
-        effectOverlay.setColor(Color(0, 0, 255, 150));
+        int alpha = 80 - temperature * 3;
+        effectOverlay.setColor(Color(0, 0, 255, alpha < 200 ? alpha : 200));
         window->draw(effectOverlay);
     }
     else
     {
         if (temperature > 50)
         {
-            effectOverlay.setColor(Color(255, 0, 0, 150));
+            int alpha = 100 + temperature;
+            effectOverlay.setColor(Color(255, 0, 0, alpha < 200 ? alpha : 200));
             window->draw(effectOverlay);
         }
     }
