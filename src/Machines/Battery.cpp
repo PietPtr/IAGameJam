@@ -68,7 +68,15 @@ void Battery::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 	    drawString(window, outInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
 	}
 
-	drawLargeMachine(window, textures, )
+	RectangleShape switchShape;
+	switchShape.setSize(Vector2f(18, charge / maxCharge * 32));
+	switchShape.setScale(Vector2f(4, -4));
+	switchShape.setPosition(544, 156);
+	unsigned int blue = charge / maxCharge * 255;
+	switchShape.setFillColor(Color(255 - blue, blue, 0));
+	window->draw(switchShape);
+
+	drawLargeMachine(window, textures, 10);
 
 }
 
