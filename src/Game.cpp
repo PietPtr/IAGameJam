@@ -133,6 +133,8 @@ void Game::update()
             "BATTERY", "WATER PURIFIER", "CO2REMOVER", "COMPUTER", "DISH", "LIGHT" };
 
         bool isOneDishWithPower = false;
+        bool isOneComputerWithPower = false;
+
         //Update machines
         for (int i = 0; i < machines.size(); i++)
         {
@@ -163,14 +165,27 @@ void Game::update()
                 if (((Dish*)(machines[i]))->getPower() > 0)
                 {
                     isOneDishWithPower = true;
-
                 }
+            case COMPUTER:
+                if (((Computer*)(machines[i]))->getPower() > 0)
+                {
+                    isOneComputerWithPower = true;
+                }
+                break;
             default:
                 break;
             }
         }
-        //Go to the new temperature.
-        //temperature += (newTemperature - temperature)*dt.asSeconds();
+        if (isOneDishWithPower)
+            hasLink = true;
+        else
+            hasLink = false;
+
+        if (isOneComputerWithPower)
+            activeComputer = true;
+        else
+            activeComputer = false;
+
 
         co2 += co2PerSecond * missiondt.asSeconds();
         float temperatureDecrease = heatLeakage * missiondt.asSeconds();
@@ -239,7 +254,8 @@ void Game::draw()
     }
 
     //Draw status
-    drawStatus();
+    if (activeComputer)
+        drawStatus();
 
     Sprite scanLines(textures[6]);
     window->draw(scanLines);
@@ -261,21 +277,35 @@ void Game::draw()
 
 void Game::drawStatus()
 {
+    Color tempColor(0, 200, 0);
+    if (temperature > 45)
+        tempColor = Color(255, 0, 0);
+    if (temperature < 0)
+        tempColor = Color(100, 100, 255);
+
     std::string tempStr = "TEMP:&   " + std::to_string((int)temperature) + " C";
-    drawString(window, tempStr, Vector2f(702, 24), &textures.at(0), Color(0, 200, 0), 100);
+    drawString(window, tempStr, Vector2f(702, 24), &textures.at(0), tempColor, 100);
+
+    Color co2Color(0, 200, 0);
+    if (co2 > 20000)
+        co2Color = Color(255, 0, 0);
 
     std::string co2Str = "CO2 LEVEL:&   " + std::to_string((int)co2) + " PPM";
-    drawString(window, co2Str, Vector2f(702, 48), &textures.at(0), Color(0, 200, 0), 100);
+    drawString(window, co2Str, Vector2f(702, 48), &textures.at(0), co2Color, 100);
 
     std::string timeStr = "MISSION TIME: &   " + getPrettyMissionTime();
     drawString(window, timeStr, Vector2f(702, 72), &textures.at(0), Color(0, 200, 0), 100);
 
     std::string linkStatus = "DOWN";
+    Color linkColor(255, 0, 0);
     if (hasLink)
+    {
         linkStatus = "UP";
+        linkColor = Color(0, 200, 0);
+    }
 
     std::string commStr = "COMM LINK: &   " + linkStatus;
-    drawString(window, commStr, Vector2f(702, 96), &textures.at(0), Color(0, 200, 0), 100);
+    drawString(window, commStr, Vector2f(702, 96), &textures.at(0), linkColor, 100);
 }
 
 bool Game::isWindowOpen()
@@ -557,6 +587,8 @@ std::string Game::getPrettyMissionTime()
 
 std::string Game::getHoustonStatusMessage()
 {
+    if (!hasLink)
+        return "NONE";
 
     if (temperature > 35 && !warnedTempHigh)
     {
