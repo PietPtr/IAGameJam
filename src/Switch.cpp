@@ -174,7 +174,12 @@ float Switch::getPowerForLine(Line* line)
 
 void Switch::setPort(int id, PortState newState)
 {
-    portStates[getLine(id)] = newState;
+    Line* l = getLine(id);
+    if (portStates.find(l) == portStates.end())
+    {
+        return;
+    }
+    portStates[l] = newState;
     powerPerLine = calculatePowerPerLine();
     power = calculatePower();
 
