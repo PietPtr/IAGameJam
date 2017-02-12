@@ -96,6 +96,7 @@ void Game::update()
                 state = START;
                 temperature = 18;
                 co2 = 402;
+                missionTime = seconds(65536);
                 initialize();
                 return;
             }
