@@ -27,6 +27,10 @@ void Dish::draw(RenderWindow* window, std::vector<Texture>* textures)
     switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
     switchShape.setFillColor(Color(255, 255, 255));
     window->draw(switchShape);
+
+
+    if (broken)
+        drawBroken(window, textures);
 }
 
 void Dish::drawSelected(RenderWindow* window, std::vector<Texture>* textures)

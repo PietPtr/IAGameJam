@@ -27,6 +27,10 @@ void Computer::draw(RenderWindow* window, std::vector<Texture>* textures)
     switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
     switchShape.setFillColor(Color(0, 255, 0));
     window->draw(switchShape);
+
+
+    if (broken)
+        drawBroken(window, textures);
 }
 
 void Computer::drawSelected(RenderWindow* window, std::vector<Texture>* textures)

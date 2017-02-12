@@ -25,6 +25,10 @@ void SolarPanel::draw(RenderWindow* window, std::vector<Texture>* textures)
     switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
     switchShape.setFillColor(Color(20, 20, 150));
     window->draw(switchShape);
+
+
+    if (broken)
+        drawBroken(window, textures);
 }
 
 void SolarPanel::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
@@ -35,6 +39,8 @@ void SolarPanel::drawSelected(RenderWindow* window, std::vector<Texture>* textur
 
 float SolarPanel::getPowerForLine(Line* line)
 {
+    if (broken)
+        return 0;
     return 10;
 }
 

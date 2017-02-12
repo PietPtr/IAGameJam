@@ -12,7 +12,7 @@ ll : $(OBJ) $(HEADERS)
 	$(CC) -o $(EXEC) $(OBJ) $(LIBS)
 .PHONY : clean
 clean :
-	rm $(EXEC) $(OBJ)
+	-rm $(EXEC) $(OBJ)
 
 run : ll
 	./game

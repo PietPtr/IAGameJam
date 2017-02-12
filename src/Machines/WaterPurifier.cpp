@@ -27,6 +27,9 @@ void WaterPurifier::draw(RenderWindow* window, std::vector<Texture>* textures)
     switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
     switchShape.setFillColor(Color(50, 50, 255));
     window->draw(switchShape);
+
+    if (broken)
+        drawBroken(window, textures);
 }
 
 void WaterPurifier::drawSelected(RenderWindow* window, std::vector<Texture>* textures)

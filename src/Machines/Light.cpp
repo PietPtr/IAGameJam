@@ -27,6 +27,9 @@ void Light::draw(RenderWindow* window, std::vector<Texture>* textures)
     switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
     switchShape.setFillColor(Color(255, 255, 0));
     window->draw(switchShape);
+
+    if (broken)
+        drawBroken(window, textures);
 }
 
 void Light::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
