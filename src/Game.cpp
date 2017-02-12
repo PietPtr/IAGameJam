@@ -145,6 +145,7 @@ void Game::update()
 
         bool isOneDishWithPower = false;
         bool isOneComputerWithPower = false;
+        lights = false;
 
         //Update machines
         for (int i = 0; i < machines.size(); i++)
@@ -183,6 +184,14 @@ void Game::update()
                     isOneComputerWithPower = true;
                 }
                 break;
+            case LIGHT:
+            {
+                if (!machines[i]->isBroken() && machines[i]->getPower() > 0)
+                {
+                    lights = true;
+                }
+                break;
+            }
             default:
                 break;
             }
@@ -239,6 +248,21 @@ void Game::draw()
 
     window->clear(Color(35, 35, 35));
 
+
+    Sprite bgSprite;
+    bgSprite.setTexture(textures.at(1));
+    window->draw(bgSprite);
+
+    if (!lights)
+    {
+        RectangleShape lightOverlay;
+        lightOverlay.setSize(Vector2f(856, 720));
+        lightOverlay.setScale(Vector2f(1, 1));
+        lightOverlay.setPosition(0, 0);
+        lightOverlay.setFillColor(Color(0, 0, 0, 200));
+        window->draw(lightOverlay);
+    }
+
     if (hasActiveComputer())
     {
         if (drawString(window, log, Vector2f(497,344), &textures.at(0), Color(0, 200, 0), 47) > 32)
@@ -247,11 +271,6 @@ void Game::draw()
             log.erase(log.begin(), log.end() - (log.length() - end - 2));
         }
     }
-
-
-    Sprite bgSprite;
-    bgSprite.setTexture(textures.at(1));
-    window->draw(bgSprite);
 
     //Draw all lines
     for (int i = 0; i < lines.size(); i++)
