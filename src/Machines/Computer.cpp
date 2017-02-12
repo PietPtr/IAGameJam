@@ -7,6 +7,7 @@ using namespace sf;
 Computer::Computer(Vector2i coords)
 {
     this->coords = coords;
+    minimumPower = 2;
 }
 
 void Computer::update(Time dt)
@@ -22,7 +23,7 @@ void Computer::draw(RenderWindow* window, std::vector<Texture>* textures)
         drawSelected(window, textures);
     }
 
-    if (power == 0 || broken)
+    if (!this->isOn() || broken)
         drawTinyMachine(window, textures, 13);
     else
         drawTinyMachine(window, textures, 12);
@@ -37,7 +38,7 @@ void Computer::drawSelected(RenderWindow* window, std::vector<Texture>* textures
     drawType(window, textures, getMachineType());
     drawPowerStatus(window, textures);
 
-    if (power == 0 || broken)
+    if (!this->isOn() || broken)
         drawLargeMachine(window, textures, 13);
     else
         drawLargeMachine(window, textures, 12);

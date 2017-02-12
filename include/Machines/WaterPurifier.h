@@ -18,6 +18,7 @@ class WaterPurifier : public Machine
         void drawSelected(RenderWindow* window, std::vector<Texture>* textures);
         float getPowerForLine(Line* line);
         MachineType getMachineType() { return WATERPURIFIER; }
+        bool isOn() { return power > 0; }
     protected:
 };
 

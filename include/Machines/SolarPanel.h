@@ -18,6 +18,7 @@ public:
 	void drawSelected(RenderWindow* window, std::vector<Texture>* textures);
 	float getPowerForLine(Line* line);
 	MachineType getMachineType();
+	bool isOn() { return true; }
 protected:
 };
 

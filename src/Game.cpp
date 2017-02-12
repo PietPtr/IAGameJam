@@ -183,12 +183,12 @@ void Game::update()
                 co2 = co2 < 0 ? 0 : co2;
                 break;
             case DISH:
-                if (((Dish*)(machines[i]))->getPower() > 0 && !machines[i]->isBroken())
+                if (((Dish*)(machines[i]))->isOn() && !machines[i]->isBroken())
                 {
                     isOneDishWithPower = true;
                 }
             case COMPUTER:
-                if (((Computer*)(machines[i]))->getPower() > 0 && !machines[i]->isBroken())
+                if (((Computer*)(machines[i]))->isOn() && !machines[i]->isBroken())
                 {
                     isOneComputerWithPower = true;
                 }
@@ -233,7 +233,7 @@ void Game::update()
     {
         state = GAMEOVER;
         gameOverReason = "YOU BURNED TO DEATH...";
-    } 
+    }
     else if (temperature < -40)
     {
         state = GAMEOVER;
