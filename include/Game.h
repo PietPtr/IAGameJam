@@ -96,5 +96,7 @@ class Game
         bool warnedTempLow = false;
 
         std::string gameOverReason;
+
+        Vector2i selectedCoord;
 };
 #endif

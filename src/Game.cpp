@@ -75,10 +75,8 @@ void Game::update()
                 if (event.mouseButton.button == Mouse::Left)
                 {
 
-                    Vector2i selectedCoord = Vector2i((int)(mousePos.x - 20) / 40,
-                                                      (int)(mousePos.y - 20) / 40);
-
-                    // std::cout << selectedCoord.x << " " << selectedCoord.y << " \n";
+                    selectedCoord = Vector2i((int)(mousePos.x - 20) / 40,
+                                             (int)(mousePos.y - 20) / 40);
 
                     if (selectedCoord.x < 11 && selectedCoord.y < 17)
                         determineSelectedConnection(selectedCoord);
@@ -303,6 +301,13 @@ void Game::draw()
             machines[i]->draw(window, &textures);
         }
     }
+
+    RectangleShape selector(Vector2f(40, 40));
+    selector.setPosition(selectedCoord.x * 40 + 20, selectedCoord.y * 40 + 20);
+    selector.setFillColor(Color(0,0,0,0));
+    selector.setOutlineColor(Color(255,255,255));
+    selector.setOutlineThickness(1);
+    window->draw(selector);
 
     //Draw status
     if (hasActiveComputer())
