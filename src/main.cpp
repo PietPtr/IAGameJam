@@ -9,7 +9,7 @@ int main()
 {
     srand(time(NULL));
 
-    RenderWindow window(VideoMode(1280, 720), "Float");
+    RenderWindow window(VideoMode(856, 720), "Float");
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(60);
 
@@ -70,7 +70,6 @@ int drawString(RenderWindow* window, std::string text, Vector2f position, Textur
         else if (num == 38)
         {
             shouldStartNewLine = true;
-            lines++;
             charSprite.setTextureRect(IntRect(66 * letterWidth, 0, letterWidth, letterHeight));
         }
         else
@@ -85,7 +84,6 @@ int drawString(RenderWindow* window, std::string text, Vector2f position, Textur
         if (newLine != -1 && charactersSinceNewline % newLine == 0 && i != 0)
         {
             shouldStartNewLine = true;
-            lines++;
         }
         if (shouldStartNewLine && num == 32)
         {
@@ -93,6 +91,7 @@ int drawString(RenderWindow* window, std::string text, Vector2f position, Textur
             drawY += letterHeight + 4;
             drawX = position.x;
             charactersSinceNewline = 0;
+            lines++;
         }
     }
     return lines;

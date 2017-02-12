@@ -9,6 +9,8 @@
 
 using namespace sf;
 
+enum GameState { START, GAME, GAMEOVER };
+
 class Game
 {
     public:
@@ -31,15 +33,18 @@ class Game
         int randint(int low, int high);
 
         std::string getPrettyMissionTime();
+        std::string getHoustonStatusMessage();
     protected:
     private:
         RenderWindow* window;
+
+        GameState state = START;
 
         Time dt;
         Time totalTime;
         Time missionTime = seconds(65536);
         Time missiondt;
-        const float TIME_MULTIPLIER = 1.0;
+        const float TIME_MULTIPLIER = 60.0;
 
         Clock clock;
         int frame = 0;
@@ -50,7 +55,7 @@ class Game
 
         std::vector<std::string> audioFileNames { };
         std::vector<std::string> textureFileNames { "font.png", "bg.png", "switch.png", "buttonInput.png",
-            "buttonOutput.png", "buttonClose.png","scanlines.png"};
+            "buttonOutput.png", "buttonClose.png", "scanlines.png", "info.png"};
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
@@ -78,5 +83,11 @@ class Game
         // production/consuming variables
         float co2PerSecond = 4; // ppm per second
         float heatLeakage = 0.01;  // degree per second
+
+
+        bool warnedTempHigh = false;
+        bool warnedCO2 = false;
+        bool warnedTempLow = false;
+
 };
 #endif

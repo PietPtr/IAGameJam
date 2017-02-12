@@ -31,8 +31,6 @@ void Game::initialize()
     loadTextures(textureFileNames);
     // code throws errors, can't test with it
     fillRoutingPanel();
-    consoleLog("TEST");
-    consoleLog("ANOTHER TEST");
 }
 
 void Game::update()
@@ -66,10 +64,11 @@ void Game::update()
 
         if (event.type == Event::MouseButtonPressed)
         {
+            Vector2f mousePos = Vector2f(event.mouseButton.x,
+                                         event.mouseButton.y);
+
             if (event.mouseButton.button == Mouse::Left)
             {
-                Vector2f mousePos = Vector2f(event.mouseButton.x,
-                                             event.mouseButton.y);
 
                 Vector2i selectedCoord = Vector2i((int)(mousePos.x - 20) / 40,
                                                   (int)(mousePos.y - 20) / 40);
@@ -78,6 +77,11 @@ void Game::update()
 
                 if (selectedCoord.x < 11 && selectedCoord.y < 17)
                     determineSelectedConnection(selectedCoord);
+            }
+
+            if (state == START && mousePos.x > 500 && mousePos.y > 340)
+            {
+                state = GAME;
             }
         }
     }
@@ -92,9 +96,13 @@ void Game::update()
     missionTime += dt * TIME_MULTIPLIER;
     missiondt = dt * TIME_MULTIPLIER;
 
-    if (frame % 120 == 0)
+    if (randint(0, 60) == 0)
     {
-        consoleLog("PING");
+        std::string msg = getHoustonStatusMessage();
+        if (msg != "NONE")
+        {
+            consoleLog("HOUSTON: " + msg);
+        }
     }
 
     //Update lines
@@ -110,33 +118,38 @@ void Game::update()
 
     float newTemperature = 0;
 
-    //Update machines
-    for (int i = 0; i < machines.size(); i++)
+    std::cout << (state == GAME) << "\n";
+    if (state == GAME)
     {
-        machines[i]->update(dt);
-
-        switch (machines[i]->getMachineType())
+        //Update machines
+        for (int i = 0; i < machines.size(); i++)
         {
-        case SOLARPANEL:
-            break;
-        case BATTERY:
-            break;
-        case HEATER:
-            temperature += ((Heater*)(machines[i]))->getHeatOutput(missiondt);
-            break;
-        case CO2REMOVER:
-            co2 -= ((CO2Remover*)(machines[i]))->getRemovedCO2(missiondt);
-            co2 = co2 < 0 ? 0 : co2;
-            break;
-        default:
-            break;
-        }
-    }
-    //Go to the new temperature.
-    //temperature += (newTemperature - temperature)*dt.asSeconds();
+            machines[i]->update(dt);
 
-    co2 += co2PerSecond * missiondt.asSeconds();
-    temperature -= heatLeakage * missiondt.asSeconds();
+            switch (machines[i]->getMachineType())
+            {
+            case SOLARPANEL:
+                break;
+            case BATTERY:
+                break;
+            case HEATER:
+                temperature += ((Heater*)(machines[i]))->getHeatOutput(missiondt);
+                break;
+            case CO2REMOVER:
+                co2 -= ((CO2Remover*)(machines[i]))->getRemovedCO2(missiondt);
+                co2 = co2 < 0 ? 0 : co2;
+                break;
+            default:
+                break;
+            }
+        }
+        //Go to the new temperature.
+        //temperature += (newTemperature - temperature)*dt.asSeconds();
+
+        co2 += co2PerSecond * missiondt.asSeconds();
+        temperature -= heatLeakage * missiondt.asSeconds();
+    }
+
 
     frame++;
 }
@@ -150,7 +163,7 @@ void Game::draw()
 
     window->clear(Color(35, 35, 35));
 
-    if (drawString(window, log, Vector2f(497,344), &textures.at(0), Color(0, 200, 0), 47) > 33)
+    if (drawString(window, log, Vector2f(497,344), &textures.at(0), Color(0, 200, 0), 47) > 32)
     {
         unsigned end = log.find('&');
         log.erase(log.begin(), log.end() - (log.length() - end - 2));
@@ -190,6 +203,11 @@ void Game::draw()
 
     Sprite scanLines(textures[6]);
     window->draw(scanLines);
+
+    if (state == START) {
+        Sprite infoOverlay(textures[7]);
+        window->draw(infoOverlay);
+    }
 
     window->display();
 }
@@ -475,6 +493,36 @@ std::string Game::getPrettyMissionTime()
        << ((int)(missionTime.asSeconds()) % 60);
 
     return ss.str();
+}
+
+std::string Game::getHoustonStatusMessage()
+{
+
+    if (temperature > 35 && !warnedTempHigh)
+    {
+        warnedTempHigh = true;
+        return "BE ADVISED YOUR TEMPERATURE SEEMS TO BE TOO HIGH. TURN OFF HEATERS";
+    }
+    else if (temperature < 35 && warnedTempHigh)
+        warnedTempHigh = false;
+
+    if (co2 > 30000 && !warnedCO2)
+    {
+        warnedCO2 = true;
+        return "CO2 LEVELS ARE NEAR TOXIC. SEND MORE POWER TO THE CO2 REMOVER";
+    }
+    else if (co2 < 30000 && warnedCO2)
+        warnedCO2 = false;
+
+    if (temperature < -10 && !warnedTempLow)
+    {
+        warnedTempLow = true;
+        return "AT THIS TEMPERATURE MACHINES MIGHT FAIL. TURN ON HEATERS";
+    }
+    else if (temperature > -10 && warnedTempLow)
+        warnedTempLow = false;
+
+    return "NONE";
 }
 
 Line * Game::getLine(int x, int y)

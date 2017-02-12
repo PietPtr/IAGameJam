@@ -21,7 +21,7 @@ class Heater : public Machine
         float getHeatOutput(Time dt) { return HEAT_PRODUCTION_MULTIPLIER * power * dt.asSeconds(); }
     protected:
     private:
-        const float HEAT_PRODUCTION_MULTIPLIER = 0.01;
+        const float HEAT_PRODUCTION_MULTIPLIER = 0.001;
 };
 
 #endif
