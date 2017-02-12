@@ -8,11 +8,14 @@ EXEC = game
 all : ll
 %.o : %.cpp
 	$(CC) -c $< -o $@ $(CXXFLAG)
-ll : $(OBJ) $(HEADERS)
+ll : $(OBJ) $(HEADERS) dir
 	$(CC) -o $(EXEC) $(OBJ) $(LIBS)
 .PHONY : clean
 clean :
 	rm $(EXEC) $(OBJ)
+
+dir :
+	-mkdir ./Machines/
 
 run : ll
 	./game

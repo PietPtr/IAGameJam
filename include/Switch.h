@@ -37,9 +37,9 @@ class Switch : public Connection
         float calculatePower();
         /*The amount of power it gets from input.*/
         float power;
-        /*The amount of power par output line.*/
+        /*The amount of power per output line.*/
         float powerPerLine;
-        const float MAX_POWER = 40;
+        const float MAX_POWER = 160;
         std::map<Line*, PortState> portStates;
         std::list<Line*> ports;
         /*The state this switch is currently in.*/
