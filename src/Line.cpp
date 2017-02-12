@@ -24,7 +24,7 @@ void Line::update(Time dt) {
         if (connections[0]->getPowerForLine(this) > 0 &&
             connections[1]->getPowerForLine(this) > 0) {
             currentState = FRIED;
-            Game::gameInstance->consoleLog("A LINE GOT ENERGY FROM TWO SWITCHES");
+            Game::gameInstance->consoleLog("SYSTEM: A LINE GOT ENERGY FROM TWO SWITCHES, IT BROKE");
         }
         else
         {
@@ -40,7 +40,7 @@ void Line::update(Time dt) {
     if (power > maxPower)
     {
         currentState = FRIED;
-        Game::gameInstance->consoleLog("TOO MUCH POWER WENT THROUGH A LINE");
+        Game::gameInstance->consoleLog("SYSTEM: TOO MUCH POWER WENT THROUGH A LINE, IT BROKE");
     }
 }
 
