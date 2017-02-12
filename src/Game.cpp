@@ -75,11 +75,14 @@ void Game::update()
                 if (event.mouseButton.button == Mouse::Left)
                 {
 
-                    selectedCoord = Vector2i((int)(mousePos.x - 20) / 40,
-                                             (int)(mousePos.y - 20) / 40);
+                    Vector2i selectedCoords = Vector2i((int)(mousePos.x - 20) / 40,
+                                                       (int)(mousePos.y - 20) / 40);
 
-                    if (selectedCoord.x < 11 && selectedCoord.y < 17)
-                        determineSelectedConnection(selectedCoord);
+                    if (selectedCoords.x < 11 && selectedCoords.y < 17)
+                    {
+                        determineSelectedConnection(selectedCoords);
+                        selectedCoord = selectedCoords;
+                    }
                 }
             }
 
@@ -309,7 +312,7 @@ void Game::draw()
         selector.setFillColor(Color(0,0,0,0));
         selector.setOutlineColor(Color(255,255,255));
         selector.setOutlineThickness(1);
-        window->draw(selector);    
+        window->draw(selector);
     }
 
 
