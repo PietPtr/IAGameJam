@@ -130,7 +130,6 @@ void Game::update()
     if (state == GAME)
     {
         bool isOneDishWithPower = false;
-
         //Update machines
         for (int i = 0; i < machines.size(); i++)
         {
@@ -163,7 +162,16 @@ void Game::update()
         //temperature += (newTemperature - temperature)*dt.asSeconds();
 
         co2 += co2PerSecond * missiondt.asSeconds();
-        temperature -= heatLeakage * missiondt.asSeconds();
+        float temperatureDecrease = heatLeakage * missiondt.asSeconds();
+        if (temperature > 0)
+        {
+            temperatureDecrease *= (temperature / 12 >= 1) ? (temperature/20) : 1;
+        }
+        else
+        {
+
+        }
+        temperature -= temperatureDecrease;
     }
 
     if (temperature > 70 || temperature < -40 || co2 > 50000)

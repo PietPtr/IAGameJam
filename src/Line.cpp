@@ -1,4 +1,3 @@
-#pragma once;
 #include "Line.h"
 #include <SFML/Graphics.hpp>
 #include "Switch.h"
