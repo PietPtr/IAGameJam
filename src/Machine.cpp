@@ -2,6 +2,7 @@
 #include "Machine.h"
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
+#include "Game.h"
 
 using namespace sf;
 
@@ -9,11 +10,14 @@ int drawString(RenderWindow* window, std::string text, Vector2f position, Textur
 
 void Machine::drawType(RenderWindow* window, std::vector<Texture>* textures, MachineType type)
 {
-    std::array<String, 8> machineStrings = { "HEATER", "SOLAR PANEL",
-        "BATTERY", "WATER PURIFIER", "CO2REMOVER", "COMPUTER", "DISH", "LIGHT" };
+    if (Game::gameInstance->hasActiveComputer())
+    {
+        std::array<String, 8> machineStrings = { "HEATER", "SOLAR PANEL",
+            "BATTERY", "WATER PURIFIER", "CO2REMOVER", "COMPUTER", "DISH", "LIGHT" };
 
-    std::string typeStr = "TYPE: " + machineStrings[type];
-    drawString(window, typeStr, Vector2f(502, 222), &textures->at(0), Color(0, 200, 0), 100);
+        std::string typeStr = "TYPE: " + machineStrings[type];
+        drawString(window, typeStr, Vector2f(502, 222), &textures->at(0), Color(0, 200, 0), 100);
+    }
 }
 
 void Machine::drawBroken(RenderWindow* window, std::vector<Texture>* textures)

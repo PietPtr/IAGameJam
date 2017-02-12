@@ -1,6 +1,7 @@
 #include "Line.h"
 #include <SFML/Graphics.hpp>
 #include "Machines/Heater.h"
+#include "Game.h"
 
 using namespace sf;
 
@@ -38,8 +39,11 @@ void Heater::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
     drawType(window, textures, getMachineType());
     drawPowerStatus(window, textures);
 
-    std::string removeInfo = "OUTPUT: " + floatToString(power * HEAT_PRODUCTION_MULTIPLIER * 3600, 1) + "C PER HOUR";
-    drawString(window, removeInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
+    if (Game::gameInstance->hasActiveComputer())
+    {
+        std::string removeInfo = "OUTPUT: " + floatToString(power * HEAT_PRODUCTION_MULTIPLIER * 3600, 1) + "C PER HOUR";
+        drawString(window, removeInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
+    }
 }
 
 float Heater::getPowerForLine(Line* line)
