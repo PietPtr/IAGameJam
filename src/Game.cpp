@@ -111,6 +111,15 @@ void Game::update()
         }
     }
 
+    if (state == START)
+    {
+        for (int i = 0; i < machines.size(); i++)
+        {
+            Time zeroTime = seconds(0);
+            machines[i]->update(zeroTime);
+        }
+    }
+
     //Update lines
     if (state == GAME || state == START)
     {

@@ -37,7 +37,7 @@ float SolarPanel::getPowerForLine(Line* line)
 {
     if (broken)
         return 0;
-    return 10;
+    return 18;
 }
 
 MachineType SolarPanel::getMachineType()
