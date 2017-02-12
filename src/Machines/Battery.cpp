@@ -1,6 +1,7 @@
 #include "Line.h"
 #include <SFML/Graphics.hpp>
 #include "Machines/Battery.h"
+#include "Game.h"
 
 using namespace sf;
 
@@ -56,12 +57,14 @@ void Battery::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
 	drawType(window, textures, getMachineType());
 
+	if (Game::gameInstance->hasActiveComputer())
+    {
+		std::string chargeInfo = "CHARGE: " + floatToString(charge / maxCharge * 100, 1) + " PERCENT";
+	    drawString(window, chargeInfo, Vector2f(502, 233), &textures->at(0), Color(0, 200, 0), 100);
 
-	std::string chargeInfo = "CHARGE: " + floatToString(charge / maxCharge * 100, 1) + " PERCENT";
-    drawString(window, chargeInfo, Vector2f(502, 233), &textures->at(0), Color(0, 200, 0), 100);
-
-	std::string outInfo = "OUTPUT: " + floatToString(outPower, 1) + "W";
-    drawString(window, outInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
+		std::string outInfo = "OUTPUT: " + floatToString(outPower, 1) + "W";
+	    drawString(window, outInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
+	}
 
 }
 

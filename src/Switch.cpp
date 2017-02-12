@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Switch.h"
+#include "Game.h"
 
 using namespace sf;
 
@@ -156,9 +157,11 @@ void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
         switchSprite.setColor(Color(0,0,0));
     window->draw(switchSprite);
 
-    std::string infoStr = "TYPE: SWITCH& & CONFIGURE THIS SWITCH WITH THE BUTTONS ON ITS FOUR SIDES TO BUILD YOUR POWER NETWORK";
-    drawString(window, infoStr, Vector2f(502, 222), &textures->at(0), Color(0, 200, 0), 20);
-
+    if (Game::gameInstance->hasActiveComputer())
+    {
+        std::string infoStr = "TYPE: SWITCH& & CONFIGURE THIS SWITCH WITH THE BUTTONS ON ITS FOUR SIDES TO BUILD YOUR POWER NETWORK";
+        drawString(window, infoStr, Vector2f(502, 222), &textures->at(0), Color(0, 200, 0), 20);
+    }
 }
 
 float Switch::getPowerForLine(Line* line)

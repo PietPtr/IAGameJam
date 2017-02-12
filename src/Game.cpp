@@ -162,12 +162,12 @@ void Game::update()
                 co2 = co2 < 0 ? 0 : co2;
                 break;
             case DISH:
-                if (((Dish*)(machines[i]))->getPower() > 0)
+                if (((Dish*)(machines[i]))->getPower() > 0 && !machines[i]->isBroken())
                 {
                     isOneDishWithPower = true;
                 }
             case COMPUTER:
-                if (((Computer*)(machines[i]))->getPower() > 0)
+                if (((Computer*)(machines[i]))->getPower() > 0 && !machines[i]->isBroken())
                 {
                     isOneComputerWithPower = true;
                 }
@@ -218,11 +218,15 @@ void Game::draw()
 
     window->clear(Color(35, 35, 35));
 
-    if (drawString(window, log, Vector2f(497,344), &textures.at(0), Color(0, 200, 0), 47) > 32)
+    if (activeComputer)
     {
-        unsigned end = log.find('&');
-        log.erase(log.begin(), log.end() - (log.length() - end - 2));
+        if (drawString(window, log, Vector2f(497,344), &textures.at(0), Color(0, 200, 0), 47) > 32)
+        {
+            unsigned end = log.find('&');
+            log.erase(log.begin(), log.end() - (log.length() - end - 2));
+        }
     }
+
 
     Sprite bgSprite;
     bgSprite.setTexture(textures.at(1));
@@ -538,6 +542,8 @@ void Game::fillRoutingPanel() {
 void Game::consoleLog(std::string text)
 {
     log += getPrettyMissionTime() + " " + text + "& ";
+    if (!activeComputer)
+        log = "";
 }
 
 void Game::determineSelectedConnection(Vector2i selectedCoords)
