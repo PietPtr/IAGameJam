@@ -188,7 +188,16 @@ void Game::update()
 
 
         co2 += co2PerSecond * missiondt.asSeconds();
-        temperature -= heatLeakage * missiondt.asSeconds();
+        float temperatureDecrease = heatLeakage * missiondt.asSeconds();
+        if (temperature > 0)
+        {
+            temperatureDecrease *= (temperature / 12 >= 1) ? (temperature/20) : 1;
+        }
+        else
+        {
+
+        }
+        temperature -= temperatureDecrease;
     }
 
     if (temperature > 70 || temperature < -40 || co2 > 50000)
@@ -495,7 +504,7 @@ void Game::fillRoutingPanel() {
     //Set lines for right machines
     for (int y = 0; y < 5; y++)
     {
-        machines[13 + y]->setLine(getLine(machines[12 + y]->getCoords().x - 1, machines[12 + y]->getCoords().y));
+        machines[13 + y]->setLine(getLine(machines[13 + y]->getCoords().x - 1, machines[13 + y]->getCoords().y));
     }
 
     //Create 2 lines and 2 solarpanels at the third row.
