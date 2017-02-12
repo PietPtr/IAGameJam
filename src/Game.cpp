@@ -267,7 +267,7 @@ void Game::draw()
     lightOverlay.setSize(Vector2f(856, 720));
     lightOverlay.setScale(Vector2f(1, 1));
     lightOverlay.setPosition(0, 0);
-    int transparency = 200 - lights * 30;
+    int transparency = 200 - lights * 15;
     lightOverlay.setFillColor(Color(0, 0, 0, transparency < 0 ? 0 : transparency));
     window->draw(lightOverlay);
 

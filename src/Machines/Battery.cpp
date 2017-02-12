@@ -12,7 +12,6 @@ Battery::Battery(Vector2i coords)
 
 void Battery::update(Time dt)
 {
-<<<<<<< HEAD
     if (broken)
     {
         outPower = 0;
