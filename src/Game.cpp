@@ -327,7 +327,7 @@ void Game::draw()
         drawString(window, "CLICK ANYWHERE TO PLAY AGAIN", Vector2f(340, 650), &textures.at(0), Color(0, 200, 0), 100);
     }
 
-    Sprite effectOverlay(textures[21]);
+    Sprite effectOverlay(textures[22]);
     effectOverlay.setColor(Color(255, 255, 255, 0));
     window->draw(effectOverlay);
 
