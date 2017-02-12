@@ -329,7 +329,7 @@ void Game::draw()
     Sprite effectOverlay(textures[22]);
     if (temperature < 0)
     {
-        int alpha = 80 - temperature * 3;
+        int alpha = 70 - temperature * 3;
         effectOverlay.setColor(Color(0, 0, 255, alpha < 200 ? alpha : 200));
         window->draw(effectOverlay);
     }
@@ -337,7 +337,7 @@ void Game::draw()
     {
         if (temperature > 50)
         {
-            int alpha = 100 + temperature;
+            int alpha = 70 + temperature;
             effectOverlay.setColor(Color(255, 0, 0, alpha < 200 ? alpha : 200));
             window->draw(effectOverlay);
         }
