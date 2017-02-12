@@ -32,6 +32,7 @@ void Light::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
     drawType(window, textures, getMachineType());
     drawPowerStatus(window, textures);
+    drawLargeMachine(window, textures, 14);
 }
 
 float Light::getPowerForLine(Line* line)

@@ -32,6 +32,7 @@ void WaterPurifier::drawSelected(RenderWindow* window, std::vector<Texture>* tex
 {
 	drawType(window, textures, getMachineType());
     drawPowerStatus(window, textures);
+    drawLargeMachine(window, textures, 19);
 }
 
 float WaterPurifier::getPowerForLine(Line* line)

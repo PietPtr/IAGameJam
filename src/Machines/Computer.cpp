@@ -36,6 +36,11 @@ void Computer::drawSelected(RenderWindow* window, std::vector<Texture>* textures
 
     drawType(window, textures, getMachineType());
     drawPowerStatus(window, textures);
+
+    if (power == 0 || broken)
+        drawLargeMachine(window, textures, 13);
+    else
+        drawLargeMachine(window, textures, 12);
 }
 
 float Computer::getPowerForLine(Line* line)

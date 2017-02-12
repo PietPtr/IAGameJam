@@ -33,3 +33,11 @@ void Machine::drawTinyMachine(RenderWindow* window, std::vector<Texture>* textur
     sprite.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
     window->draw(sprite);
 }
+
+void Machine::drawLargeMachine(RenderWindow* window, std::vector<Texture>* textures, int texture)
+{
+    Sprite sprite(textures->at(texture));
+    sprite.setPosition(500, 20);
+    sprite.setScale(4,4);
+    window->draw(sprite);
+}

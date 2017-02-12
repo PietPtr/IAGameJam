@@ -22,7 +22,7 @@ void Heater::draw(RenderWindow* window, std::vector<Texture>* textures)
     if (selected) {
         drawSelected(window, textures);
     }
-    
+
     drawTinyMachine(window, textures, 15);
 
     if (broken)
@@ -39,6 +39,7 @@ void Heater::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
         std::string removeInfo = "OUTPUT: " + floatToString(power * HEAT_PRODUCTION_MULTIPLIER * 3600, 1) + "C PER HOUR";
         drawString(window, removeInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
     }
+    drawLargeMachine(window, textures, 15);
 }
 
 float Heater::getPowerForLine(Line* line)

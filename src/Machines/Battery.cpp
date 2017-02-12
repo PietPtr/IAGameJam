@@ -68,6 +68,8 @@ void Battery::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 	    drawString(window, outInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
 	}
 
+	drawLargeMachine(window, textures, )
+
 }
 
 float Battery::getPowerForLine(Line* line)

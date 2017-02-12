@@ -140,7 +140,7 @@ void Game::update()
         {
             if (!machines[i]->isBroken())
             {
-                if (randint(0, 10000) == 0)
+                if (randint(0, 50000) == 0)
                 {
                     machines[i]->setBroken(true);
                     consoleLog("SYSTEM: " + machineStrings[machines[i]->getMachineType()] + " BROKE DOWN");
