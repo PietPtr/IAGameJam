@@ -36,7 +36,7 @@ class Game
         std::string getPrettyMissionTime();
         std::string getHoustonStatusMessage();
 
-        bool hasActiveComputer() { return activeComputer; }
+        bool hasActiveComputer() { return activeComputer || state == START; }
     protected:
     private:
         RenderWindow* window;
