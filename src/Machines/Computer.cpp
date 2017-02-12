@@ -28,6 +28,10 @@ void Computer::draw(RenderWindow* window, std::vector<Texture>* textures)
     switchShape.setFillColor(Color(0, 255, 0));
     window->draw(switchShape);
 
+    if (power == 0 || broken)
+        drawTinyMachine(window, textures, 13);
+    else
+        drawTinyMachine(window, textures, 12);
 
     if (broken)
         drawBroken(window, textures);

@@ -42,12 +42,14 @@ void Battery::draw(RenderWindow* window, std::vector<Texture>* textures)
 	}
 
 	RectangleShape switchShape;
-	switchShape.setSize(Vector2f(40, charge / maxCharge * 40));
+	switchShape.setSize(Vector2f(18, charge / maxCharge * 32));
 	switchShape.setScale(Vector2f(1, -1));
-	switchShape.setPosition(20 + coords.x * 40, 60 + coords.y * 40);
+	switchShape.setPosition(31 + coords.x * 40, 54 + coords.y * 40);
 	unsigned int blue = charge / maxCharge * 255;
 	switchShape.setFillColor(Color(255 - blue, blue, 0));
 	window->draw(switchShape);
+
+	drawTinyMachine(window, textures, 10);
 
     if (broken)
         drawBroken(window, textures);

@@ -57,8 +57,10 @@ class Game
         int windowHeight = 720;
 
         std::vector<std::string> audioFileNames { };
-        std::vector<std::string> textureFileNames { "font.png", "bg.png", "switch.png", "buttonInput.png",
-            "buttonOutput.png", "buttonClose.png", "scanlines.png", "info.png", "gameover.png", "broken.png"};
+        std::vector<std::string> textureFileNames { "font.png", "bg.png", "switch.png", "buttonInput.png",          //0-3
+            "buttonOutput.png", "buttonClose.png", "scanlines.png", "info.png", "gameover.png", "broken.png",       //4-9
+            "Battery.png", "co2Remover.png", "ComputerOn.png", "ComputerOff.png", "test.png", "Heater.png",         //10-15
+            "test.png", "SolarPanel.png", "SolarPanelOff.png", "WaterPurifier.png" };   //16-19
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;

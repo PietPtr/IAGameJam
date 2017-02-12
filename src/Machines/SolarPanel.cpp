@@ -26,6 +26,7 @@ void SolarPanel::draw(RenderWindow* window, std::vector<Texture>* textures)
     switchShape.setFillColor(Color(20, 20, 150));
     window->draw(switchShape);
 
+    drawTinyMachine(window, textures, 17);
 
     if (broken)
         drawBroken(window, textures);

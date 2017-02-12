@@ -28,6 +28,8 @@ void WaterPurifier::draw(RenderWindow* window, std::vector<Texture>* textures)
     switchShape.setFillColor(Color(50, 50, 255));
     window->draw(switchShape);
 
+    drawTinyMachine(window, textures, 19);
+
     if (broken)
         drawBroken(window, textures);
 }

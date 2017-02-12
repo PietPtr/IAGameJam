@@ -22,13 +22,8 @@ void Heater::draw(RenderWindow* window, std::vector<Texture>* textures)
     if (selected) {
         drawSelected(window, textures);
     }
-
-    RectangleShape switchShape;
-    switchShape.setSize(Vector2f(40, 40));
-    switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
-    switchShape.setFillColor(Color(120, 120, 120));
-    window->draw(switchShape);
-
+    
+    drawTinyMachine(window, textures, 15);
 
     if (broken)
         drawBroken(window, textures);
