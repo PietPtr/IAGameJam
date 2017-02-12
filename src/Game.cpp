@@ -302,12 +302,16 @@ void Game::draw()
         }
     }
 
-    RectangleShape selector(Vector2f(40, 40));
-    selector.setPosition(selectedCoord.x * 40 + 20, selectedCoord.y * 40 + 20);
-    selector.setFillColor(Color(0,0,0,0));
-    selector.setOutlineColor(Color(255,255,255));
-    selector.setOutlineThickness(1);
-    window->draw(selector);
+    if (selectedCoord.x < 11)
+    {
+        RectangleShape selector(Vector2f(40, 40));
+        selector.setPosition(selectedCoord.x * 40 + 20, selectedCoord.y * 40 + 20);
+        selector.setFillColor(Color(0,0,0,0));
+        selector.setOutlineColor(Color(255,255,255));
+        selector.setOutlineThickness(1);
+        window->draw(selector);    
+    }
+
 
     //Draw status
     if (hasActiveComputer())
