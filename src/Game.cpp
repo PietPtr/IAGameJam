@@ -197,7 +197,6 @@ void Game::update()
             {
                 if (!machines[i]->isBroken())
                 {
-                    std::cout << machines[i]->getPower() << std::endl;
                     lights += machines[i]->getPower();
                 }
                 break;
@@ -267,7 +266,7 @@ void Game::draw()
     lightOverlay.setSize(Vector2f(856, 720));
     lightOverlay.setScale(Vector2f(1, 1));
     lightOverlay.setPosition(0, 0);
-    int transparency = 200 - lights * 30;
+    int transparency = 200 - lights * 15;
     lightOverlay.setFillColor(Color(0, 0, 0, transparency < 0 ? 0 : transparency));
     window->draw(lightOverlay);
 
@@ -328,8 +327,21 @@ void Game::draw()
     }
 
     Sprite effectOverlay(textures[22]);
-    effectOverlay.setColor(Color(255, 255, 255, 0));
-    window->draw(effectOverlay);
+    if (temperature < 0)
+    {
+        int alpha = 80 - temperature * 3;
+        effectOverlay.setColor(Color(0, 0, 255, alpha < 200 ? alpha : 200));
+        window->draw(effectOverlay);
+    }
+    else
+    {
+        if (temperature > 50)
+        {
+            int alpha = 100 + temperature;
+            effectOverlay.setColor(Color(255, 0, 0, alpha < 200 ? alpha : 200));
+            window->draw(effectOverlay);
+        }
+    }
 
     window->display();
 }
