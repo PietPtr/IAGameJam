@@ -89,6 +89,16 @@ void Game::update()
             {
                 state = GAME;
             }
+
+            if (state == GAMEOVER)
+            {
+                //Restart.
+                state = START;
+                temperature = 18;
+                co2 = 402;
+                initialize();
+                return;
+            }
         }
     }
 
@@ -203,17 +213,17 @@ void Game::update()
     if (temperature > 70)
     {
         state = GAMEOVER;
-        gameOverReason = "You burned to death...";
+        gameOverReason = "YOU BURNED TO DEATH...";
     } 
     else if (temperature < -40)
     {
         state = GAMEOVER;
-        gameOverReason = "You frooze to death...";
+        gameOverReason = "YOU FROOZE TO DEATH...";
     }
     else if (co2 > 50000)
     {
         state = GAMEOVER;
-        gameOverReason = "You suffocate to death...";
+        gameOverReason = "YOU SUFFOCATE TO DEATH...";
     }
 
     frame++;
@@ -284,7 +294,9 @@ void Game::draw()
         Sprite gameover(textures[8]);
         window->draw(gameover);
 
-        drawString(window, "Reason: " + gameOverReason, Vector2f(380, 600), &textures.at(0), Color(0,200,0), 100);
+        drawString(window, "REASON: " + gameOverReason, Vector2f(340, 600), &textures.at(0), Color(0,200,0), 100);
+
+        drawString(window, "CLICK ANYWHERE TO PLAY AGAIN", Vector2f(340, 650), &textures.at(0), Color(0, 200, 0), 100);
     }
 
     window->display();
