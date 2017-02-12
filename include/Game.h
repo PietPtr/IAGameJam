@@ -2,6 +2,7 @@
 #define GAME_H
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
 #include "Audio.h"
 #include "Switch.h"
 #include "Line.h"
@@ -94,5 +95,6 @@ class Game
         bool warnedCO2 = false;
         bool warnedTempLow = false;
 
+        std::string gameOverReason;
 };
 #endif

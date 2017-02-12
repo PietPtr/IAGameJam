@@ -89,6 +89,17 @@ void Game::update()
             {
                 state = GAME;
             }
+
+            if (state == GAMEOVER)
+            {
+                //Restart.
+                state = START;
+                temperature = 18;
+                co2 = 402;
+                missionTime = seconds(65536);
+                initialize();
+                return;
+            }
         }
     }
 
@@ -143,6 +154,7 @@ void Game::update()
 
         bool isOneDishWithPower = false;
         bool isOneComputerWithPower = false;
+        lights = false;
 
         //Update machines
         for (int i = 0; i < machines.size(); i++)
@@ -181,6 +193,14 @@ void Game::update()
                     isOneComputerWithPower = true;
                 }
                 break;
+            case LIGHT:
+            {
+                if (!machines[i]->isBroken() && machines[i]->getPower() > 0)
+                {
+                    lights = true;
+                }
+                break;
+            }
             default:
                 break;
             }
@@ -209,11 +229,21 @@ void Game::update()
         temperature -= temperatureDecrease;
     }
 
-    if (temperature > 70 || temperature < -40 || co2 > 50000)
+    if (temperature > 70)
     {
         state = GAMEOVER;
+        gameOverReason = "YOU BURNED TO DEATH...";
+    } 
+    else if (temperature < -40)
+    {
+        state = GAMEOVER;
+        gameOverReason = "YOU FROOZE TO DEATH...";
     }
-
+    else if (co2 > 50000)
+    {
+        state = GAMEOVER;
+        gameOverReason = "YOU SUFFOCATE TO DEATH...";
+    }
 
     frame++;
 }
@@ -227,6 +257,21 @@ void Game::draw()
 
     window->clear(Color(35, 35, 35));
 
+
+    Sprite bgSprite;
+    bgSprite.setTexture(textures.at(1));
+    window->draw(bgSprite);
+
+    if (!lights)
+    {
+        RectangleShape lightOverlay;
+        lightOverlay.setSize(Vector2f(856, 720));
+        lightOverlay.setScale(Vector2f(1, 1));
+        lightOverlay.setPosition(0, 0);
+        lightOverlay.setFillColor(Color(0, 0, 0, 200));
+        window->draw(lightOverlay);
+    }
+
     if (hasActiveComputer())
     {
         if (drawString(window, log, Vector2f(497,344), &textures.at(0), Color(0, 200, 0), 47) > 32)
@@ -235,11 +280,6 @@ void Game::draw()
             log.erase(log.begin(), log.end() - (log.length() - end - 2));
         }
     }
-
-
-    Sprite bgSprite;
-    bgSprite.setTexture(textures.at(1));
-    window->draw(bgSprite);
 
     //Draw all lines
     for (int i = 0; i < lines.size(); i++)
@@ -278,11 +318,14 @@ void Game::draw()
         Sprite infoOverlay(textures[7]);
         window->draw(infoOverlay);
     }
-
     if (state == GAMEOVER)
     {
         Sprite gameover(textures[8]);
         window->draw(gameover);
+
+        drawString(window, "REASON: " + gameOverReason, Vector2f(340, 600), &textures.at(0), Color(0,200,0), 100);
+
+        drawString(window, "CLICK ANYWHERE TO PLAY AGAIN", Vector2f(340, 650), &textures.at(0), Color(0, 200, 0), 100);
     }
 
     window->display();

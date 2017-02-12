@@ -7,11 +7,12 @@ using namespace sf;
 
 Battery::Battery(Vector2i coords)
 {
-	this->coords = coords;
+    this->coords = coords;
 }
 
 void Battery::update(Time dt)
 {
+<<<<<<< HEAD
 	if (broken)
 	{
 		outPower = 0;
@@ -54,19 +55,19 @@ void Battery::draw(RenderWindow* window, std::vector<Texture>* textures)
 
 	powerDampening = powerDampening > START_CHARGE ? START_CHARGE : powerDampening;
 
-	if (selected) {
-		drawSelected(window, textures);
-	}
+    if (selected) {
+        drawSelected(window, textures);
+    }
 
-	RectangleShape switchShape;
-	switchShape.setSize(Vector2f(18, charge / maxCharge * 32));
-	switchShape.setScale(Vector2f(1, -1));
-	switchShape.setPosition(31 + coords.x * 40, 54 + coords.y * 40);
-	unsigned int blue = charge / maxCharge * 255;
-	switchShape.setFillColor(Color(255 - blue, blue, 0));
-	window->draw(switchShape);
+    RectangleShape switchShape;
+    switchShape.setSize(Vector2f(18, charge / maxCharge * 32));
+    switchShape.setScale(Vector2f(1, -1));
+    switchShape.setPosition(31 + coords.x * 40, 54 + coords.y * 40);
+    unsigned int blue = charge / maxCharge * 255;
+    switchShape.setFillColor(Color(255 - blue, blue, 0));
+    window->draw(switchShape);
 
-	drawTinyMachine(window, textures, 10);
+    drawTinyMachine(window, textures, 10);
 
     if (broken)
         drawBroken(window, textures);
@@ -74,24 +75,24 @@ void Battery::draw(RenderWindow* window, std::vector<Texture>* textures)
 
 void Battery::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 {
-	drawType(window, textures, getMachineType());
+    drawType(window, textures, getMachineType());
 
-	if (Game::gameInstance->hasActiveComputer())
+    if (Game::gameInstance->hasActiveComputer())
     {
-		std::string chargeInfo = "CHARGE: " + floatToString(charge / maxCharge * 100, 1) + " PERCENT";
-	    drawString(window, chargeInfo, Vector2f(502, 233), &textures->at(0), Color(0, 200, 0), 100);
+        std::string chargeInfo = "CHARGE: " + floatToString(charge / maxCharge * 100, 1) + " PERCENT";
+        drawString(window, chargeInfo, Vector2f(502, 233), &textures->at(0), Color(0, 200, 0), 100);
 
-		std::string outInfo = "OUTPUT: " + floatToString(outPower, 1) + "W";
-	    drawString(window, outInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
-	}
+        std::string outInfo = "OUTPUT: " + floatToString(outPower, 1) + "W";
+        drawString(window, outInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
+    }
 
-	RectangleShape switchShape;
-	switchShape.setSize(Vector2f(18, charge / maxCharge * 32));
-	switchShape.setScale(Vector2f(4, -4));
-	switchShape.setPosition(544, 156);
-	unsigned int blue = charge / maxCharge * 255;
-	switchShape.setFillColor(Color(255 - blue, blue, 0));
-	window->draw(switchShape);
+    RectangleShape switchShape;
+    switchShape.setSize(Vector2f(18, charge / maxCharge * 32));
+    switchShape.setScale(Vector2f(4, -4));
+    switchShape.setPosition(544, 156);
+    unsigned int blue = charge / maxCharge * 255;
+    switchShape.setFillColor(Color(255 - blue, blue, 0));
+    window->draw(switchShape);
 
 	Sprite sprite(textures->at(21));
 	sprite.setPosition(500, 20);
@@ -101,23 +102,23 @@ void Battery::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 
 float Battery::getPowerForLine(Line* line)
 {
-	if (line == outputLine && charge > 0) {
-		if (charge - outPower <= 0)
-		{
-			return 0;
-		}
-		else
-		{
-			return outPower;
-		}
-	}
-	else
-	{
-		return 0;
-	}
+    if (line == outputLine && charge > 0) {
+        if (charge - outPower <= 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return outPower;
+        }
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 MachineType Battery::getMachineType()
 {
-	return BATTERY;
+    return BATTERY;
 }
