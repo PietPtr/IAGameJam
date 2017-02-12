@@ -5,6 +5,7 @@
 #include <sstream> // stringstream
 
 using namespace sf;
+
 int main()
 {
     srand(time(NULL));

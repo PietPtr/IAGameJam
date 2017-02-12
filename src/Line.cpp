@@ -1,6 +1,8 @@
+#pragma once;
 #include "Line.h"
 #include <SFML/Graphics.hpp>
 #include "Switch.h"
+#include "Game.h"
 
 using namespace sf;
 
@@ -23,6 +25,7 @@ void Line::update(Time dt) {
         if (connections[0]->getPowerForLine(this) > 0 &&
             connections[1]->getPowerForLine(this) > 0) {
             currentState = FRIED;
+            Game::gameInstance->consoleLog("A LINE GOT ENERGY FROM TWO SWITCHES");
         }
         else
         {
@@ -38,6 +41,7 @@ void Line::update(Time dt) {
     if (power > maxPower)
     {
         currentState = FRIED;
+        Game::gameInstance->consoleLog("TOO MUCH POWER WENT THROUGH A LINE");
     }
 }
 
