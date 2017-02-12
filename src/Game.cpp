@@ -218,7 +218,7 @@ void Game::draw()
 
     window->clear(Color(35, 35, 35));
 
-    if (activeComputer)
+    if (hasActiveComputer())
     {
         if (drawString(window, log, Vector2f(497,344), &textures.at(0), Color(0, 200, 0), 47) > 32)
         {
@@ -258,7 +258,7 @@ void Game::draw()
     }
 
     //Draw status
-    if (activeComputer)
+    if (hasActiveComputer())
         drawStatus();
 
     Sprite scanLines(textures[6]);
@@ -542,7 +542,7 @@ void Game::fillRoutingPanel() {
 void Game::consoleLog(std::string text)
 {
     log += getPrettyMissionTime() + " " + text + "& ";
-    if (!activeComputer)
+    if (!hasActiveComputer())
         log = "";
 }
 
