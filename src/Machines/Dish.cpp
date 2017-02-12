@@ -7,6 +7,7 @@ using namespace sf;
 Dish::Dish(Vector2i coords)
 {
     this->coords = coords;
+    minimumPower = 1;
 }
 
 void Dish::update(Time dt)

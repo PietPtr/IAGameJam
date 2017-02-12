@@ -19,6 +19,7 @@ class CO2Remover : public Machine
         float getPowerForLine(Line* line);
         MachineType getMachineType() { return CO2REMOVER; }
         float getRemovedCO2(Time dt) { return CO2REMOVER_SPEED * power * dt.asSeconds(); }
+        bool isOn() { return power > 0; }
     protected:
     private:
         // multiplied with power supplied.

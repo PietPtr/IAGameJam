@@ -19,6 +19,7 @@ class Battery : public Machine
         float getPowerForLine(Line* line);
         void setOutputLine(Line* line) { outputLine = line; };
         MachineType getMachineType();
+        bool isOn() { return true; }
     protected:
     private:
         Line* outputLine;

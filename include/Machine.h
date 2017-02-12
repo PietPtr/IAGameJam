@@ -19,6 +19,7 @@ class Machine : public Connection
         virtual void draw(RenderWindow* window, std::vector<Texture>* textures) = 0;
         virtual void drawSelected(RenderWindow* window, std::vector<Texture>* textures) = 0;
         virtual MachineType getMachineType() = 0;
+        virtual bool isOn() = 0;
         void setLine(Line* line) { this->line = line; }
         void drawType(RenderWindow* window, std::vector<Texture>* textures, MachineType type);
         void drawBroken(RenderWindow* window, std::vector<Texture>* textures);
@@ -29,6 +30,8 @@ class Machine : public Connection
     protected:
         Line* line;
         bool broken = false;
+        bool on = false;
+        float minimumPower = 0;
 };
 
 #endif

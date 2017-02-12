@@ -18,6 +18,7 @@ class Dish : public Machine
         void drawSelected(RenderWindow* window, std::vector<Texture>* textures);
         float getPowerForLine(Line* line);
         MachineType getMachineType() { return DISH; }
+        bool isOn() { return power > minimumPower; }
     protected:
 };
 
