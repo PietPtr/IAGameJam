@@ -145,7 +145,7 @@ void Game::update()
 
         bool isOneDishWithPower = false;
         bool isOneComputerWithPower = false;
-        lights = false;
+        lights = 0;
 
         //Update machines
         for (int i = 0; i < machines.size(); i++)
@@ -186,9 +186,10 @@ void Game::update()
                 break;
             case LIGHT:
             {
-                if (!machines[i]->isBroken() && machines[i]->getPower() > 0)
+                if (!machines[i]->isBroken())
                 {
-                    lights = true;
+                    std::cout << machines[i]->getPower() << std::endl;
+                    lights += machines[i]->getPower();
                 }
                 break;
             }
@@ -253,15 +254,13 @@ void Game::draw()
     bgSprite.setTexture(textures.at(1));
     window->draw(bgSprite);
 
-    if (!lights)
-    {
-        RectangleShape lightOverlay;
-        lightOverlay.setSize(Vector2f(856, 720));
-        lightOverlay.setScale(Vector2f(1, 1));
-        lightOverlay.setPosition(0, 0);
-        lightOverlay.setFillColor(Color(0, 0, 0, 200));
-        window->draw(lightOverlay);
-    }
+    RectangleShape lightOverlay;
+    lightOverlay.setSize(Vector2f(856, 720));
+    lightOverlay.setScale(Vector2f(1, 1));
+    lightOverlay.setPosition(0, 0);
+    int transparency = 200 - lights * 30;
+    lightOverlay.setFillColor(Color(0, 0, 0, transparency < 0 ? 0 : transparency));
+    window->draw(lightOverlay);
 
     if (hasActiveComputer())
     {
@@ -318,6 +317,10 @@ void Game::draw()
 
         drawString(window, "CLICK ANYWHERE TO PLAY AGAIN", Vector2f(340, 650), &textures.at(0), Color(0, 200, 0), 100);
     }
+
+    Sprite effectOverlay(textures[21]);
+    effectOverlay.setColor(Color(255, 255, 255, 0));
+    window->draw(effectOverlay);
 
     window->display();
 }
