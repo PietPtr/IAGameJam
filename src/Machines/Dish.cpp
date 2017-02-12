@@ -22,12 +22,7 @@ void Dish::draw(RenderWindow* window, std::vector<Texture>* textures)
         drawSelected(window, textures);
     }
 
-    RectangleShape switchShape;
-    switchShape.setSize(Vector2f(40, 40));
-    switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
-    switchShape.setFillColor(Color(255, 255, 255));
-    window->draw(switchShape);
-
+    drawTinyMachine(window, textures, 16);
 
     if (broken)
         drawBroken(window, textures);

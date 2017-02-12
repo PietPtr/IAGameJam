@@ -22,12 +22,6 @@ void Computer::draw(RenderWindow* window, std::vector<Texture>* textures)
         drawSelected(window, textures);
     }
 
-    RectangleShape switchShape;
-    switchShape.setSize(Vector2f(40, 40));
-    switchShape.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
-    switchShape.setFillColor(Color(0, 255, 0));
-    window->draw(switchShape);
-
     if (power == 0 || broken)
         drawTinyMachine(window, textures, 13);
     else
