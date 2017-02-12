@@ -26,3 +26,10 @@ void Machine::drawBroken(RenderWindow* window, std::vector<Texture>* textures)
     broken.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
     window->draw(broken);
 }
+
+void Machine::drawTinyMachine(RenderWindow* window, std::vector<Texture>* textures, int texture)
+{
+    Sprite sprite(textures->at(texture));
+    sprite.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
+    window->draw(sprite);
+}

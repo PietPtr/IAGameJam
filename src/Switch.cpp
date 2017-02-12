@@ -65,11 +65,9 @@ void Switch::draw(RenderWindow * window, std::vector<Texture>* textures)
         drawSelected(window, textures);
     }
 
-    RectangleShape switchShape;
-    switchShape.setSize(Vector2f(40, 40));
-    switchShape.setPosition(coords.x * 40 + 20, coords.y * 40 + 20);
-    switchShape.setFillColor(Color(255, 20, 20));
-    window->draw(switchShape);
+    Sprite sprite(textures->at(20));
+    sprite.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
+    window->draw(sprite);
 }
 
 

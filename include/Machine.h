@@ -24,6 +24,7 @@ class Machine : public Connection
         void drawBroken(RenderWindow* window, std::vector<Texture>* textures);
         void setBroken(bool broken) { this->broken = broken; power = 0; }
         bool isBroken() { return broken; }
+        void drawTinyMachine(RenderWindow* window, std::vector<Texture>* textures, int texture);
     protected:
         Line* line;
         bool broken = false;
