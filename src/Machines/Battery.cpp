@@ -12,31 +12,49 @@ Battery::Battery(Vector2i coords)
 
 void Battery::update(Time dt)
 {
-    if (broken)
-    {
-        outPower = 0;
-        power = 0;
-    }
-    else
-    {
-        outPower = (-DIFFERENCE/100.0) * (100 - charge / maxCharge * 100) + START_CHARGE;
-    }
+<<<<<<< HEAD
+	if (broken)
+	{
+		outPower = 0;
+		power = 0;
+	}
+	else
+	{
+		outPower = (-DIFFERENCE/100.0) * (100 - charge / maxCharge * 100) +
+			(START_CHARGE - powerDampening);
+	}
+	outPower = outPower < 0 ? 0 : outPower;
 
-    charge += line->getPower() * dt.asSeconds();
-    if (charge > 0)
-    {
-        charge -= outPower * dt.asSeconds();
-    }
-    if (charge < 0)
-    {
-        charge = 0;
-    }
+	charge += line->getPower() * dt.asSeconds();
+	if (charge > 0)
+	{
+		charge -= outPower * dt.asSeconds();
+	}
+	if (charge < 0)
+	{
+		charge = 0;
+	}
 
-    charge = charge > maxCharge ? maxCharge : charge;
+	charge = charge > maxCharge ? maxCharge : charge;
 }
 
 void Battery::draw(RenderWindow* window, std::vector<Texture>* textures)
 {
+	if (selected && Mouse::isButtonPressed(Mouse::Left))
+	{
+		if (increaseButton.contains(Mouse::getPosition(*window)))
+		{
+			powerDampening -= 0.1;
+
+		}
+		if (decreaseButton.contains(Mouse::getPosition(*window)))
+		{
+			powerDampening += 0.1;
+		}
+	}
+
+	powerDampening = powerDampening > START_CHARGE ? START_CHARGE : powerDampening;
+
     if (selected) {
         drawSelected(window, textures);
     }
@@ -76,7 +94,9 @@ void Battery::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
     switchShape.setFillColor(Color(255 - blue, blue, 0));
     window->draw(switchShape);
 
-    drawLargeMachine(window, textures, 10);
+	Sprite sprite(textures->at(21));
+	sprite.setPosition(500, 20);
+	window->draw(sprite);
 
 }
 
