@@ -18,21 +18,33 @@ Line::Line(Vector2i coords, std::array<Connection*, 2> connections)
 }
 
 void Line::update(Time dt) {
-    if (connections[0]->getPowerForLine(this) > 0 &&
-        connections[1]->getPowerForLine(this) > 0) {
-        // explode
+    if (currentState == FINE)
+    {
+        if (connections[0]->getPowerForLine(this) > 0 &&
+            connections[1]->getPowerForLine(this) > 0) {
+            currentState = FRIED;
+        }
+        else
+        {
+            power = connections[0]->getPowerForLine(this) +
+                    connections[1]->getPowerForLine(this);
+        }
     }
     else
     {
-        power = connections[0]->getPowerForLine(this) +
-                connections[1]->getPowerForLine(this);
+        power = 0;
+    }
+
+    if (power > maxPower)
+    {
+        currentState = FRIED;
     }
 }
 
 void Line::draw(RenderWindow* window)
 {
-    float offset = 20 - MAX_POWER / 5;
-    float thickness = MAX_POWER / 5;
+    float offset = 20 - maxPower / 5;
+    float thickness = maxPower / 5;
     float powerOffset = 20 - power / 5;
     float powerThickness = power / 5;
 
@@ -57,7 +69,10 @@ void Line::draw(RenderWindow* window)
         powerShape.setSize(Vector2f(powerThickness * 2, 40));
     }
 
-    wire.setFillColor(Color(100, 100, 100));
+    if (currentState == FINE)
+        wire.setFillColor(Color(100, 100, 100));
+    else
+        wire.setFillColor(Color(0, 0, 0));
     powerShape.setFillColor(Color(255, 0, 0));
     window->draw(wire);
     window->draw(powerShape);

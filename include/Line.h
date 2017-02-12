@@ -9,6 +9,7 @@
 using namespace sf;
 
 enum Orientation { HORIZONTAL, VERTICAL };
+enum LineState { FINE, FRIED };
 
 class Line
 {
@@ -23,7 +24,9 @@ private:
     Vector2i coords;
 
     float power = 0;
-    const float MAX_POWER = 40;
+    const float maxPower = 40;
+
+    LineState currentState = FINE;
 
     Orientation orientation = VERTICAL;
 
