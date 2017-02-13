@@ -148,6 +148,7 @@ void Game::update()
 
     float newTemperature = 0;
 
+
     if (state == GAME)
     {
         std::array<String, 8> machineStrings = { "HEATER", "SOLAR PANEL",

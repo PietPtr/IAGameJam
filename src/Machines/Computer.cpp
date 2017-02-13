@@ -12,7 +12,7 @@ Computer::Computer(Vector2i coords)
 
 void Computer::update(Time dt)
 {
-    if (line != 0) {
+    if (line != 0 && !broken) {
         this->power = line->getPower();
     }
 }

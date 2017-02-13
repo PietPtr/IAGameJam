@@ -11,7 +11,7 @@ WaterPurifier::WaterPurifier(Vector2i coords)
 
 void WaterPurifier::update(Time dt)
 {
-    if (line != 0) {
+    if (line != 0 && !broken) {
         this->power = line->getPower();
     }
 }
