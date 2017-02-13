@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
+#include <map>
 #include "Audio.h"
 #include "Switch.h"
 #include "Line.h"
@@ -98,5 +99,8 @@ class Game
         std::string gameOverReason;
 
         Vector2i selectedCoord;
+
+        std::map<MachineType, int> machineCountMax;
+        Machine* createNewMachine(Vector2i coords);
 };
 #endif

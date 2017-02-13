@@ -30,9 +30,18 @@ Game::Game(RenderWindow* _window)
 
 void Game::initialize()
 {
+    machineCountMax[HEATER] = 3;
+    machineCountMax[SOLARPANEL] = 0;
+    machineCountMax[BATTERY] = 0;
+    machineCountMax[WATERPURIFIER] = 1;
+    machineCountMax[COMPUTER] = 4;
+    machineCountMax[DISH] = 2;
+    machineCountMax[LIGHT] = 1;
+    machineCountMax[CO2REMOVER] = 3;
+
     loadAudio(audioFileNames);
     loadTextures(textureFileNames);
-    // code throws errors, can't test with it
+
     fillRoutingPanel();
 }
 
@@ -471,35 +480,35 @@ void Game::fillRoutingPanel() {
     //Create the left machines.
     for (int y = 0; y < 5; y++)
     {
-        if (y == 0)
-            machines[machineNumber] = new CO2Remover(Vector2i(0, 6 + y * 2));
-        else if (y == 1)
-            machines[machineNumber] = new Light(Vector2i(0, 6 + y * 2));
-        else
-            machines[machineNumber] = new Heater(Vector2i(0, 6 + y * 2));
-
+        //if (y == 0)
+        //    machines[machineNumber] = new CO2Remover(Vector2i(0, 6 + y * 2));
+        //else if (y == 1)
+        //    machines[machineNumber] = new Light(Vector2i(0, 6 + y * 2));
+        //else
+        //    machines[machineNumber] = new Heater(Vector2i(0, 6 + y * 2));
+        machines[machineNumber] = createNewMachine(Vector2i(0, 6 + y * 2));
         machineNumber++;
     }
 
     //Create the right machines.
     for (int y = 0; y < 5; y++)
     {
-        if (y < 4)
-            machines[machineNumber] = new Computer(Vector2i(10, 6 + y * 2));
-        else
-            machines[machineNumber] = new WaterPurifier(Vector2i(10, 6 + y * 2));
-
+        //if (y < 4)
+        //    machines[machineNumber] = new Computer(Vector2i(10, 6 + y * 2));
+        //else
+        //    machines[machineNumber] = new WaterPurifier(Vector2i(10, 6 + y * 2));
+        machines[machineNumber] = createNewMachine(Vector2i(10, 6 + y * 2));
         machineNumber++;
     }
 
     //Create the bottom machines.
     for (int x = 0; x < 4; x++)
     {
-        if (x == 0 || x == 3)
-            machines[machineNumber] = new Dish(Vector2i(x * 2 + 2, 16));
-        else
-            machines[machineNumber] = new CO2Remover(Vector2i(x * 2 + 2, 16));
-
+        //if (x == 0 || x == 3)
+        //    machines[machineNumber] = new Dish(Vector2i(x * 2 + 2, 16));
+        //else
+        //    machines[machineNumber] = new CO2Remover(Vector2i(x * 2 + 2, 16));
+        machines[machineNumber] = createNewMachine(Vector2i(x * 2 + 2, 16));
         machineNumber++;
     }
 
@@ -721,10 +730,57 @@ Line * Game::getLine(Vector2i coords)
     return getLine(coords.x, coords.y);
 }
 
+Machine* Game::createNewMachine(Vector2i coords)
+{
+    int i = randint(0, machineCountMax.size() - 1);
+    int number = 0;
+    for (std::map<MachineType, int>::iterator newMachType = machineCountMax.begin(); newMachType != machineCountMax.end(); ++newMachType)
+    {
+        if (number == i && newMachType->second > 0)
+        {
+            machineCountMax[newMachType->first] -= 1;
+            switch (newMachType->first)
+            {
+                case HEATER:
+                {
+                    return new Heater(coords);
+                }
+                case WATERPURIFIER:
+                {
+                    return new WaterPurifier(coords);
+                }
+                case CO2REMOVER:
+                {
+                    return new CO2Remover(coords);
+                }
+                case DISH:
+                {
+                    return new Dish(coords);
+                }
+                case LIGHT:
+                {
+                    return new Light(coords);
+                }
+                case COMPUTER:
+                {
+                    return new Computer(coords);
+                }
+                default:
+                {
+                    break;
+                }
+            }
+            break;
+        }
+        number++;
+    }
+    return createNewMachine(coords);
+}
+
 int Game::randint(int low, int high)
 {
     int value = rand() % (high + 1 - low) + low;
-    srand(totalTime.asMicroseconds() * value * rand());
+    //srand(totalTime.asMicroseconds() * value * rand());
 
     return value;
 }
