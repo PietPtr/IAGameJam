@@ -268,6 +268,8 @@ void Game::draw()
     lightOverlay.setScale(Vector2f(1, 1));
     lightOverlay.setPosition(0, 0);
     int transparency = 200 - lights * 15;
+    if (state == START)
+        transparency = 0;
     lightOverlay.setFillColor(Color(0, 0, 0, transparency < 0 ? 0 : transparency));
     window->draw(lightOverlay);
 

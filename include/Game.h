@@ -82,7 +82,7 @@ class Game
         // used by the status screen
         float co2 = 402; // ppm
         float temperature = 18; // C
-        float lights;
+        float lights = 10;
         bool activeComputer = false;
         bool hasLink = false;
         float waterPurifier;
