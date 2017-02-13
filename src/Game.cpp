@@ -238,7 +238,7 @@ void Game::update()
     else if (temperature < -40)
     {
         state = GAMEOVER;
-        gameOverReason = "YOU FROOZE TO DEATH...";
+        gameOverReason = "YOU FROZE TO DEATH...";
     }
     else if (co2 > 50000)
     {
