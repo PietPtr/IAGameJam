@@ -12,7 +12,7 @@ Heater::Heater(Vector2i coords)
 
 void Heater::update(Time dt)
 {
-    if (line != 0) {
+    if (line != 0 && !broken) {
         this->power = line->getPower();
     }
 }

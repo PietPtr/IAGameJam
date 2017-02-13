@@ -16,7 +16,7 @@ CO2Remover::CO2Remover(Vector2i coords)
 void CO2Remover::update(Time dt)
 {
     //this->power = line->getPower();
-    if (line != 0) {
+    if (line != 0 && !broken) {
         this->power = line->getPower();
     }
 }

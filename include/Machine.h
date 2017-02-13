@@ -23,7 +23,7 @@ class Machine : public Connection
         void setLine(Line* line) { this->line = line; }
         void drawType(RenderWindow* window, std::vector<Texture>* textures, MachineType type);
         void drawBroken(RenderWindow* window, std::vector<Texture>* textures);
-        void setBroken(bool broken) { this->broken = broken; power = 0; }
+        void setBroken(bool broken) { this->broken = broken; this->power = 0; }
         bool isBroken() { return broken; }
         void drawTinyMachine(RenderWindow* window, std::vector<Texture>* textures, int texture);
         void drawLargeMachine(RenderWindow* window, std::vector<Texture>* textures, int texture);
