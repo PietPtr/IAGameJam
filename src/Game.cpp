@@ -44,6 +44,9 @@ void Game::initialize()
     loadTextures(textureFileNames);
 
     fillRoutingPanel();
+
+    sfx[1]->loop(true);
+    sfx[1]->play();
 }
 
 void Game::update()
@@ -508,10 +511,12 @@ bool Game::isWindowOpen()
 
 void Game::loadAudio(std::vector<std::string> audioFileNames)
 {
+    std::cout << "Loading audio..." << audioFileNames.size() << "\n";
     for (int i = 0; i < audioFileNames.size(); i++)
     {
         sfx.push_back(new Audio());
-        sfx.back()->init(audioFileNames[i]);
+        sfx.back()->init("audio/" + audioFileNames[i]);
+        std::cout << "Loaded audio " << "audio/" + audioFileNames[i] << "\n";
     }
 }
 
@@ -732,6 +737,9 @@ void Game::consoleLog(std::string sender, std::string text)
 {
     if (hasActiveComputer())
         log += getPrettyMissionTime() + " " + sender + ":&   " + text + "& & ";
+
+    if (sender == "SYSTEM")
+        sfx[0]->play();
 }
 
 void Game::determineSelectedConnection(Vector2i selectedCoords)

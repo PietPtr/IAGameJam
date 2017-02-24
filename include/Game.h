@@ -62,7 +62,7 @@ class Game
         int windowWidth = 1280;
         int windowHeight = 720;
 
-        std::vector<std::string> audioFileNames { };
+        std::vector<std::string> audioFileNames { "beep.wav", "noise.wav" };
         std::vector<std::string> textureFileNames { "font.png", "bg.png", "switch.png", "buttonInput.png",     //0-3
             "buttonOutput.png", "buttonClose.png", "scanlines.png", "info.png", "gameover.png", "broken.png",  //4-9
             "Battery.png", "co2Remover.png", "ComputerOn.png", "ComputerOff.png", "light.png", "Heater.png",   //10-15
