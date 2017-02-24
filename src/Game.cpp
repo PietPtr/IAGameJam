@@ -294,7 +294,6 @@ void Game::update()
                 }
             }
         }
-        std::cout << rocketPreparationTimeline.asSeconds() << "\n";
 
         if (rendezvousTimeline.asSeconds() > WINTIME)
         {
@@ -372,8 +371,7 @@ void Game::draw()
     //Draw all lines
     for (int i = 0; i < lines.size(); i++)
     {
-        // coords where undefined and giving segfaults, uncomment when needed again
-        lines[i]->draw(window);
+        lines[i]->draw(window, &textures);
     }
 
     //Draw all switches.
@@ -432,7 +430,7 @@ void Game::draw()
         {
             Sprite gameover(textures[26]);
             window->draw(gameover);
-            drawString(window, "CONGRATULATIONS, YOU BEAT THE GAME. YOU STAYED ALIVE FOR LONG ENOUGH TO BE RESCUED",
+            drawString(window, "CONGRATULATIONS, YOU BEAT THE GAMEi YOU STAYED ALIVE FOR LONG ENOUGH TO BE RESCUED",
                 Vector2f(30, 400), &textures.at(0), Color(228,172,38), 100);
             drawString(window, "CLICK ANYWHERE TO PLAY AGAIN", Vector2f(30, 425), &textures.at(0), Color(228,172,38), 100);
         }
@@ -749,6 +747,18 @@ void Game::determineSelectedConnection(Vector2i selectedCoords)
         else
         {
             machines[i]->setSelected(false);
+        }
+    }
+
+    for (int i = 0; i < lines.size(); i++)
+    {
+        if (lines[i]->getCoords() == selectedCoords)
+        {
+            lines[i]->setSelected(true);
+        }
+        else
+        {
+            lines[i]->setSelected(false);
         }
     }
 }

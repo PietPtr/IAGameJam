@@ -47,7 +47,7 @@ void CO2Remover::drawSelected(RenderWindow* window, std::vector<Texture>* textur
 
     if (Game::gameInstance->hasActiveComputer())
     {
-        std::string removeInfo = "CO2 REMOVAL: " + std::to_string((int)(power * CO2REMOVER_SPEED)) + " PPM PER S";
+        std::string removeInfo = "CO2 REMOVAL: " + floatToString(power * CO2REMOVER_SPEED, 1) + " PPMlS";
         drawString(window, removeInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
     }
 

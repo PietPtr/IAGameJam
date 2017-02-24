@@ -23,7 +23,7 @@ class CO2Remover : public Machine
     protected:
     private:
         // multiplied with power supplied.
-        const float CO2REMOVER_SPEED = 3.5; // ppm CO2 per second
+        const float CO2REMOVER_SPEED = 0.4; // ppm CO2 per second per watt
 };
 
 #endif

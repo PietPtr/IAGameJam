@@ -15,16 +15,19 @@ class Line
 {
 public:
     Line(Vector2i coords, std::array<Connection*, 2> switches);
-    void draw(RenderWindow* window);
+    void draw(RenderWindow* window, std::vector<Texture>* textures);
     void update(Time dt);
     float getPower() { return power; }
-    Vector2i getCoords() { return coords; };
+    Vector2i getCoords() { return coords; }
+    void setSelected(bool s) { selected = s; }
+    void drawSelected(RenderWindow* window, std::vector<Texture>* textures);
 protected:
 private:
     Vector2i coords;
 
     float power = 0;
     const float maxPower = 40;
+    bool selected = false;
 
     LineState currentState = FINE;
 

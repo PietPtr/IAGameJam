@@ -44,7 +44,7 @@ void Line::update(Time dt) {
     }
 }
 
-void Line::draw(RenderWindow* window)
+void Line::draw(RenderWindow* window, std::vector<Texture>* textures)
 {
     float offset = 20 - maxPower / 5;
     float thickness = maxPower / 5;
@@ -80,4 +80,35 @@ void Line::draw(RenderWindow* window)
     window->draw(wire);
     window->draw(powerShape);
 
+    if (selected)
+        drawSelected(window, textures);
+}
+
+void Line::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
+{
+    float thickness = maxPower / 5 * 4;
+    float powerThickness = power / 5 * 4;
+
+    RectangleShape wireShape(Vector2f(thickness * 2, 160));
+    wireShape.setOrigin(wireShape.getSize().x / 2, wireShape.getSize().y / 2);
+    wireShape.setPosition(Vector2f(580, 100));
+    if (currentState == FINE)
+        wireShape.setFillColor(Color(100, 100, 100));
+    else
+        wireShape.setFillColor(Color(0, 0, 0));
+    if (orientation == HORIZONTAL)
+        wireShape.setRotation(90);
+
+    window->draw(wireShape);
+
+    wireShape.setSize(Vector2f(powerThickness * 2, 160));
+    wireShape.setOrigin(wireShape.getSize().x / 2, wireShape.getSize().y / 2);
+    wireShape.setFillColor(Color(255, 0, 0));
+    window->draw(wireShape);
+
+    if (Game::gameInstance->hasActiveComputer())
+    {
+        std::string infoStr = "TYPE: LINE& POWER: " + floatToString(power, 2);
+        drawString(window, infoStr, Vector2f(502, 222), &textures->at(0), Color(0, 200, 0), 20);
+    }
 }
