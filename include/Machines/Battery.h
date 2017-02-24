@@ -23,11 +23,9 @@ class Battery : public Machine
     protected:
     private:
         Line* outputLine;
-        /*Current charge of this battery.*/
-        float charge = 1250;
-        /*Loses 5 power per second.*/
         float outPower = 20;
-        float maxCharge = 1250;
+        float maxCharge = 2000;
+        float charge = maxCharge;
         const float START_CHARGE = 20;
         const float DIFFERENCE = 5;
         float powerDampening = 0;

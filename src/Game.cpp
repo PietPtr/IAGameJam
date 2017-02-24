@@ -302,7 +302,12 @@ void Game::update()
         }
 
 
+        // Update hazards and consumables
         co2 += co2PerSecond * missiondt.asSeconds();
+
+        trueAnomaly += orbitalSpeed * missiondt.asSeconds();
+        trueAnomaly = fmod(trueAnomaly, 360);
+
         float temperatureDecrease = heatLeakage * missiondt.asSeconds();
         if (temperature > 0)
         {
@@ -313,6 +318,8 @@ void Game::update()
 
         }
         temperature -= temperatureDecrease;
+
+        lights += getSunlight();
     }
 
     if (temperature > 70)
@@ -353,9 +360,10 @@ void Game::draw()
     lightOverlay.setSize(Vector2f(856, 720));
     lightOverlay.setScale(Vector2f(1, 1));
     lightOverlay.setPosition(0, 0);
-    int transparency = 200 - lights * 15;
+    int transparency = 200 - lights * 40;
     if (state == START)
         transparency = 0;
+
     lightOverlay.setFillColor(Color(0, 0, 0, transparency < 0 ? 0 : transparency));
     window->draw(lightOverlay);
 
@@ -874,6 +882,16 @@ Machine* Game::createNewMachine(Vector2i coords)
         number++;
     }
     return createNewMachine(coords);
+}
+
+float Game::getSunlight()
+{
+    // This is a sine function that crosses the x axis at approximately 224 and 360
+    // degrees - at orbital sunrise and sunset.
+    float sunlight = (sin((trueAnomaly - 22) * (M_PI / 180)) + 0.37) * 10;
+    sunlight = sunlight < 0 ? 0 : sunlight;
+    sunlight = sunlight > 5 ? 5 : sunlight;
+    return sunlight;
 }
 
 void Game::takeScreenshot()

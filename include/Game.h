@@ -41,6 +41,8 @@ class Game
         bool hasActiveComputer() { return activeComputer || state == START; }
 
         void takeScreenshot();
+
+        float getSunlight();
     protected:
     private:
         RenderWindow* window;
@@ -90,10 +92,14 @@ class Game
         bool activeComputer = false;
         bool hasLink = false;
         float waterPurifier;
+        float trueAnomaly = 200; // Position along the keplerian orbit
 
         // production/consuming variables
         float co2PerSecond = 4; // ppm per second
         float heatLeakage = 0.01;  // degree per second
+        // this is a magic number because I calculated this value for a 500x500 orbit
+        // on paper and that is not something this program has to do.
+        const float orbitalSpeed = 0.0635; // degrees per second.
 
         bool warnedTempHigh = false;
         bool warnedCO2 = false;
