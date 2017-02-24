@@ -65,7 +65,8 @@ class Game
             "buttonOutput.png", "buttonClose.png", "scanlines.png", "info.png", "gameover.png", "broken.png",  //4-9
             "Battery.png", "co2Remover.png", "ComputerOn.png", "ComputerOff.png", "light.png", "Heater.png",   //10-15
             "dish.png", "SolarPanel.png", "SolarPanelOff.png", "WaterPurifier.png", "switchSmall.png",         //16-20
-            "batteryBig.png", "effectOverlay.png", "switchSmallOff.png", "switchOff.png", "portStatus.png"};   //21-25
+            "batteryBig.png", "effectOverlay.png", "switchSmallOff.png", "switchOff.png", "portStatus.png",    //21-25
+            "win.png"}; //26
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
@@ -118,13 +119,16 @@ class Game
 
         // Map with messages and times (in seconds) when the player should get them
         std::map<int, std::string> prepStatusMsgs = {
-            { 30 * 60, "PREPARATION HAS STARTED, EVERYTHING IS GOING NOMINALLY. APPROX. 3 HOURS AND 30 MINUTES UNTIL LAUNCH"},
-            { 60 * 60, "SPACECRAFT AND ROCKET ARE MATED. FULL STACK IS BEING TRANSPORTED TO THE LAUNCH PAD AS WE SPEAK. 3 HOURS UNTIL LAUNCH"},
-            {120 * 60, "ROCKET IS VERTICAL. LAUNCH IN 2 HOURS."},
-            {180 * 60, "FUELLING OF THE VEHICLE HAS BEGUN. LAST CHECKS OF THE SPACECRAFT ARE UNDERWAY. LAUNCH IN 1 HOUR."},
-            {230 * 60, "ALL SYSTEMS NOMINAL. LAUNCHING IN 10 MINUTES."},
-            {239 * 60, "1 MINUTE UNTIL LAUNCH."},
-            {240 * 60, "AND LIFTOFF! WE ARE COMING TO GET YOU. IN SIX HOURS THE SPACECRAFT WILL ARRIVE. MAKE SURE YOU KEEP YOUR COMMUNICATIONS ONLINE DURING THOSE SIX HOURS OR WE WILL NOT KNOW WHERE YOU ARE."}
+            { 30 * 1, "PREPARATION HAS STARTED, EVERYTHING IS GOING NOMINALLY. APPROX. 3 HOURS AND 30 MINUTES UNTIL LAUNCH"},
+            { 60 * 1, "SPACECRAFT AND ROCKET ARE MATED. FULL STACK IS BEING TRANSPORTED TO THE LAUNCH PAD AS WE SPEAK. 3 HOURS UNTIL LAUNCH"},
+            {120 * 1, "ROCKET IS VERTICAL. LAUNCH IN 2 HOURS."},
+            {180 * 1, "FUELLING OF THE VEHICLE HAS BEGUN. LAST CHECKS OF THE SPACECRAFT ARE UNDERWAY. LAUNCH IN 1 HOUR."},
+            {230 * 1, "ALL SYSTEMS NOMINAL. LAUNCHING IN 10 MINUTES."},
+            {239 * 1, "1 MINUTE UNTIL LAUNCH."},
+            {240 * 1, "AND LIFTOFF! WE ARE COMING TO GET YOU. IN SIX HOURS THE SPACECRAFT WILL ARRIVE. MAKE SURE YOU KEEP YOUR COMMUNICATIONS ONLINE DURING THOSE SIX HOURS OR WE WILL NOT KNOW WHERE YOU ARE."}
         };
+
+        const int PREPTIME = 4 * 60 * 1;
+        const int WINTIME = 10 * 60 * 1;
 };
 #endif

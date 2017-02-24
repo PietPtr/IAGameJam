@@ -171,6 +171,7 @@ void Game::update()
 
         bool isOneDishWithPower = false;
         bool isOneComputerWithPower = false;
+        bool hadLink = hasLink;
         lights = 0;
 
         //Update machines
@@ -229,13 +230,15 @@ void Game::update()
             rocketBeingPrepared = true;
             if (rocketPreparationTimeline.asSeconds() == 0)
                 consoleLog("HOUSTON:", "WE HAVE SEEN AN ANOMALY HAS OCCURED ON YOUR VEHICLE. "
-                    "THE MISSION WILL BE ABORTED AND A SPACECRAFT WILL BE LAUNCHED IN 4 HOURS TO SAVE   YOU. "
+                    "THE MISSION WILL BE ABORTED AND A SPACECRAFT WILL BE LAUNCHED IN 4 HOURS TO SAVE YOU. "
                     "MAKE SURE YOUR COMM LINK IS STILL ONLINE BY THAT TIME SO WE CAN START THE ORBITAL "
                     "RENDEZVOUS AND GET YOU HOME.");
         }
         else
         {
             hasLink = false;
+            if (hadLink)
+                consoleLog("SYSTEM", "LOST COMM LINK");
         }
 
         if (isOneComputerWithPower)
@@ -247,7 +250,7 @@ void Game::update()
         if (rocketBeingPrepared)
             rocketPreparationTimeline += missiondt;
 
-        if (rocketPreparationTimeline.asSeconds() > 4 * 60 * 60)
+        if (rocketPreparationTimeline.asSeconds() > PREPTIME)
             rendezVousStarted = true;
 
         if (rendezVousStarted && hasLink)
@@ -256,6 +259,7 @@ void Game::update()
         // Receive messages from houston about progress with preparing the rocket
         if (hasLink)
         {
+            // During preparation
             for (auto const& i : prepStatusMsgs)
             {
                 if (rocketPreparationTimeline.asSeconds() > i.first)
@@ -264,6 +268,29 @@ void Game::update()
                     prepStatusMsgs.erase(i.first);
                 }
             }
+
+            // During rendezvous
+            if (rendezvousTimeline.asSeconds() > 0)
+            {
+                if (randint(0, 10) == 0)
+                {
+                    int etaSeconds = WINTIME - (int)(rendezvousTimeline.asSeconds());
+                    int etaHours = etaSeconds / (60 * 60);
+                    int etaMinutes = etaSeconds / (60);
+                    if (etaHours > 0)
+                        etaMinutes = etaMinutes % (etaHours * 60);
+
+                    consoleLog("SPACECRAFT", "E.T.A.: " + std::to_string(etaHours) +
+                        " HOURS AND " + std::to_string(etaMinutes) + " MINUTES.");
+                }
+            }
+        }
+        std::cout << rendezvousTimeline.asSeconds() << "\n";
+
+        if (rendezvousTimeline.asSeconds() > WINTIME)
+        {
+            state = GAMEOVER;
+            gameOverReason = "WIN";
         }
 
 
@@ -383,12 +410,24 @@ void Game::draw()
     }
     if (state == GAMEOVER)
     {
-        Sprite gameover(textures[8]);
-        window->draw(gameover);
+        if (gameOverReason != "WIN")
+        {
+            Sprite gameover(textures[8]);
+            window->draw(gameover);
 
-        drawString(window, "REASON: " + gameOverReason, Vector2f(340, 600), &textures.at(0), Color(0,200,0), 100);
+            drawString(window, "REASON: " + gameOverReason, Vector2f(340, 600), &textures.at(0), Color(0,200,0), 100);
 
-        drawString(window, "CLICK ANYWHERE TO PLAY AGAIN", Vector2f(340, 650), &textures.at(0), Color(0, 200, 0), 100);
+            drawString(window, "CLICK ANYWHERE TO PLAY AGAIN", Vector2f(340, 650), &textures.at(0), Color(0, 200, 0), 100);
+        }
+        else
+        {
+            Sprite gameover(textures[26]);
+            window->draw(gameover);
+            drawString(window, "CONGRATULATIONS, YOU BEAT THE GAME. YOU STAYED ALIVE FOR LONG ENOUGH TO BE RESCUED",
+                Vector2f(30, 400), &textures.at(0), Color(228,172,38), 100);
+            drawString(window, "CLICK ANYWHERE TO PLAY AGAIN", Vector2f(30, 425), &textures.at(0), Color(228,172,38), 100);
+        }
+
     }
 
     Sprite effectOverlay(textures[22]);
@@ -429,7 +468,7 @@ void Game::drawStatus()
     std::string co2Str = "CO2 LEVEL:&   " + std::to_string((int)co2) + " PPM";
     drawString(window, co2Str, Vector2f(702, 48), &textures.at(0), co2Color, 100);
 
-    std::string timeStr = "MISSION TIME: &   " + getPrettyMissionTime();
+    std::string timeStr = "MISSION TIME:&   " + getPrettyMissionTime();
     drawString(window, timeStr, Vector2f(702, 72), &textures.at(0), Color(0, 200, 0), 100);
 
     std::string linkStatus = "DOWN";
@@ -673,7 +712,8 @@ void Game::fillRoutingPanel() {
 
 void Game::consoleLog(std::string sender, std::string text)
 {
-    log += getPrettyMissionTime() + " " + sender + ":&   " + text + "& & ";
+    if (hasActiveComputer())
+        log += getPrettyMissionTime() + " " + sender + ":&   " + text + "& & ";
 }
 
 void Game::determineSelectedConnection(Vector2i selectedCoords)
