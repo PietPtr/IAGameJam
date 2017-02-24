@@ -738,7 +738,7 @@ void Game::consoleLog(std::string sender, std::string text)
     if (hasActiveComputer())
         log += getPrettyMissionTime() + " " + sender + ":&   " + text + "& & ";
 
-    if (sender == "SYSTEM")
+    if (hasActiveComputer())//sender == "SYSTEM")
         sfx[0]->play();
 }
 
