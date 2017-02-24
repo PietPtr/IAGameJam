@@ -418,6 +418,8 @@ void Game::draw()
     Sprite scanLines(textures[6]);
     window->draw(scanLines);
 
+    window->draw(lightOverlay);
+
     if (state == START)
     {
         Sprite infoOverlay(textures[7]);
@@ -444,6 +446,7 @@ void Game::draw()
         }
 
     }
+
 
     Sprite effectOverlay(textures[22]);
     if (temperature < 0)

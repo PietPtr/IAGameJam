@@ -88,11 +88,11 @@ class Game
         // used by the status screen
         float co2 = 402; // ppm
         float temperature = 18; // C
-        float lights = 10;
+        float lights = 0;
         bool activeComputer = false;
         bool hasLink = false;
         float waterPurifier;
-        float trueAnomaly = 200; // Position along the keplerian orbit
+        float trueAnomaly = 30; // Position along the keplerian orbit
 
         // production/consuming variables
         float co2PerSecond = 4; // ppm per second
