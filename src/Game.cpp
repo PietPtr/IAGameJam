@@ -232,12 +232,7 @@ void Game::update()
         if (isOneDishWithPower)
         {
             hasLink = true;
-            rocketBeingPrepared = true;
-            if (rocketPreparationTimeline.asSeconds() == 0)
-                consoleLog("HOUSTON:", "WE HAVE SEEN AN ANOMALY HAS OCCURED ON YOUR VEHICLE. "
-                    "THE MISSION WILL BE ABORTED AND A SPACECRAFT WILL BE LAUNCHED IN 4 HOURS TO SAVE YOU. "
-                    "MAKE SURE YOUR COMM LINK IS STILL ONLINE BY THAT TIME SO WE CAN START THE ORBITAL "
-                    "RENDEZVOUS AND GET YOU HOME.");
+
         }
         else
         {
@@ -252,6 +247,15 @@ void Game::update()
             activeComputer = false;
 
         // Win condition stuff
+        if (hasLink && !hadLink && rocketPreparationTimeline.asSeconds() == 0)
+        {
+            rocketBeingPrepared = true;
+            consoleLog("HOUSTON", "WE HAVE SEEN AN ANOMALY HAS OCCURED ON YOUR VEHICLE. "
+                "THE MISSION WILL BE ABORTED AND A SPACECRAFT WILL BE LAUNCHED IN 4 HOURS TO SAVE YOU. "
+                "MAKE SURE YOUR COMM LINK IS STILL ONLINE BY THAT TIME SO WE CAN START THE ORBITAL "
+                "RENDEZVOUS AND GET YOU HOME.");
+        }
+
         if (rocketBeingPrepared)
             rocketPreparationTimeline += missiondt;
 
@@ -290,7 +294,7 @@ void Game::update()
                 }
             }
         }
-        std::cout << rendezvousTimeline.asSeconds() << "\n";
+        std::cout << rocketPreparationTimeline.asSeconds() << "\n";
 
         if (rendezvousTimeline.asSeconds() > WINTIME)
         {
@@ -413,7 +417,7 @@ void Game::draw()
         Sprite infoOverlay(textures[7]);
         window->draw(infoOverlay);
     }
-    if (state == GAMEOVER)
+    if (state == GAMEOVER && !Keyboard::isKeyPressed(Keyboard::V))
     {
         if (gameOverReason != "WIN")
         {
