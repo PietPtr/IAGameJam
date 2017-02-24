@@ -9,6 +9,7 @@
 
 class Line;
 
+//                    0         1         2           3            4           5      6      7
 enum MachineType { HEATER, SOLARPANEL, BATTERY, WATERPURIFIER, CO2REMOVER, COMPUTER, DISH, LIGHT };
 
 class Machine : public Connection

@@ -18,6 +18,7 @@
 
 using namespace sf;
 
+//int drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine);
 int drawString(RenderWindow* window, std::string text, Vector2f position, Texture* fontTexture, Color color, int newLine);
 
 Game* Game::gameInstance;
@@ -124,7 +125,8 @@ void Game::update()
 
     dt = clock.restart();
     totalTime += dt;
-    missionTime += dt * TIME_MULTIPLIER;
+    if (state == GAME)
+        missionTime += dt * TIME_MULTIPLIER;
     missiondt = dt * TIME_MULTIPLIER;
 
     if (randint(0, 60) == 0)
@@ -132,7 +134,7 @@ void Game::update()
         std::string msg = getHoustonStatusMessage();
         if (msg != "NONE")
         {
-            consoleLog("HOUSTON: " + msg);
+            consoleLog("HOUSTON", msg);
         }
     }
 
@@ -179,7 +181,7 @@ void Game::update()
                 if (randint(0, 50000) == 0)
                 {
                     machines[i]->setBroken(true);
-                    consoleLog("SYSTEM: " + machineStrings[machines[i]->getMachineType()] + " BROKE DOWN");
+                    consoleLog("SYSTEM", machineStrings[machines[i]->getMachineType()] + " BROKE DOWN");
                 }
                 machines[i]->update(dt);
             }
@@ -202,6 +204,7 @@ void Game::update()
                 {
                     isOneDishWithPower = true;
                 }
+                break;
             case COMPUTER:
                 if (((Computer*)(machines[i]))->isOn() && !machines[i]->isBroken())
                 {
@@ -221,14 +224,47 @@ void Game::update()
             }
         }
         if (isOneDishWithPower)
+        {
             hasLink = true;
+            rocketBeingPrepared = true;
+            if (rocketPreparationTimeline.asSeconds() == 0)
+                consoleLog("HOUSTON:", "WE HAVE SEEN AN ANOMALY HAS OCCURED ON YOUR VEHICLE. "
+                    "THE MISSION WILL BE ABORTED AND A SPACECRAFT WILL BE LAUNCHED IN 4 HOURS TO SAVE   YOU. "
+                    "MAKE SURE YOUR COMM LINK IS STILL ONLINE BY THAT TIME SO WE CAN START THE ORBITAL "
+                    "RENDEZVOUS AND GET YOU HOME.");
+        }
         else
+        {
             hasLink = false;
+        }
 
         if (isOneComputerWithPower)
             activeComputer = true;
         else
             activeComputer = false;
+
+        // Win condition stuff
+        if (rocketBeingPrepared)
+            rocketPreparationTimeline += missiondt;
+
+        if (rocketPreparationTimeline.asSeconds() > 4 * 60 * 60)
+            rendezVousStarted = true;
+
+        if (rendezVousStarted && hasLink)
+            rendezvousTimeline += missiondt;
+
+        // Receive messages from houston about progress with preparing the rocket
+        if (hasLink)
+        {
+            for (auto const& i : prepStatusMsgs)
+            {
+                if (rocketPreparationTimeline.asSeconds() > i.first)
+                {
+                    consoleLog("HOUSTON", i.second);
+                    prepStatusMsgs.erase(i.first);
+                }
+            }
+        }
 
 
         co2 += co2PerSecond * missiondt.asSeconds();
@@ -259,6 +295,7 @@ void Game::update()
         state = GAMEOVER;
         gameOverReason = "YOU SUFFOCATED TO DEATH...";
     }
+
 
     frame++;
 }
@@ -634,11 +671,9 @@ void Game::fillRoutingPanel() {
     std::cout << "Created world\n";
 }
 
-void Game::consoleLog(std::string text)
+void Game::consoleLog(std::string sender, std::string text)
 {
-    log += getPrettyMissionTime() + " " + text + "& ";
-    if (!hasActiveComputer())
-        log = "";
+    log += getPrettyMissionTime() + " " + sender + ":&   " + text + "& & ";
 }
 
 void Game::determineSelectedConnection(Vector2i selectedCoords)

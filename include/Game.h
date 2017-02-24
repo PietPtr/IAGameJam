@@ -27,7 +27,7 @@ class Game
         void loadTextures(std::vector<std::string> fileNames);
 
         void fillRoutingPanel();
-        void consoleLog(std::string text);
+        void consoleLog(std::string sender, std::string text);
         void determineSelectedConnection(Vector2i coords);
 
         void drawStatus();
@@ -104,5 +104,27 @@ class Game
 
         std::map<MachineType, int> machineCountMax;
         Machine* createNewMachine(Vector2i coords);
+
+        // This timer starts running the moment the player acquires a comm link with Houston.
+        // After about 4 hours Houston will inform the player that a rocket will be launched
+        // to save them. The player has to keep communication online for the launch to come through.
+        bool rocketBeingPrepared = false;
+        Time rocketPreparationTimeline = seconds(0);
+        // After the rocket is launched, this timer starts running. The player needs to have a
+        // comm link for the timer to continue. After 6 hours the rendezvous is complete and the
+        // player is saved.
+        bool rendezVousStarted = false;
+        Time rendezvousTimeline = seconds(0);
+
+        // Map with messages and times (in seconds) when the player should get them
+        std::map<int, std::string> prepStatusMsgs = {
+            { 30 * 60, "PREPARATION HAS STARTED, EVERYTHING IS GOING NOMINALLY. APPROX. 3 HOURS AND 30 MINUTES UNTIL LAUNCH"},
+            { 60 * 60, "SPACECRAFT AND ROCKET ARE MATED. FULL STACK IS BEING TRANSPORTED TO THE LAUNCH PAD AS WE SPEAK. 3 HOURS UNTIL LAUNCH"},
+            {120 * 60, "ROCKET IS VERTICAL. LAUNCH IN 2 HOURS."},
+            {180 * 60, "FUELLING OF THE VEHICLE HAS BEGUN. LAST CHECKS OF THE SPACECRAFT ARE UNDERWAY. LAUNCH IN 1 HOUR."},
+            {230 * 60, "ALL SYSTEMS NOMINAL. LAUNCHING IN 10 MINUTES."},
+            {239 * 60, "1 MINUTE UNTIL LAUNCH."},
+            {240 * 60, "AND LIFTOFF! WE ARE COMING TO GET YOU. IN SIX HOURS THE SPACECRAFT WILL ARRIVE. MAKE SURE YOU KEEP YOUR COMMUNICATIONS ONLINE DURING THOSE SIX HOURS OR WE WILL NOT KNOW WHERE YOU ARE."}
+        };
 };
 #endif
