@@ -112,6 +112,11 @@ void Game::update()
                 temperature = 18;
                 co2 = 402;
                 missionTime = seconds(65536);
+                rocketBeingPrepared = false;
+                rocketPreparationTimeline = seconds(0);
+                rendezVousStarted = false;
+                rendezvousTimeline = seconds(0);
+                log = "";
                 initialize();
                 return;
             }
