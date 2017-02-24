@@ -84,6 +84,9 @@ void Battery::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
 
         std::string outInfo = "OUTPUT: " + floatToString(outPower, 1) + "W";
         drawString(window, outInfo, Vector2f(502, 244), &textures->at(0), Color(0, 200, 0), 100);
+
+        std::string inInfo = "INPUT: " + floatToString(line->getPower(), 1) + "W";
+        drawString(window, inInfo, Vector2f(502, 255), &textures->at(0), Color(0, 200, 0), 100);
     }
 
     RectangleShape switchShape;
