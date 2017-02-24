@@ -33,6 +33,12 @@ Switch::Switch(Vector2i coords)
         IntRect rect(510, 119 - i * 34, 20, 30);
         buttonRectangles[9 + i] = rect;
     }
+
+    iconPositions[0] = Vector2i(20, 8);
+    iconPositions[1] = Vector2i(32, 20);
+    iconPositions[2] = Vector2i(20, 32);
+    iconPositions[3] = Vector2i(8, 20);
+
 }
 
 void Switch::update(Time dt)
@@ -67,7 +73,34 @@ void Switch::draw(RenderWindow * window, std::vector<Texture>* textures)
 
     Sprite sprite(textures->at(20));
     sprite.setPosition(20 + coords.x * 40, 20 + coords.y * 40);
+    if (power == 0)
+    {
+        sprite.setTexture(textures->at(23));
+    }
     window->draw(sprite);
+
+    // draw the port state icons
+    for (int i = 0; i < 4; i++)
+    {
+        PortState state = getPortState(i);
+        if (state == CLOSED)
+        {
+            // no icon, draw nothing
+        }
+        else
+        {
+            Sprite iconSprite(textures->at(25));
+            iconSprite.setOrigin(Vector2f(4, 2));
+            iconSprite.setPosition(20 + coords.x * 40 + iconPositions[i].x,
+                                   20 + coords.y * 40 + iconPositions[i].y);
+            iconSprite.setRotation(i * 90);
+            if (state == OUTPUT)
+                iconSprite.setRotation(i * 90 + 180);
+            if (power == 0)
+                iconSprite.setColor(Color(0, 0, 0));
+            window->draw(iconSprite);
+        }
+    }
 }
 
 
@@ -153,6 +186,8 @@ void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
     switchSprite.setPosition(Vector2f(500, 20));
     if (currentState == BROKEN)
         switchSprite.setColor(Color(0,0,0));
+    if (power == 0)
+        switchSprite.setTexture(textures->at(24));
     window->draw(switchSprite);
 
     if (Game::gameInstance->hasActiveComputer())

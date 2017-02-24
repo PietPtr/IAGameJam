@@ -58,6 +58,10 @@ void Game::update()
             {
                 window->close();
             }
+            if (event.key.code == Keyboard::F1)
+            {
+                takeScreenshot();
+            }
         }
         if (event.type == Event::LostFocus)
         {
@@ -250,10 +254,10 @@ void Game::update()
         state = GAMEOVER;
         gameOverReason = "YOU FROZE TO DEATH...";
     }
-    else if (co2 > 50000)
+    else if (co2 > 40000)
     {
         state = GAMEOVER;
-        gameOverReason = "YOU SUFFOCATE TO DEATH...";
+        gameOverReason = "YOU SUFFOCATED TO DEATH...";
     }
 
     frame++;
@@ -776,6 +780,12 @@ Machine* Game::createNewMachine(Vector2i coords)
         number++;
     }
     return createNewMachine(coords);
+}
+
+void Game::takeScreenshot()
+{
+    Image screenshot = window->capture();
+    screenshot.saveToFile("./screenshot" + std::to_string(randint(0, 65546)) + ".png");
 }
 
 int Game::randint(int low, int high)

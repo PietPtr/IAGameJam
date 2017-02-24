@@ -46,5 +46,6 @@ class Switch : public Connection
         SwitchState currentState;
 
         std::array<IntRect, 12> buttonRectangles;
+        std::array<Vector2i, 4> iconPositions;
 };
 #endif

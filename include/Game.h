@@ -39,6 +39,8 @@ class Game
         std::string getHoustonStatusMessage();
 
         bool hasActiveComputer() { return activeComputer || state == START; }
+
+        void takeScreenshot();
     protected:
     private:
         RenderWindow* window;
@@ -59,11 +61,11 @@ class Game
         int windowHeight = 720;
 
         std::vector<std::string> audioFileNames { };
-        std::vector<std::string> textureFileNames { "font.png", "bg.png", "switch.png", "buttonInput.png",          //0-3
-            "buttonOutput.png", "buttonClose.png", "scanlines.png", "info.png", "gameover.png", "broken.png",       //4-9
-            "Battery.png", "co2Remover.png", "ComputerOn.png", "ComputerOff.png", "light.png", "Heater.png",        //10-15
-            "dish.png", "SolarPanel.png", "SolarPanelOff.png", "WaterPurifier.png", "switchSmall.png",              //16-20
-            "batteryBig.png", "effectOverlay.png"};   //21 - 22
+        std::vector<std::string> textureFileNames { "font.png", "bg.png", "switch.png", "buttonInput.png",     //0-3
+            "buttonOutput.png", "buttonClose.png", "scanlines.png", "info.png", "gameover.png", "broken.png",  //4-9
+            "Battery.png", "co2Remover.png", "ComputerOn.png", "ComputerOff.png", "light.png", "Heater.png",   //10-15
+            "dish.png", "SolarPanel.png", "SolarPanelOff.png", "WaterPurifier.png", "switchSmall.png",         //16-20
+            "batteryBig.png", "effectOverlay.png", "switchSmallOff.png", "switchOff.png", "portStatus.png"};   //21-25
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
