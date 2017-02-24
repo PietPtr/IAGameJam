@@ -184,8 +184,6 @@ void Switch::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
     Sprite switchSprite;
     switchSprite.setTexture(textures->at(2));
     switchSprite.setPosition(Vector2f(500, 20));
-    if (currentState == BROKEN)
-        switchSprite.setColor(Color(0,0,0));
     if (power == 0)
         switchSprite.setTexture(textures->at(24));
     window->draw(switchSprite);
