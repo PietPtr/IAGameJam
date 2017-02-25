@@ -43,6 +43,7 @@ class Game
         void takeScreenshot();
 
         float getSunlight();
+        GameState getState() { return state; }
     protected:
     private:
         RenderWindow* window;
@@ -68,7 +69,7 @@ class Game
             "Battery.png", "co2Remover.png", "ComputerOn.png", "ComputerOff.png", "light.png", "Heater.png",   //10-15
             "dish.png", "SolarPanel.png", "SolarPanelOff.png", "WaterPurifier.png", "switchSmall.png",         //16-20
             "batteryBig.png", "effectOverlay.png", "switchSmallOff.png", "switchOff.png", "portStatus.png",    //21-25
-            "win.png"}; //26
+            "win.png", "warning.png"}; //26-27
 
         std::vector<Audio*> sfx;
         std::vector<Texture> textures;
@@ -134,7 +135,7 @@ class Game
             {240 * 60, "AND LIFTOFFi WE ARE COMING TO GET YOU. IN SIX HOURS THE SPACECRAFT WILL ARRIVE. MAKE SURE YOU KEEP YOUR COMMUNICATIONS ONLINE DURING THOSE SIX HOURS OR WE WILL NOT KNOW WHERE YOU ARE."}
         };
 
-        const int PREPTIME = 4 * 60 * 60;
-        const int WINTIME = 10 * 60 * 60;
+        const int PREPTIME = 240 * 60;
+        const int WINTIME = 6*60*60;
 };
 #endif

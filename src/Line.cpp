@@ -19,17 +19,20 @@ Line::Line(Vector2i coords, std::array<Connection*, 2> connections)
 }
 
 void Line::update(Time dt) {
+    inPower = connections[0]->getPowerForLine(this) +
+              connections[1]->getPowerForLine(this);
+
     if (currentState == FINE)
     {
         if (connections[0]->getPowerForLine(this) > 0 &&
-            connections[1]->getPowerForLine(this) > 0) {
-            currentState = FRIED;
-            Game::gameInstance->consoleLog("SYSTEM", "A LINE GOT ENERGY FROM TWO SWITCHES AND BROKE.");
+            connections[1]->getPowerForLine(this) > 0)
+        {
+            currentState = TWO_INPUTS;
+            Game::gameInstance->consoleLog("SYSTEM", "A LINE GOT POWER FROM TWO DIRECTIONS");
         }
         else
         {
-            power = connections[0]->getPowerForLine(this) +
-                    connections[1]->getPowerForLine(this);
+            power = inPower;
         }
     }
     else
@@ -39,8 +42,31 @@ void Line::update(Time dt) {
 
     if (power > maxPower)
     {
-        currentState = FRIED;
-        Game::gameInstance->consoleLog("SYSTEM", "TOO MUCH POWER WENT THROUGH A LINE AND FRIED IT");
+        currentState = TOO_MUCH_POWER;
+        Game::gameInstance->consoleLog("SYSTEM", "TOO MUCH POWER WENT THROUGH A LINE");
+    }
+
+    // Allow repairing if the game has not started yet
+    if (Game::gameInstance->getState() == START)
+    {
+        power = inPower;
+
+        if (currentState == TOO_MUCH_POWER && inPower <= maxPower)
+        {
+            currentState = FINE;
+        }
+
+        if (currentState == TWO_INPUTS &&
+           (connections[0]->getPowerForLine(this) > 0) !=
+           (connections[1]->getPowerForLine(this) > 0))
+        {
+            currentState = FINE;
+        }
+    }
+
+    if (selected)
+    {
+        std::cout << "in: " << inPower << ", state: " << currentState << "\n";
     }
 }
 
@@ -78,7 +104,16 @@ void Line::draw(RenderWindow* window, std::vector<Texture>* textures)
         wire.setFillColor(Color(0, 0, 0));
     powerShape.setFillColor(Color(255, 0, 0));
     window->draw(wire);
-    window->draw(powerShape);
+    if (currentState == FINE)
+        window->draw(powerShape);
+
+    if (Game::gameInstance->getState() == START && currentState != FINE)
+    {
+        Sprite warning(textures->at(27));
+        warning.setOrigin(9, 9); // center
+        warning.setPosition(40 + coords.x * 40, 40 + coords.y * 40);
+        window->draw(warning);
+    }
 
     if (selected)
         drawSelected(window, textures);
@@ -110,5 +145,21 @@ void Line::drawSelected(RenderWindow* window, std::vector<Texture>* textures)
     {
         std::string infoStr = "TYPE: LINE& POWER: " + floatToString(power, 2);
         drawString(window, infoStr, Vector2f(502, 222), &textures->at(0), Color(0, 200, 0), 20);
+    }
+
+    if (Game::gameInstance->getState() == START)
+    {
+        std::string errorStr = "";
+        if (currentState == TWO_INPUTS)
+        {
+            errorStr = "ERROR: POWER FROM TWO DIRECTIONS";
+        }
+
+        if (currentState == TOO_MUCH_POWER)
+        {
+            errorStr = "ERROR: TOO MUCH POWER IN LINE";
+        }
+
+        drawString(window, errorStr, Vector2f(502, 244), &textures->at(0), Color(255, 0, 0), 20);
     }
 }

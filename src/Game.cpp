@@ -284,7 +284,7 @@ void Game::update()
             // During rendezvous
             if (rendezvousTimeline.asSeconds() > 0)
             {
-                if (randint(0, 10) == 0)
+                if (randint(0, 1000) == 0)
                 {
                     int etaSeconds = WINTIME - (int)(rendezvousTimeline.asSeconds());
                     int etaHours = etaSeconds / (60 * 60);

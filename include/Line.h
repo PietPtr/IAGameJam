@@ -9,7 +9,7 @@
 using namespace sf;
 
 enum Orientation { HORIZONTAL, VERTICAL };
-enum LineState { FINE, FRIED };
+enum LineState { FINE, TOO_MUCH_POWER, TWO_INPUTS };
 
 class Line
 {
@@ -21,12 +21,14 @@ public:
     Vector2i getCoords() { return coords; }
     void setSelected(bool s) { selected = s; }
     void drawSelected(RenderWindow* window, std::vector<Texture>* textures);
+    void setMaxPower(float maxPower) { this->maxPower = maxPower; }
 protected:
 private:
     Vector2i coords;
 
     float power = 0;
-    const float maxPower = 40;
+    float maxPower = 40;
+    float inPower = 0;
     bool selected = false;
 
     LineState currentState = FINE;
