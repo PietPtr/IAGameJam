@@ -63,11 +63,6 @@ void Line::update(Time dt) {
             currentState = FINE;
         }
     }
-
-    if (selected)
-    {
-        std::cout << "in: " << inPower << ", state: " << currentState << "\n";
-    }
 }
 
 void Line::draw(RenderWindow* window, std::vector<Texture>* textures)

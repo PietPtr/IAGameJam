@@ -13,6 +13,7 @@ SolarPanel::SolarPanel(Vector2i coords)
 void SolarPanel::update(Time dt)
 {
     power = (Game::gameInstance->getSunlight() / 5) * 20;
+
 }
 
 void SolarPanel::draw(RenderWindow* window, std::vector<Texture>* textures)
@@ -21,7 +22,7 @@ void SolarPanel::draw(RenderWindow* window, std::vector<Texture>* textures)
         drawSelected(window, textures);
     }
 
-    if (power > 0)
+    if (Game::gameInstance->getSunlight() > 0)
         drawTinyMachine(window, textures, 17);
     else
         drawTinyMachine(window, textures, 18);

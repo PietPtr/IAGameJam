@@ -120,6 +120,7 @@ void Game::update()
                 rendezVousStarted = false;
                 rendezvousTimeline = seconds(0);
                 log = "";
+                trueAnomaly = 30;
                 initialize();
                 return;
             }
@@ -187,7 +188,7 @@ void Game::update()
         {
             if (!machines[i]->isBroken())
             {
-                if (randint(0, 50000) == 0)
+                if (randint(0, 60000) == 0)
                 {
                     machines[i]->setBroken(true);
                     consoleLog("SYSTEM", machineStrings[machines[i]->getMachineType()] + " BROKE DOWN");
