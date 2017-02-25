@@ -105,6 +105,7 @@ void Game::update()
 
             if (state == START && mousePos.x > 500 && mousePos.y > 340)
             {
+                log = "";
                 state = GAME;
             }
 
